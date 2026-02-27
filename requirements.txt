@@ -6,3 +6,6 @@ pydantic
 pydantic-settings
 python-dotenv
 numpy-financial
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart

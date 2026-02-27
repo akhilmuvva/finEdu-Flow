@@ -1,10 +1,13 @@
 from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from typing import List, Dict, Any
 from decimal import Decimal
+from jose import JWTError, jwt
+from datetime import timedelta
 
 from app.database import engine, get_db, Base
-from app import models, schemas
+from app import models, schemas, auth
 from app.services.calculator import LoanCalculator
 
 # Initialize DB Tables
@@ -12,18 +15,49 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="FinnEDu - Premium FinTech Backend",
-    description="Advanced Education Loan Logic with Database Persistence (2026 Compliance)",
-    version="1.2.0"
+    description="Advanced Education Loan Logic with JWT Security (2026 Compliance)",
+    version="1.3.0"
 )
 
-# Reference Rates
-LIVE_RATES = {
-    "SBI_EBLR": Decimal('7.90'),
-    "HDFC_EBLR": Decimal('7.90'),
-    "AS_OF": "2026-02-27"
-}
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-# --- USER ENDPOINTS ---
+# --- AUTH DEPENDENCY ---
+
+async def get_current_user(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = jwt.decode(token, auth.SECRET_KEY, algorithms=[auth.ALGORITHM])
+        username: str = payload.get("sub")
+        if username is None:
+            raise credentials_exception
+        token_data = schemas.TokenData(username=username)
+    except JWTError:
+        raise credentials_exception
+    user = db.query(models.User).filter(models.User.email == token_data.username).first()
+    if user is None:
+        raise credentials_exception
+    return user
+
+# --- AUTH ENDPOINTS ---
+
+@app.post("/token", response_model=schemas.Token)
+async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    user = db.query(models.User).filter(models.User.email == form_data.username).first()
+    if not user or not auth.verify_password(form_data.password, user.hashed_password):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect email or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    access_token_expires = timedelta(minutes=auth.ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = auth.create_access_token(
+        data={"sub": user.email}, expires_delta=access_token_expires
+    )
+    return {"access_token": access_token, "token_type": "bearer"}
 
 @app.post("/users", response_model=schemas.UserResponse, status_code=status.HTTP_201_CREATED)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
@@ -34,7 +68,7 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     new_user = models.User(
         full_name=user.full_name,
         email=user.email,
-        hashed_password=user.password, # In production, use pwd_context.hash(user.password)
+        hashed_password=auth.get_password_hash(user.password),
         family_income=user.family_income
     )
     db.add(new_user)
@@ -42,20 +76,24 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db.refresh(new_user)
     return new_user
 
-# --- LOAN PERSISTENCE ENDPOINTS ---
+@app.get("/users/me", response_model=schemas.UserResponse)
+def read_users_me(current_user: models.User = Depends(get_current_user)):
+    return current_user
+
+# --- LOAN PERSISTENCE ENDPOINTS (PROTECTED) ---
 
 @app.post("/loans", response_model=schemas.LoanResponse)
-def save_loan(loan_in: schemas.LoanCreate, db: Session = Depends(get_db)):
-    user = db.query(models.User).filter(models.User.id == loan_in.user_id).first()
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-    
+def save_loan(
+    loan_in: schemas.LoanBase, 
+    db: Session = Depends(get_db), 
+    current_user: models.User = Depends(get_current_user)
+):
     # Use the Calculator to compute 2026 Compliance Metadata
     calc = LoanCalculator(
         loan_amount=loan_in.principal_amount,
         interest_rate=loan_in.interest_rate,
         course_duration_years=loan_in.course_duration_years,
-        family_income=user.family_income
+        family_income=current_user.family_income
     )
     
     subv_info = calc.calculate_subventions()
@@ -63,7 +101,7 @@ def save_loan(loan_in: schemas.LoanCreate, db: Session = Depends(get_db)):
     emi_data = calc.calculate_emi(loan_in.tenure_years)
     
     new_loan = models.Loan(
-        user_id=loan_in.user_id,
+        user_id=current_user.id,
         principal_amount=loan_in.principal_amount,
         interest_rate=loan_in.interest_rate,
         course_duration_years=loan_in.course_duration_years,
@@ -77,12 +115,12 @@ def save_loan(loan_in: schemas.LoanCreate, db: Session = Depends(get_db)):
     db.refresh(new_loan)
     return new_loan
 
-@app.get("/users/{user_id}/loans", response_model=List[schemas.LoanResponse])
-def get_user_loans(user_id: int, db: Session = Depends(get_db)):
-    loans = db.query(models.Loan).filter(models.Loan.user_id == user_id).all()
+@app.get("/loans", response_model=List[schemas.LoanResponse])
+def get_my_loans(db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
+    loans = db.query(models.Loan).filter(models.Loan.user_id == current_user.id).all()
     return loans
 
-# --- SIMULATION & COMPARISON ---
+# --- SIMULATION & COMPARISON (OPEN) ---
 
 @app.post("/simulate", response_model=schemas.RepaymentSimulationResponse)
 def simulate_loan(request: schemas.RepaymentSimulationRequest):
@@ -116,6 +154,7 @@ def simulate_loan(request: schemas.RepaymentSimulationRequest):
 
 @app.post("/compare", response_model=schemas.ScenarioComparisonResponse)
 def compare_scenarios(request: schemas.ScenarioComparisonRequest):
+    # This logic remains the same
     calc = LoanCalculator(
         loan_amount=request.loan_amount,
         interest_rate=request.interest_rate,
@@ -125,20 +164,15 @@ def compare_scenarios(request: schemas.ScenarioComparisonRequest):
     
     baseline = calc.get_full_schedule(request.tenure_years)
     extra_emi = calc.get_full_schedule(request.tenure_years, extra_emi_per_year=1)
-    
-    # 10% Monthly Top-up logic
     emi_data = calc.calculate_emi(request.tenure_years)
     top_up = (emi_data["emi"] * Decimal('0.10')).quantize(Decimal('0.01'))
     monthly_boost = calc.get_full_schedule(request.tenure_years, monthly_top_up=top_up)
-    
     lumpsum = calc.get_full_schedule(request.tenure_years, annual_lumpsum=Decimal('50000'))
     
     def summarize(sched, name):
         total_int = sum(Decimal(str(m["interest"])) for m in sched)
         return {
-            "name": name,
-            "total_interest": total_int,
-            "months": len(sched),
+            "name": name, "total_interest": total_int, "months": len(sched),
             "interest_saved": sum(Decimal(str(m["interest"])) for m in baseline) - total_int,
             "months_saved": len(baseline) - len(sched)
         }
@@ -154,4 +188,8 @@ def compare_scenarios(request: schemas.ScenarioComparisonRequest):
 
 @app.get("/rates")
 def get_live_rates():
-    return LIVE_RATES
+    return {
+        "SBI_EBLR": Decimal('7.90'),
+        "HDFC_EBLR": Decimal('7.90'),
+        "AS_OF": "2026-02-27"
+    }

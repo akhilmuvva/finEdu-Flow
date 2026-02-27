@@ -9,6 +9,13 @@ class UserBase(BaseModel):
     email: EmailStr
     family_income: Decimal = Field(..., ge=0)
 
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class TokenData(BaseModel):
+    username: Optional[str] = None
+
 class UserCreate(UserBase):
     password: str
 

@@ -162,8 +162,23 @@ export default function App() {
         }
     };
 
+    const fetchUniversitiesByType = async (filterType: string) => {
+        try {
+            const params: any = {};
+            if (filterType !== 'All') params.type = filterType;
+            const res = await axios.get(`${API_BASE_URL}/universities`, { params });
+            setUniversities(res.data);
+            if (res.data.length > 0) setSelectedUniv(res.data[0]);
+        } catch (err) {
+            console.error('Filter fetch failed', err);
+        }
+    };
+
     const runSimulation = async () => {
         setLoading(true);
+        // Reset display values so ticker always starts from 0
+        displayEmiRef.current = { val: 0, interest: 0, tax: 0 };
+        setDisplayEmi(0); setDisplayInterest(0); setDisplayTax(0);
         try {
             const res = await axios.post(`${API_BASE_URL}/simulate`, {
                 loan_amount: loanAmount,
@@ -172,22 +187,10 @@ export default function App() {
                 tenure_years: tenure,
                 university_name: selectedUniv?.name,
                 is_foreign: isForeign,
-                extra_emi_per_year: 0 // We'll use extraMonthly logic on the frontend if needed, but backend handles top-up
-            });
-            // Re-run with extra monthly if slider changed
-            const resEnriched = await axios.post(`${API_BASE_URL}/simulate`, {
-                loan_amount: loanAmount,
-                course_duration: 4,
-                family_income: familyIncome,
-                tenure_years: tenure,
-                university_name: selectedUniv?.name,
-                is_foreign: isForeign,
                 extra_emi_per_year: 0
             });
-            // Note: The logic for extraMonthly can be mixed in or we can add it to request
-            setSimulation(resEnriched.data);
-            animateEmi(resEnriched.data.emi, resEnriched.data.total_interest_paid, resEnriched.data.tax_benefit_80E);
-
+            setSimulation(res.data);
+            animateEmi(res.data.emi, res.data.total_interest_paid, res.data.tax_benefit_80E);
             // Stagger reveal the new cards
             setTimeout(() => {
                 animate('.metric-card-reveal', {
@@ -308,8 +311,7 @@ export default function App() {
                                             key={type}
                                             onClick={() => {
                                                 setUniFilter(type);
-                                                const newFiltered = universities.filter(u => type === 'All' || u.type === type);
-                                                if (newFiltered.length > 0) setSelectedUniv(newFiltered[0]);
+                                                fetchUniversitiesByType(type);
                                             }}
                                             className={cn(
                                                 "px-3 py-1 rounded-lg text-[10px] font-bold uppercase transition-all whitespace-nowrap border",
@@ -326,14 +328,14 @@ export default function App() {
                         </div>
                         <div className="h-[400px]">
                             {(() => {
-                                const filteredUniversities = isForeign ? foreignUnivs : universities.filter(u => uniFilter === 'All' || u.type === uniFilter);
+                                const displayList = isForeign ? foreignUnivs : universities;
                                 return (
                                     <List
                                         height={400}
-                                        itemCount={filteredUniversities.length}
+                                        itemCount={displayList.length}
                                         itemSize={65}
                                         width={"100%"}
-                                        itemData={filteredUniversities}
+                                        itemData={displayList}
                                     >
                                         {UnivRow}
                                     </List>

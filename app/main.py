@@ -411,10 +411,28 @@ def health_check(db: Session = Depends(get_db)):
     }
 
 @app.get("/universities", response_model=List[schemas.UniversityResponse])
-def get_universities(db: Session = Depends(get_db)):
-    """Returns official 2026 university data from the database."""
-    universities = db.query(models.University).order_by(models.University.nirf_2026).all()
-    return universities
+def get_universities(
+    db: Session = Depends(get_db),
+    type: str = None,
+    search: str = None,
+    pmvl_category: str = None,
+    limit: int = 500
+):
+    """Returns 2026 university data with optional type/search/category filters."""
+    query = db.query(models.University)
+    if type and type.lower() != 'all':
+        query = query.filter(models.University.type.ilike(f"%{type}%"))
+    if search:
+        query = query.filter(models.University.name.ilike(f"%{search}%"))
+    if pmvl_category:
+        query = query.filter(models.University.pmvl_category == pmvl_category)
+    return query.order_by(models.University.nirf_2026).limit(limit).all()
+
+@app.get("/universities/types")
+def get_university_types(db: Session = Depends(get_db)):
+    """Returns distinct university types for filter buttons."""
+    types = db.query(models.University.type).distinct().all()
+    return [t[0] for t in types if t[0]]
 
 @app.get("/foreign-universities", response_model=List[schemas.ForeignInstitutionResponse])
 def get_foreign_universities(db: Session = Depends(get_db)):

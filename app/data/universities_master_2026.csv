@@ -1,1001 +1,326 @@
 aishe_code,name,state,type,nirf_2026,is_qhei,pmvl_category,total_course_fee,avg_placement_lpa,roi_index
-U-1001,National Management Institute 1,West Bengal,State,1,True,AAA,2366071,20.24,4.3
-U-1002,National Institute of Technology 2,Punjab,Deemed,2,True,AAA,1220565,24.64,9.9
-U-1003,Indian Institute of Technology 3,Maharashtra,Central,3,True,AAA,1237841,28.03,9.9
-U-1004,Jawaharlal University 4,Uttar Pradesh,State,4,True,AAA,1695394,18.52,5.5
-U-1005,National Management Institute 5,Telangana,State,5,True,AAA,2394362,20.77,4.3
-U-1006,Imperial College of Engineering 6,Punjab,Private,6,True,AAA,1329724,25.64,9.6
-U-1007,Savitribai College of Engineering 7,Punjab,Private,7,True,AAA,2144542,23.35,5.4
-U-1008,Savitribai Management Institute 8,Gujarat,Deemed,8,True,AAA,1052529,17.56,8.3
-U-1009,Savitribai University 9,Rajasthan,Private,9,True,AAA,1721334,21.16,6.1
-U-1010,Global Medical College 10,Maharashtra,Deemed,10,True,AAA,1252760,29.7,9.9
-U-1011,Savitribai Medical College 11,West Bengal,State,11,True,AAA,1897045,27.8,7.3
-U-1012,Global University 12,Tamil Nadu,Central,12,True,AAA,1409773,15.13,5.4
-U-1013,National Management Institute 13,West Bengal,Central,13,True,AAA,1826449,24.58,6.7
-U-1014,Jawaharlal Management Institute 14,Karnataka,Deemed,14,True,AAA,1743590,17.07,4.9
-U-1015,National Medical College 15,Maharashtra,Private,15,True,AAA,1224864,20.69,8.4
-U-1016,Global Medical College 16,Rajasthan,Central,16,True,AAA,1202901,19.93,8.3
-U-1017,Global Management Institute 17,Karnataka,Private,17,True,AAA,2491417,25.66,5.1
-U-1018,Imperial College of Engineering 18,Gujarat,Private,18,True,AAA,1162792,15.36,6.6
-U-1019,Jawaharlal Management Institute 19,Gujarat,State,19,True,AAA,2265205,22.63,5.0
-U-1020,Ambedkar Institute of Technology 20,Punjab,Private,20,True,AAA,2316040,24.0,5.2
-U-1021,Imperial College of Engineering 21,West Bengal,State,21,True,AAA,1617416,17.39,5.4
-U-1022,National Medical College 22,West Bengal,Deemed,22,True,AAA,1074308,19.34,9.0
-U-1023,National College of Engineering 23,Delhi,Central,23,True,AAA,2300466,20.84,4.5
-U-1024,Imperial University 24,Karnataka,State,24,True,AAA,2317789,19.67,4.2
-U-1025,Savitribai College of Engineering 25,Maharashtra,Private,25,True,AAA,1633157,21.22,6.5
-U-1026,Imperial Management Institute 26,Punjab,Private,26,True,AAA,1433830,15.18,5.3
-U-1027,Ambedkar College of Engineering 27,Rajasthan,State,27,True,AAA,1084313,19.81,9.1
-U-1028,Savitribai Institute of Technology 28,Delhi,Private,28,True,AAA,2455949,28.51,5.8
-U-1029,Jawaharlal University 29,Karnataka,Private,29,True,AAA,1343030,21.87,8.1
-U-1030,Imperial University 30,Tamil Nadu,Private,30,True,AAA,2441902,22.49,4.6
-U-1031,Imperial College of Engineering 31,West Bengal,Deemed,31,True,AAA,1320061,16.41,6.2
-U-1032,National Institute of Technology 32,Telangana,State,32,True,AAA,1032089,21.43,9.9
-U-1033,Global Medical College 33,Maharashtra,Central,33,True,AAA,1822353,21.28,5.8
-U-1034,Indian University 34,Gujarat,Deemed,34,True,AAA,1460329,26.49,9.1
-U-1035,Imperial College of Engineering 35,Punjab,Deemed,35,True,AAA,1940746,24.07,6.2
-U-1036,Global Medical College 36,Delhi,Deemed,36,True,AAA,2187515,27.48,6.3
-U-1037,Ambedkar College of Engineering 37,Delhi,Deemed,37,True,AAA,1946643,28.66,7.4
-U-1038,Indian Management Institute 38,Telangana,Private,38,True,AAA,2048020,26.26,6.4
-U-1039,Imperial Management Institute 39,Delhi,Deemed,39,True,AAA,1971740,17.04,4.3
-U-1040,Indian Institute of Technology 40,Karnataka,Private,40,True,AAA,1789983,24.99,7.0
-U-1041,Jawaharlal College of Engineering 41,Uttar Pradesh,State,41,True,AAA,1590305,24.74,7.8
-U-1042,Jawaharlal Institute of Technology 42,Karnataka,State,42,True,AAA,2066586,18.64,4.5
-U-1043,National Medical College 43,Tamil Nadu,Deemed,43,True,AAA,2215218,23.31,5.3
-U-1044,Indian University 44,Rajasthan,Deemed,44,True,AAA,1609820,25.63,8.0
-U-1045,Indian College of Engineering 45,Gujarat,Central,45,True,AAA,2308882,17.73,3.8
-U-1046,Imperial University 46,Rajasthan,Private,46,True,AAA,1253022,29.06,9.9
-U-1047,Savitribai Medical College 47,Karnataka,Deemed,47,True,AAA,1398922,20.0,7.1
-U-1048,Jawaharlal University 48,Telangana,Private,48,True,AAA,1323756,25.38,9.6
-U-1049,Global Management Institute 49,Uttar Pradesh,Private,49,True,AAA,1667398,21.55,6.5
-U-1050,National Medical College 50,Uttar Pradesh,State,50,True,AAA,2020853,28.35,7.0
-U-1051,Indian Medical College 51,Maharashtra,Central,51,True,AA,935637,8.67,4.6
-U-1052,Indian Institute of Technology 52,Maharashtra,State,52,True,AA,647275,14.8,9.9
-U-1053,Savitribai University 53,West Bengal,Deemed,53,True,AA,855142,9.71,5.7
-U-1054,National University 54,Telangana,State,54,True,AA,847934,14.1,8.3
-U-1055,Ambedkar Institute of Technology 55,Telangana,Central,55,True,AA,630957,14.76,9.9
-U-1056,Savitribai Institute of Technology 56,Karnataka,Private,56,True,AA,1327514,11.77,4.4
-U-1057,Ambedkar Institute of Technology 57,Karnataka,Private,57,True,AA,635131,11.84,9.3
-U-1058,Savitribai University 58,Karnataka,Private,58,True,AA,757755,13.0,8.6
-U-1059,Ambedkar Medical College 59,Karnataka,Private,59,True,AA,1299415,9.24,3.6
-U-1060,National Medical College 60,Rajasthan,Deemed,60,True,AA,814096,13.43,8.2
-U-1061,Indian Institute of Technology 61,Karnataka,Central,61,True,AA,1079672,12.1,5.6
-U-1062,Savitribai University 62,Telangana,Private,62,True,AA,578227,13.74,9.9
-U-1063,Imperial Institute of Technology 63,Maharashtra,Deemed,63,True,AA,1027991,14.91,7.3
-U-1064,Jawaharlal University 64,Telangana,Central,64,True,AA,1063118,13.59,6.4
-U-1065,Savitribai Medical College 65,Uttar Pradesh,Private,65,True,AA,1174760,11.42,4.9
-U-1066,Savitribai Medical College 66,Punjab,State,66,True,AA,1123284,10.23,4.6
-U-1067,National Institute of Technology 67,Rajasthan,Private,67,True,AA,914951,9.28,5.1
-U-1068,Ambedkar Medical College 68,Telangana,State,68,True,AA,1005578,9.17,4.6
-U-1069,National College of Engineering 69,Tamil Nadu,Central,69,True,AA,1351349,14.54,5.4
-U-1070,Imperial Management Institute 70,Telangana,Central,70,True,AA,1421851,12.68,4.5
-U-1071,National Management Institute 71,Karnataka,Deemed,71,True,AA,1103029,14.41,6.5
-U-1072,Imperial University 72,Delhi,Deemed,72,True,AA,1005754,8.23,4.1
-U-1073,National Management Institute 73,Telangana,Central,73,True,AA,637475,12.98,9.9
-U-1074,National Institute of Technology 74,West Bengal,Private,74,True,AA,972280,8.77,4.5
-U-1075,Indian Medical College 75,Rajasthan,Deemed,75,True,AA,832975,12.65,7.6
-U-1076,Imperial College of Engineering 76,Karnataka,State,76,True,AA,615052,10.26,8.3
-U-1077,Imperial University 77,Punjab,Private,77,True,AA,681391,8.43,6.2
-U-1078,Indian College of Engineering 78,Uttar Pradesh,Deemed,78,True,AA,507016,8.27,8.2
-U-1079,National Medical College 79,Gujarat,Private,79,True,AA,1238033,13.17,5.3
-U-1080,Indian Medical College 80,Maharashtra,Central,80,True,AA,730748,8.85,6.1
-U-1081,Jawaharlal Management Institute 81,Tamil Nadu,Central,81,True,AA,1000475,14.99,7.5
-U-1082,National Institute of Technology 82,Delhi,Deemed,82,True,AA,838171,9.47,5.7
-U-1083,Jawaharlal Institute of Technology 83,Karnataka,State,83,True,AA,839966,9.88,5.9
-U-1084,Jawaharlal Medical College 84,Tamil Nadu,Deemed,84,True,AA,1328076,9.21,3.5
-U-1085,Imperial Medical College 85,Gujarat,Deemed,85,True,AA,1442508,9.81,3.4
-U-1086,Jawaharlal Institute of Technology 86,Gujarat,Private,86,True,AA,1479374,13.34,4.5
-U-1087,Indian Institute of Technology 87,West Bengal,Deemed,87,True,AA,1194954,11.48,4.8
-U-1088,Ambedkar University 88,Rajasthan,Central,88,True,AA,1322852,14.84,5.6
-U-1089,Global Management Institute 89,Telangana,Deemed,89,True,AA,872215,13.68,7.8
-U-1090,Imperial Management Institute 90,Punjab,State,90,True,AA,765556,14.46,9.4
-U-1091,Jawaharlal Institute of Technology 91,Telangana,State,91,True,AA,712159,11.59,8.1
-U-1092,Indian College of Engineering 92,Uttar Pradesh,Deemed,92,True,AA,590786,14.46,9.9
-U-1093,Ambedkar Medical College 93,Telangana,Deemed,93,True,AA,1195894,8.89,3.7
-U-1094,Imperial Medical College 94,Telangana,Deemed,94,True,AA,1078137,11.73,5.4
-U-1095,National Institute of Technology 95,Karnataka,Central,95,True,AA,1449455,12.69,4.4
-U-1096,National College of Engineering 96,Uttar Pradesh,Private,96,True,AA,1077067,8.4,3.9
-U-1097,Indian Management Institute 97,Delhi,Deemed,97,True,AA,786081,11.11,7.1
-U-1098,Savitribai University 98,Punjab,Deemed,98,True,AA,1254729,10.36,4.1
-U-1099,Savitribai Institute of Technology 99,West Bengal,Central,99,True,AA,1262085,8.61,3.4
-U-1100,Ambedkar Management Institute 100,Punjab,Deemed,100,True,AA,1292041,12.81,5.0
-U-1101,Indian Institute of Technology 101,Rajasthan,Central,101,True,AA,974638,14.0,7.2
-U-1102,Imperial University 102,Maharashtra,Central,102,True,AA,656125,11.74,8.9
-U-1103,National College of Engineering 103,Gujarat,Deemed,103,False,AA,1498202,8.53,2.8
-U-1104,Indian Institute of Technology 104,Uttar Pradesh,Central,104,True,AA,715848,11.71,8.2
-U-1105,Imperial Medical College 105,West Bengal,Deemed,105,False,AA,530065,12.67,9.9
-U-1106,National College of Engineering 106,Punjab,Private,106,False,AA,721799,10.61,7.4
-U-1107,Imperial Medical College 107,Maharashtra,Deemed,107,False,AA,753968,12.49,8.3
-U-1108,Imperial University 108,Telangana,Central,108,True,AA,703039,13.45,9.6
-U-1109,Indian University 109,Uttar Pradesh,Deemed,109,False,AA,1372205,8.72,3.2
-U-1110,Savitribai Medical College 110,Delhi,State,110,True,AA,1208135,8.48,3.5
-U-1111,Imperial Management Institute 111,West Bengal,State,111,True,AA,902338,12.17,6.7
-U-1112,National College of Engineering 112,Karnataka,Central,112,True,AA,693407,10.54,7.6
-U-1113,Indian College of Engineering 113,Delhi,Central,113,True,AA,869332,11.37,6.5
-U-1114,Global Medical College 114,Gujarat,Private,114,False,AA,1327569,11.64,4.4
-U-1115,National University 115,Rajasthan,Private,115,False,AA,672642,12.62,9.4
-U-1116,Global Management Institute 116,Punjab,Private,116,False,AA,504285,14.31,9.9
-U-1117,Jawaharlal University 117,West Bengal,Deemed,117,False,AA,1125784,14.27,6.3
-U-1118,Imperial Medical College 118,West Bengal,Deemed,118,False,AA,517575,9.18,8.9
-U-1119,Imperial Management Institute 119,West Bengal,Deemed,119,False,AA,1414861,13.4,4.7
-U-1120,Savitribai Management Institute 120,Maharashtra,Central,120,True,AA,1077275,8.8,4.1
-U-1121,Global Institute of Technology 121,Karnataka,Private,121,False,AA,1264486,13.85,5.5
-U-1122,National Management Institute 122,Telangana,Private,122,False,AA,1329257,9.91,3.7
-U-1123,Ambedkar Medical College 123,Delhi,Private,123,False,AA,979572,11.08,5.7
-U-1124,Jawaharlal Institute of Technology 124,Karnataka,Private,124,False,AA,1434290,12.43,4.3
-U-1125,Ambedkar Management Institute 125,Maharashtra,Deemed,125,False,AA,835179,9.89,5.9
-U-1126,Savitribai University 126,Punjab,State,126,True,AA,1120000,12.9,5.8
-U-1127,Savitribai Management Institute 127,Gujarat,Deemed,127,False,AA,763028,14.26,9.3
-U-1128,Savitribai Management Institute 128,Gujarat,Central,128,True,AA,641495,13.65,9.9
-U-1129,Savitribai Institute of Technology 129,Uttar Pradesh,Deemed,129,False,AA,770113,9.91,6.4
-U-1130,Savitribai Management Institute 130,Karnataka,Private,130,False,AA,960574,9.7,5.1
-U-1131,National Management Institute 131,Uttar Pradesh,Deemed,131,False,AA,1322340,9.74,3.7
-U-1132,Global Medical College 132,Delhi,Private,132,False,AA,748225,13.93,9.3
-U-1133,Ambedkar College of Engineering 133,West Bengal,Private,133,False,AA,1137128,12.58,5.5
-U-1134,National Management Institute 134,Tamil Nadu,Deemed,134,False,AA,890738,13.72,7.7
-U-1135,Global Institute of Technology 135,Gujarat,Deemed,135,False,AA,636616,10.74,8.4
-U-1136,Imperial University 136,Rajasthan,Central,136,True,AA,537786,13.71,9.9
-U-1137,Ambedkar University 137,Gujarat,Deemed,137,False,AA,1366436,11.54,4.2
-U-1138,National College of Engineering 138,Delhi,Central,138,True,AA,512787,9.9,9.7
-U-1139,Ambedkar Management Institute 139,Karnataka,Central,139,True,AA,1328274,11.5,4.3
-U-1140,Global Medical College 140,Maharashtra,Private,140,False,AA,585736,11.92,9.9
-U-1141,Savitribai Institute of Technology 141,Delhi,Deemed,141,False,AA,1226304,11.82,4.8
-U-1142,Jawaharlal College of Engineering 142,Rajasthan,Central,142,True,AA,1261127,12.93,5.1
-U-1143,Ambedkar Medical College 143,Tamil Nadu,State,143,True,AA,1372205,12.54,4.6
-U-1144,Indian Medical College 144,Punjab,Deemed,144,False,AA,1096585,10.2,4.6
-U-1145,Global Management Institute 145,Rajasthan,Deemed,145,False,AA,1034335,14.17,6.9
-U-1146,Global Management Institute 146,Gujarat,Private,146,False,AA,754373,8.67,5.7
-U-1147,Global Institute of Technology 147,West Bengal,Central,147,True,AA,945772,10.13,5.4
-U-1148,Imperial University 148,Gujarat,Private,148,False,AA,1218795,10.08,4.1
-U-1149,Global Management Institute 149,Rajasthan,Private,149,False,AA,1084491,13.57,6.3
-U-1150,Ambedkar University 150,Gujarat,State,150,True,AA,635150,11.77,9.3
-U-1151,National College of Engineering 151,Maharashtra,State,151,True,A,673070,5.87,4.4
-U-1152,National College of Engineering 152,Delhi,Private,152,False,A,133158,7.63,9.9
-U-1153,Savitribai Medical College 153,Karnataka,Central,153,True,A,245650,8.91,9.9
-U-1154,Savitribai University 154,West Bengal,Private,154,False,A,315481,8.78,9.9
-U-1155,Ambedkar Medical College 155,Tamil Nadu,Private,155,False,A,593043,5.29,4.5
-U-1156,National College of Engineering 156,Karnataka,Private,156,False,A,154867,6.47,9.9
-U-1157,Savitribai University 157,Punjab,Private,157,False,A,695832,4.64,3.3
-U-1158,Savitribai University 158,Rajasthan,Central,158,True,A,719850,8.45,5.9
-U-1159,Indian Management Institute 159,Gujarat,Deemed,159,False,A,156560,9.12,9.9
-U-1160,Indian Institute of Technology 160,Delhi,Deemed,160,False,A,316217,4.66,7.4
-U-1161,National University 161,Uttar Pradesh,Deemed,161,False,A,642666,6.53,5.1
-U-1162,Jawaharlal Medical College 162,Telangana,State,162,True,A,493101,8.23,8.3
-U-1163,National College of Engineering 163,Uttar Pradesh,Deemed,163,False,A,597126,6.46,5.4
-U-1164,Indian Institute of Technology 164,Punjab,State,164,True,A,724975,4.67,3.2
-U-1165,Indian Management Institute 165,Punjab,Private,165,False,A,665039,8.68,6.5
-U-1166,Jawaharlal Management Institute 166,Gujarat,Central,166,True,A,442975,8.14,9.2
-U-1167,Indian Institute of Technology 167,Telangana,Deemed,167,False,A,624057,5.82,4.7
-U-1168,Jawaharlal Institute of Technology 168,West Bengal,Deemed,168,False,A,780637,7.62,4.9
-U-1169,Jawaharlal Institute of Technology 169,Tamil Nadu,Deemed,169,False,A,632074,4.5,3.6
-U-1170,Savitribai Management Institute 170,Punjab,Deemed,170,False,A,585766,8.15,7.0
-U-1171,Indian Institute of Technology 171,Telangana,State,171,True,A,699778,5.79,4.1
-U-1172,Jawaharlal College of Engineering 172,Karnataka,Deemed,172,False,A,443536,7.73,8.7
-U-1173,Ambedkar Medical College 173,Tamil Nadu,Central,173,True,A,146782,6.35,9.9
-U-1174,Savitribai University 174,Rajasthan,Deemed,174,False,A,235435,6.89,9.9
-U-1175,National Medical College 175,Delhi,Private,175,False,A,583190,5.34,4.6
-U-1176,Jawaharlal University 176,Telangana,State,176,True,A,552369,5.75,5.2
-U-1177,Ambedkar University 177,Punjab,Deemed,177,False,A,143509,6.27,9.9
-U-1178,National College of Engineering 178,Delhi,Deemed,178,False,A,441861,7.4,8.4
-U-1179,Savitribai Medical College 179,Telangana,State,179,True,A,462681,9.39,9.9
-U-1180,Ambedkar Medical College 180,Uttar Pradesh,Central,180,True,A,476446,7.39,7.8
-U-1181,Imperial Management Institute 181,Telangana,Private,181,False,A,485159,8.59,8.8
-U-1182,Global University 182,Punjab,Private,182,False,A,313053,9.93,9.9
-U-1183,Indian University 183,Karnataka,Central,183,True,A,181293,6.31,9.9
-U-1184,Jawaharlal Management Institute 184,Gujarat,State,184,True,A,406544,4.94,6.1
-U-1185,National Institute of Technology 185,Telangana,Central,185,True,A,569298,5.77,5.1
-U-1186,Global Medical College 186,Punjab,State,186,True,A,371312,5.11,6.9
-U-1187,Savitribai Management Institute 187,Tamil Nadu,State,187,True,A,543451,8.36,7.7
-U-1188,Savitribai College of Engineering 188,Delhi,Central,188,True,A,692129,8.44,6.1
-U-1189,Global College of Engineering 189,Delhi,Central,189,True,A,799256,4.41,2.8
-U-1190,Indian Medical College 190,Gujarat,State,190,True,A,348643,6.83,9.8
-U-1191,Imperial University 191,Rajasthan,State,191,True,A,660853,7.86,5.9
-U-1192,Savitribai College of Engineering 192,Delhi,Private,192,False,A,166924,6.88,9.9
-U-1193,Imperial Management Institute 193,West Bengal,Deemed,193,False,A,532393,4.3,4.0
-U-1194,National Management Institute 194,Punjab,Deemed,194,False,A,782088,5.15,3.3
-U-1195,Ambedkar University 195,Punjab,Central,195,True,A,775967,8.94,5.8
-U-1196,Global Institute of Technology 196,Delhi,State,196,True,A,400363,9.73,9.9
-U-1197,Imperial College of Engineering 197,Gujarat,Central,197,True,A,591065,6.6,5.6
-U-1198,Imperial College of Engineering 198,Telangana,State,198,True,A,677102,6.1,4.5
-U-1199,National College of Engineering 199,Maharashtra,Central,199,True,A,474640,6.03,6.4
-U-1200,Savitribai Medical College 200,Rajasthan,Central,200,True,A,683796,5.39,3.9
-U-1201,Jawaharlal Management Institute 201,Uttar Pradesh,State,201,False,A,201394,6.39,9.9
-U-1202,Ambedkar Institute of Technology 202,Delhi,Deemed,202,False,A,324318,7.85,9.9
-U-1203,National Management Institute 203,Punjab,State,203,False,A,613518,5.86,4.8
-U-1204,Global Medical College 204,Rajasthan,State,204,False,A,242802,6.18,9.9
-U-1205,National College of Engineering 205,Gujarat,State,205,False,A,508255,6.94,6.8
-U-1206,Imperial College of Engineering 206,Karnataka,Central,206,True,A,126790,7.14,9.9
-U-1207,National College of Engineering 207,Punjab,State,207,False,A,168163,6.53,9.9
-U-1208,National Medical College 208,Gujarat,Deemed,208,False,A,684143,4.19,3.1
-U-1209,National Management Institute 209,Rajasthan,State,209,False,A,755470,5.53,3.7
-U-1210,Global Medical College 210,Telangana,State,210,False,A,163430,6.03,9.9
-U-1211,National Medical College 211,West Bengal,Deemed,211,False,A,345450,6.29,9.1
-U-1212,Jawaharlal Management Institute 212,Uttar Pradesh,State,212,False,A,727135,4.3,3.0
-U-1213,Jawaharlal College of Engineering 213,Karnataka,State,213,False,A,670675,6.38,4.8
-U-1214,Global Institute of Technology 214,Karnataka,Central,214,True,A,295805,9.3,9.9
-U-1215,Savitribai Institute of Technology 215,Gujarat,State,215,False,A,198628,9.94,9.9
-U-1216,Savitribai Medical College 216,Punjab,Central,216,True,A,660757,7.89,6.0
-U-1217,Imperial University 217,Uttar Pradesh,State,217,False,A,485816,6.78,7.0
-U-1218,Jawaharlal Medical College 218,Karnataka,Central,218,True,A,451195,7.8,8.6
-U-1219,Imperial Management Institute 219,Rajasthan,Deemed,219,False,A,769520,9.39,6.1
-U-1220,Savitribai Management Institute 220,Punjab,Private,220,False,A,738195,7.66,5.2
-U-1221,Jawaharlal College of Engineering 221,Punjab,State,221,False,A,490839,8.52,8.7
-U-1222,National Institute of Technology 222,Maharashtra,Deemed,222,False,A,438326,8.17,9.3
-U-1223,Jawaharlal Management Institute 223,Karnataka,Deemed,223,False,A,156509,8.47,9.9
-U-1224,Imperial University 224,Uttar Pradesh,State,224,False,A,166642,7.11,9.9
-U-1225,National University 225,Telangana,Deemed,225,False,A,424527,8.47,9.9
-U-1226,Imperial Management Institute 226,Karnataka,State,226,False,A,399530,5.4,6.8
-U-1227,Jawaharlal Medical College 227,Punjab,Private,227,False,A,280495,8.21,9.9
-U-1228,Ambedkar Management Institute 228,West Bengal,Central,228,True,A,470572,4.66,5.0
-U-1229,Global Medical College 229,Gujarat,State,229,False,A,486614,4.19,4.3
-U-1230,Savitribai University 230,Rajasthan,Central,230,True,A,265326,7.9,9.9
-U-1231,Jawaharlal College of Engineering 231,Rajasthan,Private,231,False,A,544013,9.44,8.7
-U-1232,Indian College of Engineering 232,Punjab,Deemed,232,False,A,279528,6.47,9.9
-U-1233,National College of Engineering 233,Maharashtra,Deemed,233,False,A,747846,6.5,4.3
-U-1234,Ambedkar Institute of Technology 234,Delhi,Deemed,234,False,A,374842,4.09,5.5
-U-1235,Ambedkar College of Engineering 235,Karnataka,Deemed,235,False,A,565907,7.67,6.8
-U-1236,Ambedkar College of Engineering 236,Karnataka,Deemed,236,False,A,744332,6.96,4.7
-U-1237,Imperial University 237,Uttar Pradesh,Central,237,True,A,774995,5.94,3.8
-U-1238,Indian University 238,Rajasthan,Central,238,True,A,419370,6.2,7.4
-U-1239,National Medical College 239,Tamil Nadu,Central,239,True,A,350121,6.29,9.0
-U-1240,National Medical College 240,Tamil Nadu,Deemed,240,False,A,546602,6.32,5.8
-U-1241,Indian College of Engineering 241,Uttar Pradesh,Deemed,241,False,A,686146,8.78,6.4
-U-1242,Imperial College of Engineering 242,Rajasthan,Deemed,242,False,A,664192,5.06,3.8
-U-1243,Indian Medical College 243,Tamil Nadu,Central,243,True,A,261696,6.56,9.9
-U-1244,Global Management Institute 244,Punjab,Private,244,False,A,784635,7.88,5.0
-U-1245,Jawaharlal University 245,Gujarat,State,245,False,A,374936,5.46,7.3
-U-1246,Global College of Engineering 246,Punjab,Central,246,True,A,144564,4.97,9.9
-U-1247,National University 247,Telangana,Private,247,False,A,277348,6.23,9.9
-U-1248,Savitribai Management Institute 248,Gujarat,Private,248,False,A,704106,8.48,6.0
-U-1249,Indian College of Engineering 249,Karnataka,Deemed,249,False,A,725080,4.87,3.4
-U-1250,National Management Institute 250,Delhi,State,250,False,A,495385,9.26,9.3
-U-1251,Imperial College of Engineering 251,Gujarat,State,251,False,A,142865,4.73,9.9
-U-1252,Imperial Management Institute 252,West Bengal,Central,252,True,A,479468,9.68,9.9
-U-1253,Global Medical College 253,West Bengal,Private,253,False,A,498284,9.08,9.1
-U-1254,Global College of Engineering 254,Karnataka,Private,254,False,A,647728,9.77,7.5
-U-1255,Ambedkar University 255,Rajasthan,Deemed,255,False,A,475460,6.45,6.8
-U-1256,Jawaharlal Medical College 256,Telangana,Deemed,256,False,A,270444,4.02,7.4
-U-1257,Imperial Management Institute 257,Karnataka,Deemed,257,False,A,180214,4.29,9.9
-U-1258,Savitribai Medical College 258,Delhi,State,258,False,A,744893,6.37,4.3
-U-1259,Jawaharlal Medical College 259,Karnataka,Private,259,False,A,192045,6.35,9.9
-U-1260,Global Management Institute 260,West Bengal,Central,260,True,A,175190,6.85,9.9
-U-1261,Imperial Management Institute 261,West Bengal,Deemed,261,False,A,493523,9.24,9.4
-U-1262,Savitribai College of Engineering 262,Rajasthan,Central,262,True,A,124687,5.82,9.9
-U-1263,Savitribai University 263,West Bengal,Private,263,False,A,767673,9.29,6.1
-U-1264,Indian Institute of Technology 264,Delhi,Private,264,False,A,147589,6.58,9.9
-U-1265,Jawaharlal Management Institute 265,Delhi,Private,265,False,A,120930,8.11,9.9
-U-1266,National University 266,Tamil Nadu,State,266,False,A,505226,8.39,8.3
-U-1267,Ambedkar University 267,Uttar Pradesh,Central,267,True,A,151667,5.9,9.9
-U-1268,Imperial College of Engineering 268,Rajasthan,State,268,False,A,729553,5.82,4.0
-U-1269,Indian College of Engineering 269,Tamil Nadu,Central,269,True,A,132765,7.83,9.9
-U-1270,Imperial Institute of Technology 270,Maharashtra,Central,270,True,A,465056,6.21,6.7
-U-1271,Jawaharlal University 271,Rajasthan,Central,271,True,A,711676,4.95,3.5
-U-1272,Global Institute of Technology 272,Uttar Pradesh,Private,272,False,A,690258,6.25,4.5
-U-1273,Imperial University 273,Telangana,Central,273,True,A,301851,5.54,9.2
-U-1274,Imperial Institute of Technology 274,Rajasthan,Deemed,274,False,A,287118,4.57,8.0
-U-1275,Jawaharlal University 275,Maharashtra,State,275,False,A,657185,9.74,7.4
-U-1276,Global Medical College 276,Uttar Pradesh,State,276,False,A,295349,8.74,9.9
-U-1277,Indian College of Engineering 277,Gujarat,State,277,False,A,252249,8.19,9.9
-U-1278,Savitribai Medical College 278,Delhi,Central,278,True,A,761867,4.25,2.8
-U-1279,Jawaharlal Management Institute 279,Telangana,Central,279,True,A,208648,9.98,9.9
-U-1280,Savitribai College of Engineering 280,Tamil Nadu,Deemed,280,False,A,665283,5.16,3.9
-U-1281,Indian University 281,Telangana,State,281,False,A,322295,8.11,9.9
-U-1282,Global Management Institute 282,Karnataka,Private,282,False,A,694943,5.42,3.9
-U-1283,Imperial Medical College 283,West Bengal,Deemed,283,False,A,710115,6.47,4.6
-U-1284,Jawaharlal Medical College 284,Gujarat,Private,284,False,A,234561,9.51,9.9
-U-1285,Jawaharlal College of Engineering 285,Telangana,Central,285,True,A,224173,7.21,9.9
-U-1286,National University 286,Tamil Nadu,State,286,False,A,545315,5.41,5.0
-U-1287,Ambedkar Medical College 287,Punjab,State,287,False,A,327045,8.84,9.9
-U-1288,National University 288,Tamil Nadu,Deemed,288,False,A,457765,5.13,5.6
-U-1289,Global Institute of Technology 289,Punjab,Central,289,True,A,151977,8.11,9.9
-U-1290,Jawaharlal University 290,West Bengal,State,290,False,A,187582,6.12,9.9
-U-1291,Indian Management Institute 291,Maharashtra,Central,291,True,A,497323,9.26,9.3
-U-1292,Ambedkar Medical College 292,Karnataka,Central,292,True,A,577177,6.7,5.8
-U-1293,Global Institute of Technology 293,Uttar Pradesh,State,293,False,A,609062,4.78,3.9
-U-1294,Imperial University 294,Tamil Nadu,Private,294,False,A,237245,5.36,9.9
-U-1295,Global University 295,West Bengal,State,295,False,A,400512,8.66,9.9
-U-1296,Indian University 296,Karnataka,Deemed,296,False,A,537822,6.51,6.1
-U-1297,National Management Institute 297,Gujarat,Deemed,297,False,A,573189,5.47,4.8
-U-1298,Ambedkar University 298,Maharashtra,Private,298,False,A,694175,6.47,4.7
-U-1299,Jawaharlal Management Institute 299,Uttar Pradesh,Central,299,True,A,261744,8.96,9.9
-U-1300,Global Medical College 300,Tamil Nadu,Deemed,300,False,A,381893,7.81,9.9
-U-1301,Indian Medical College 301,Tamil Nadu,Deemed,301,False,A,325079,5.88,9.0
-U-1302,Indian Institute of Technology 302,Rajasthan,Central,302,True,A,546246,6.73,6.2
-U-1303,Jawaharlal College of Engineering 303,Uttar Pradesh,Private,303,False,A,311060,4.14,6.7
-U-1304,Indian Medical College 304,Telangana,Central,304,True,A,125571,4.11,9.9
-U-1305,Indian Institute of Technology 305,Karnataka,Private,305,False,A,438229,6.36,7.3
-U-1306,Jawaharlal Management Institute 306,Delhi,Deemed,306,False,A,743045,6.17,4.2
-U-1307,Global Institute of Technology 307,Telangana,Deemed,307,False,A,622575,5.45,4.4
-U-1308,Savitribai Institute of Technology 308,Tamil Nadu,State,308,False,A,741417,4.64,3.1
-U-1309,National Management Institute 309,Telangana,Private,309,False,A,594059,7.79,6.6
-U-1310,Indian Institute of Technology 310,Karnataka,Central,310,True,A,150132,4.16,9.9
-U-1311,Savitribai Medical College 311,Tamil Nadu,Deemed,311,False,A,544620,5.12,4.7
-U-1312,Savitribai Management Institute 312,Maharashtra,State,312,False,A,655603,7.63,5.8
-U-1313,Indian Medical College 313,Karnataka,Central,313,True,A,251575,7.04,9.9
-U-1314,Imperial Institute of Technology 314,Punjab,Central,314,True,A,343325,4.37,6.4
-U-1315,Savitribai Institute of Technology 315,Delhi,Deemed,315,False,A,185518,4.79,9.9
-U-1316,Indian Management Institute 316,Tamil Nadu,State,316,False,A,425991,7.66,9.0
-U-1317,Indian Institute of Technology 317,Uttar Pradesh,Deemed,317,False,A,248527,9.98,9.9
-U-1318,Jawaharlal Institute of Technology 318,Karnataka,Central,318,True,A,388905,8.05,9.9
-U-1319,Global Institute of Technology 319,Delhi,Private,319,False,A,483346,5.07,5.2
-U-1320,Ambedkar Institute of Technology 320,Tamil Nadu,Central,320,True,A,503379,7.15,7.1
-U-1321,National College of Engineering 321,Delhi,Deemed,321,False,A,460088,6.06,6.6
-U-1322,Ambedkar College of Engineering 322,Maharashtra,State,322,False,A,366918,8.72,9.9
-U-1323,Jawaharlal College of Engineering 323,Tamil Nadu,Deemed,323,False,A,699810,9.13,6.5
-U-1324,Ambedkar College of Engineering 324,Telangana,Deemed,324,False,A,375716,6.03,8.0
-U-1325,Savitribai Institute of Technology 325,Delhi,Private,325,False,A,796299,4.22,2.7
-U-1326,Jawaharlal Management Institute 326,West Bengal,Central,326,True,A,223842,4.42,9.9
-U-1327,Ambedkar Institute of Technology 327,Maharashtra,State,327,False,A,737919,8.76,5.9
-U-1328,Savitribai University 328,Uttar Pradesh,Deemed,328,False,A,777494,6.44,4.1
-U-1329,Global University 329,Rajasthan,Private,329,False,A,142955,7.35,9.9
-U-1330,Imperial University 330,Telangana,Deemed,330,False,A,160649,9.28,9.9
-U-1331,Global University 331,Maharashtra,State,331,False,A,403535,4.86,6.0
-U-1332,Savitribai College of Engineering 332,Gujarat,Deemed,332,False,A,593937,4.55,3.8
-U-1333,Savitribai Medical College 333,Uttar Pradesh,State,333,False,A,118757,5.14,9.9
-U-1334,Imperial Institute of Technology 334,Punjab,Central,334,True,A,113678,4.37,9.9
-U-1335,Global Institute of Technology 335,Maharashtra,Deemed,335,False,A,362945,9.7,9.9
-U-1336,Imperial College of Engineering 336,Gujarat,Deemed,336,False,A,446122,6.29,7.0
-U-1337,Ambedkar Medical College 337,Telangana,Private,337,False,A,175852,9.84,9.9
-U-1338,Jawaharlal Institute of Technology 338,Tamil Nadu,Private,338,False,A,323246,5.84,9.0
-U-1339,Savitribai Institute of Technology 339,Uttar Pradesh,State,339,False,A,159478,4.93,9.9
-U-1340,Global Institute of Technology 340,Telangana,Deemed,340,False,A,435897,5.94,6.8
-U-1341,Global Management Institute 341,Punjab,Deemed,341,False,A,491598,8.64,8.8
-U-1342,National Institute of Technology 342,Gujarat,State,342,False,A,698648,8.99,6.4
-U-1343,Savitribai University 343,Delhi,Central,343,True,A,752853,9.89,6.6
-U-1344,Imperial Medical College 344,Delhi,Central,344,True,A,290229,7.39,9.9
-U-1345,Global Management Institute 345,Tamil Nadu,State,345,False,A,213637,6.63,9.9
-U-1346,Global Medical College 346,Telangana,Deemed,346,False,A,318602,8.49,9.9
-U-1347,Global Management Institute 347,Gujarat,Private,347,False,A,794421,6.22,3.9
-U-1348,Imperial College of Engineering 348,Punjab,Deemed,348,False,A,384971,4.97,6.5
-U-1349,Savitribai Medical College 349,Delhi,Central,349,True,A,380871,5.2,6.8
-U-1350,Savitribai College of Engineering 350,Maharashtra,Central,350,True,A,789856,7.02,4.4
-U-1351,National College of Engineering 351,Rajasthan,State,351,False,A,194182,8.34,9.9
-U-1352,Jawaharlal College of Engineering 352,Rajasthan,Private,352,False,A,238759,9.98,9.9
-U-1353,Global Institute of Technology 353,Gujarat,Private,353,False,A,522642,5.09,4.9
-U-1354,Jawaharlal Institute of Technology 354,Uttar Pradesh,State,354,False,A,285444,5.98,9.9
-U-1355,Global College of Engineering 355,Delhi,Central,355,True,A,269799,6.13,9.9
-U-1356,Indian Institute of Technology 356,West Bengal,Private,356,False,A,613781,8.09,6.6
-U-1357,National Management Institute 357,Gujarat,Private,357,False,A,348246,4.22,6.1
-U-1358,Global Institute of Technology 358,West Bengal,State,358,False,A,596333,8.66,7.3
-U-1359,Jawaharlal College of Engineering 359,Karnataka,Central,359,True,A,280074,6.63,9.9
-U-1360,Ambedkar College of Engineering 360,Rajasthan,Private,360,False,A,350422,7.84,9.9
-U-1361,National Institute of Technology 361,Tamil Nadu,Deemed,361,False,A,707332,5.43,3.8
-U-1362,Jawaharlal Institute of Technology 362,Uttar Pradesh,State,362,False,A,619107,8.15,6.6
-U-1363,Indian University 363,Gujarat,State,363,False,A,521692,8.55,8.2
-U-1364,Jawaharlal Management Institute 364,Telangana,Private,364,False,A,786311,5.66,3.6
-U-1365,Imperial Management Institute 365,Tamil Nadu,Private,365,False,A,168019,7.36,9.9
-U-1366,Imperial Management Institute 366,Maharashtra,State,366,False,A,641247,7.25,5.7
-U-1367,Indian Management Institute 367,West Bengal,Private,367,False,A,498180,5.28,5.3
-U-1368,Ambedkar Institute of Technology 368,Rajasthan,Central,368,True,A,356980,9.79,9.9
-U-1369,Savitribai Management Institute 369,West Bengal,Central,369,True,A,753096,6.27,4.2
-U-1370,Jawaharlal Medical College 370,Tamil Nadu,Deemed,370,False,A,487353,6.86,7.0
-U-1371,Global College of Engineering 371,Punjab,Private,371,False,A,360101,9.95,9.9
-U-1372,Indian Institute of Technology 372,Telangana,Deemed,372,False,A,711082,7.72,5.4
-U-1373,Jawaharlal Management Institute 373,Rajasthan,Private,373,False,A,667113,6.82,5.1
-U-1374,Indian College of Engineering 374,Gujarat,Central,374,True,A,170985,4.44,9.9
-U-1375,Indian College of Engineering 375,Tamil Nadu,Private,375,False,A,606084,9.48,7.8
-U-1376,Imperial College of Engineering 376,Gujarat,Deemed,376,False,A,472813,8.85,9.4
-U-1377,National Management Institute 377,Tamil Nadu,Private,377,False,A,792378,6.44,4.1
-U-1378,Imperial University 378,West Bengal,State,378,False,A,324921,6.94,9.9
-U-1379,Savitribai Management Institute 379,Tamil Nadu,Deemed,379,False,A,789659,8.49,5.4
-U-1380,Global Management Institute 380,Karnataka,Private,380,False,A,670805,4.11,3.1
-U-1381,Jawaharlal Medical College 381,Uttar Pradesh,Central,381,True,A,737381,9.13,6.2
-U-1382,Global Institute of Technology 382,Karnataka,Central,382,True,A,613396,9.62,7.8
-U-1383,National Institute of Technology 383,Delhi,Private,383,False,A,427233,4.06,4.8
-U-1384,Imperial Medical College 384,Rajasthan,Deemed,384,False,A,355481,6.31,8.9
-U-1385,Imperial Institute of Technology 385,Telangana,Central,385,True,A,707482,7.91,5.6
-U-1386,Global Management Institute 386,Uttar Pradesh,Private,386,False,A,101235,6.19,9.9
-U-1387,Jawaharlal University 387,Tamil Nadu,Deemed,387,False,A,148251,4.84,9.9
-U-1388,Indian College of Engineering 388,Delhi,Central,388,True,A,467071,8.25,8.8
-U-1389,Global Medical College 389,Tamil Nadu,State,389,False,A,404078,7.56,9.4
-U-1390,National Management Institute 390,Punjab,Deemed,390,False,A,674583,6.14,4.5
-U-1391,Imperial University 391,Telangana,State,391,False,A,704220,7.77,5.5
-U-1392,Indian Medical College 392,Maharashtra,Central,392,True,A,608770,5.93,4.9
-U-1393,Imperial Medical College 393,Maharashtra,Central,393,True,A,535372,8.76,8.2
-U-1394,Ambedkar College of Engineering 394,Maharashtra,Private,394,False,A,475142,6.13,6.5
-U-1395,Ambedkar College of Engineering 395,Maharashtra,State,395,False,A,646785,9.35,7.2
-U-1396,National Medical College 396,Tamil Nadu,Private,396,False,A,739543,6.32,4.3
-U-1397,Jawaharlal Management Institute 397,Rajasthan,State,397,False,A,604648,6.48,5.4
-U-1398,Ambedkar College of Engineering 398,Rajasthan,Central,398,True,A,469526,7.35,7.8
-U-1399,Global College of Engineering 399,Gujarat,Central,399,True,A,465640,4.42,4.7
-U-1400,Ambedkar Management Institute 400,Karnataka,Deemed,400,False,A,529535,5.18,4.9
-U-1401,Indian Institute of Technology 401,Rajasthan,Central,401,True,A,158390,6.45,9.9
-U-1402,Ambedkar College of Engineering 402,Telangana,Deemed,402,False,A,319752,7.54,9.9
-U-1403,Global College of Engineering 403,Karnataka,Private,403,False,A,201160,4.33,9.9
-U-1404,National College of Engineering 404,Maharashtra,Private,404,False,A,793593,7.68,4.8
-U-1405,Savitribai College of Engineering 405,Telangana,Deemed,405,False,A,168510,4.4,9.9
-U-1406,Ambedkar College of Engineering 406,Tamil Nadu,Central,406,True,A,346777,6.19,8.9
-U-1407,National Management Institute 407,Rajasthan,Deemed,407,False,A,289174,4.88,8.4
-U-1408,Jawaharlal Medical College 408,Telangana,State,408,False,A,649240,4.41,3.4
-U-1409,Ambedkar Medical College 409,Karnataka,State,409,False,A,161413,4.69,9.9
-U-1410,Ambedkar Institute of Technology 410,Gujarat,State,410,False,A,467557,4.25,4.5
-U-1411,Ambedkar Medical College 411,Gujarat,Private,411,False,A,209161,6.35,9.9
-U-1412,Ambedkar Management Institute 412,Rajasthan,Deemed,412,False,A,227375,8.62,9.9
-U-1413,Indian College of Engineering 413,Karnataka,Deemed,413,False,A,429894,6.29,7.3
-U-1414,Jawaharlal College of Engineering 414,West Bengal,Deemed,414,False,A,565146,7.51,6.6
-U-1415,Ambedkar University 415,Uttar Pradesh,Deemed,415,False,A,186139,8.31,9.9
-U-1416,Imperial Management Institute 416,Karnataka,Central,416,True,A,755665,8.7,5.8
-U-1417,Indian College of Engineering 417,Rajasthan,Central,417,True,A,211892,6.63,9.9
-U-1418,Jawaharlal College of Engineering 418,Tamil Nadu,Deemed,418,False,A,518854,8.81,8.5
-U-1419,Imperial University 419,Delhi,State,419,False,A,573434,6.83,6.0
-U-1420,Savitribai College of Engineering 420,Punjab,State,420,False,A,601031,7.21,6.0
-U-1421,Ambedkar Management Institute 421,Uttar Pradesh,Central,421,True,A,194686,7.92,9.9
-U-1422,Savitribai Management Institute 422,Rajasthan,State,422,False,A,787060,4.16,2.6
-U-1423,Savitribai University 423,Karnataka,Deemed,423,False,A,172177,9.06,9.9
-U-1424,Savitribai College of Engineering 424,Punjab,Private,424,False,A,352986,7.66,9.9
-U-1425,Indian Management Institute 425,Gujarat,Private,425,False,A,387300,6.97,9.0
-U-1426,Savitribai College of Engineering 426,Maharashtra,Private,426,False,A,536620,6.59,6.1
-U-1427,Jawaharlal College of Engineering 427,Delhi,State,427,False,A,605516,5.86,4.8
-U-1428,National College of Engineering 428,Rajasthan,Deemed,428,False,A,675005,7.2,5.3
-U-1429,Ambedkar Management Institute 429,Gujarat,Deemed,429,False,A,747946,8.92,6.0
-U-1430,Imperial College of Engineering 430,Uttar Pradesh,Central,430,True,A,496143,5.38,5.4
-U-1431,Global College of Engineering 431,Karnataka,State,431,False,A,266792,9.47,9.9
-U-1432,Jawaharlal Institute of Technology 432,Telangana,Deemed,432,False,A,508857,9.93,9.8
-U-1433,Jawaharlal Medical College 433,West Bengal,State,433,False,A,547473,9.17,8.4
-U-1434,Indian Management Institute 434,Tamil Nadu,Private,434,False,A,420635,4.61,5.5
-U-1435,Imperial College of Engineering 435,Delhi,Central,435,True,A,755497,9.67,6.4
-U-1436,National University 436,Delhi,Private,436,False,A,289041,9.87,9.9
-U-1437,Global Medical College 437,Maharashtra,Deemed,437,False,A,733606,4.49,3.1
-U-1438,National University 438,Gujarat,Central,438,True,A,467177,5.59,6.0
-U-1439,Imperial University 439,Delhi,Deemed,439,False,A,133011,5.53,9.9
-U-1440,Global Medical College 440,Punjab,Deemed,440,False,A,687303,7.8,5.7
-U-1441,Ambedkar Institute of Technology 441,Delhi,Central,441,True,A,424795,5.53,6.5
-U-1442,Savitribai Institute of Technology 442,Rajasthan,Deemed,442,False,A,155018,6.77,9.9
-U-1443,Savitribai College of Engineering 443,Rajasthan,Deemed,443,False,A,492076,6.27,6.4
-U-1444,Ambedkar Institute of Technology 444,Karnataka,Deemed,444,False,A,343865,7.37,9.9
-U-1445,Jawaharlal College of Engineering 445,Tamil Nadu,Private,445,False,A,643530,8.57,6.7
-U-1446,Global Management Institute 446,West Bengal,State,446,False,A,348885,8.46,9.9
-U-1447,Jawaharlal Institute of Technology 447,Maharashtra,Deemed,447,False,A,564641,6.92,6.1
-U-1448,Imperial Management Institute 448,Karnataka,State,448,False,A,536554,7.86,7.3
-U-1449,Indian Medical College 449,Karnataka,Private,449,False,A,528633,6.06,5.7
-U-1450,Savitribai College of Engineering 450,Karnataka,Private,450,False,A,561871,6.73,6.0
-U-1451,National Institute of Technology 451,Uttar Pradesh,Deemed,451,False,A,403758,4.79,5.9
-U-1452,Ambedkar College of Engineering 452,Tamil Nadu,Deemed,452,False,A,157691,9.88,9.9
-U-1453,Ambedkar Institute of Technology 453,Uttar Pradesh,Deemed,453,False,A,660931,8.22,6.2
-U-1454,National Institute of Technology 454,Tamil Nadu,Central,454,True,A,659055,7.15,5.4
-U-1455,Savitribai Institute of Technology 455,Rajasthan,Private,455,False,A,785062,5.51,3.5
-U-1456,Ambedkar Medical College 456,Telangana,Deemed,456,False,A,208368,8.45,9.9
-U-1457,National Management Institute 457,Rajasthan,State,457,False,A,374626,9.02,9.9
-U-1458,Global Management Institute 458,Uttar Pradesh,Central,458,True,A,552225,7.88,7.1
-U-1459,Global Management Institute 459,Gujarat,Central,459,True,A,730470,7.87,5.4
-U-1460,Indian Institute of Technology 460,Gujarat,Central,460,True,A,111528,9.58,9.9
-U-1461,Jawaharlal Medical College 461,Tamil Nadu,Central,461,True,A,765204,9.08,5.9
-U-1462,Imperial College of Engineering 462,Punjab,Central,462,True,A,559882,8.6,7.7
-U-1463,National Management Institute 463,Tamil Nadu,Deemed,463,False,A,461959,7.81,8.5
-U-1464,Ambedkar Institute of Technology 464,Uttar Pradesh,Deemed,464,False,A,169643,6.23,9.9
-U-1465,Savitribai Institute of Technology 465,Maharashtra,Private,465,False,A,187304,5.89,9.9
-U-1466,National Management Institute 466,Rajasthan,State,466,False,A,783300,7.12,4.5
-U-1467,Global University 467,Gujarat,Private,467,False,A,382291,6.24,8.2
-U-1468,Jawaharlal Management Institute 468,Maharashtra,Central,468,True,A,785792,4.88,3.1
-U-1469,Savitribai Management Institute 469,Uttar Pradesh,Central,469,True,A,490398,4.14,4.2
-U-1470,Indian Management Institute 470,Punjab,Private,470,False,A,315651,6.19,9.8
-U-1471,Imperial Medical College 471,Uttar Pradesh,Deemed,471,False,A,342730,8.82,9.9
-U-1472,National Medical College 472,Karnataka,Central,472,True,A,326812,9.01,9.9
-U-1473,Savitribai Institute of Technology 473,Karnataka,Deemed,473,False,A,566268,5.08,4.5
-U-1474,Indian College of Engineering 474,Maharashtra,State,474,False,A,454812,7.16,7.9
-U-1475,Indian Management Institute 475,Karnataka,Deemed,475,False,A,790578,6.64,4.2
-U-1476,Imperial Management Institute 476,Tamil Nadu,State,476,False,A,696271,5.69,4.1
-U-1477,Global Institute of Technology 477,Uttar Pradesh,Private,477,False,A,240917,4.14,8.6
-U-1478,Imperial Institute of Technology 478,Telangana,Central,478,True,A,444717,4.95,5.6
-U-1479,Jawaharlal University 479,Telangana,Deemed,479,False,A,584311,9.08,7.8
-U-1480,Ambedkar College of Engineering 480,Gujarat,Private,480,False,A,483313,7.41,7.7
-U-1481,Jawaharlal Management Institute 481,Rajasthan,Deemed,481,False,A,554528,7.23,6.5
-U-1482,National Management Institute 482,Delhi,State,482,False,A,487002,9.4,9.7
-U-1483,Global College of Engineering 483,Telangana,Deemed,483,False,A,686013,6.28,4.6
-U-1484,Global College of Engineering 484,Maharashtra,Deemed,484,False,A,740775,5.84,3.9
-U-1485,Ambedkar Management Institute 485,Tamil Nadu,State,485,False,A,364200,8.87,9.9
-U-1486,Savitribai Management Institute 486,Punjab,Central,486,True,A,430756,7.78,9.0
-U-1487,Jawaharlal University 487,Gujarat,State,487,False,A,533312,8.81,8.3
-U-1488,Savitribai University 488,Delhi,Private,488,False,A,687298,5.43,3.9
-U-1489,Global University 489,Karnataka,Central,489,True,A,381156,7.36,9.7
-U-1490,Global Management Institute 490,Karnataka,Central,490,True,A,120757,9.14,9.9
-U-1491,Jawaharlal Management Institute 491,Uttar Pradesh,Deemed,491,False,A,610227,9.31,7.6
-U-1492,Global Management Institute 492,Punjab,Central,492,True,A,484855,5.65,5.8
-U-1493,Savitribai College of Engineering 493,Tamil Nadu,Private,493,False,A,782355,7.94,5.1
-U-1494,Indian Management Institute 494,Telangana,Central,494,True,A,648247,7.63,5.9
-U-1495,Imperial University 495,Tamil Nadu,Private,495,False,A,518423,6.2,6.0
-U-1496,Savitribai Management Institute 496,West Bengal,State,496,False,A,302874,4.38,7.2
-U-1497,National College of Engineering 497,Uttar Pradesh,Central,497,True,A,703611,9.32,6.6
-U-1498,National Management Institute 498,Maharashtra,Private,498,False,A,507166,5.26,5.2
-U-1499,Savitribai Medical College 499,Telangana,Deemed,499,False,A,387916,9.07,9.9
-U-1500,Imperial Institute of Technology 500,West Bengal,Deemed,500,False,A,146028,9.74,9.9
-U-1501,Savitribai University 501,Rajasthan,Central,501,True,A,372222,4.93,6.6
-U-1502,National Medical College 502,Uttar Pradesh,Deemed,502,False,A,679153,7.9,5.8
-U-1503,Ambedkar Management Institute 503,Punjab,Private,503,False,A,504699,6.76,6.7
-U-1504,National College of Engineering 504,Maharashtra,State,504,False,A,434454,4.18,4.8
-U-1505,Indian Medical College 505,Delhi,Deemed,505,False,A,723450,5.64,3.9
-U-1506,Global Management Institute 506,Rajasthan,Deemed,506,False,A,292282,9.3,9.9
-U-1507,National Institute of Technology 507,Rajasthan,State,507,False,A,181486,8.66,9.9
-U-1508,Ambedkar Institute of Technology 508,Gujarat,Private,508,False,A,690909,8.59,6.2
-U-1509,Global Medical College 509,Gujarat,Private,509,False,A,146601,5.9,9.9
-U-1510,Global Management Institute 510,Delhi,Central,510,True,A,171933,4.75,9.9
-U-1511,Jawaharlal Medical College 511,West Bengal,Central,511,True,A,536916,9.09,8.5
-U-1512,Global University 512,Telangana,State,512,False,A,659415,4.14,3.1
-U-1513,Jawaharlal Medical College 513,Punjab,Deemed,513,False,A,739778,5.86,4.0
-U-1514,Savitribai University 514,Karnataka,Central,514,True,A,762625,7.56,5.0
-U-1515,Global Institute of Technology 515,Karnataka,Central,515,True,A,552789,7.23,6.5
-U-1516,Savitribai College of Engineering 516,Uttar Pradesh,Deemed,516,False,A,286675,8.42,9.9
-U-1517,Imperial Management Institute 517,Gujarat,Central,517,True,A,655970,7.19,5.5
-U-1518,Global University 518,Rajasthan,Deemed,518,False,A,766924,8.86,5.8
-U-1519,Ambedkar Management Institute 519,Uttar Pradesh,State,519,False,A,312500,5.03,8.0
-U-1520,Savitribai Institute of Technology 520,Telangana,Deemed,520,False,A,311972,7.09,9.9
-U-1521,Indian University 521,Maharashtra,Central,521,True,A,654579,7.11,5.4
-U-1522,National Institute of Technology 522,West Bengal,State,522,False,A,209874,7.86,9.9
-U-1523,Imperial Management Institute 523,Rajasthan,Central,523,True,A,240843,8.01,9.9
-U-1524,Global College of Engineering 524,Uttar Pradesh,State,524,False,A,680987,6.89,5.1
-U-1525,Global College of Engineering 525,Gujarat,Deemed,525,False,A,482691,7.26,7.5
-U-1526,Ambedkar Medical College 526,Maharashtra,Central,526,True,A,652958,6.74,5.2
-U-1527,Ambedkar Institute of Technology 527,Gujarat,Deemed,527,False,A,442902,6.92,7.8
-U-1528,Ambedkar College of Engineering 528,Punjab,Private,528,False,A,752922,9.15,6.1
-U-1529,Ambedkar University 529,Karnataka,Deemed,529,False,A,771496,5.12,3.3
-U-1530,Indian University 530,Punjab,State,530,False,A,600320,9.26,7.7
-U-1531,Imperial College of Engineering 531,Telangana,State,531,False,A,637876,7.22,5.7
-U-1532,Savitribai University 532,Punjab,State,532,False,A,309534,7.16,9.9
-U-1533,Imperial Institute of Technology 533,Uttar Pradesh,Central,533,True,A,275588,4.85,8.8
-U-1534,Savitribai University 534,Maharashtra,Deemed,534,False,A,710927,5.67,4.0
-U-1535,Jawaharlal Institute of Technology 535,Telangana,Private,535,False,A,440870,8.5,9.6
-U-1536,Global University 536,Uttar Pradesh,Private,536,False,A,737022,7.3,5.0
-U-1537,National Institute of Technology 537,Maharashtra,Deemed,537,False,A,109439,7.64,9.9
-U-1538,Ambedkar University 538,Punjab,Deemed,538,False,A,656054,7.16,5.5
-U-1539,Ambedkar Institute of Technology 539,Punjab,Central,539,True,A,384947,8.99,9.9
-U-1540,Savitribai University 540,Delhi,State,540,False,A,392609,8.07,9.9
-U-1541,National Institute of Technology 541,Delhi,Deemed,541,False,A,428636,4.46,5.2
-U-1542,Ambedkar Medical College 542,Tamil Nadu,Central,542,True,A,129282,8.35,9.9
-U-1543,Indian Institute of Technology 543,Karnataka,Private,543,False,A,343157,5.43,7.9
-U-1544,Global Management Institute 544,West Bengal,Central,544,True,A,665612,6.15,4.6
-U-1545,Savitribai Medical College 545,West Bengal,Deemed,545,False,A,471351,7.07,7.5
-U-1546,Indian University 546,Rajasthan,Private,546,False,A,547836,4.96,4.5
-U-1547,Jawaharlal University 547,Maharashtra,Private,547,False,A,155614,9.66,9.9
-U-1548,Jawaharlal Medical College 548,Uttar Pradesh,Private,548,False,A,779980,4.89,3.1
-U-1549,National Management Institute 549,Telangana,Central,549,True,A,709119,4.81,3.4
-U-1550,Global University 550,Karnataka,Private,550,False,A,618419,8.27,6.7
-U-1551,Jawaharlal College of Engineering 551,Delhi,State,551,False,A,546421,7.15,6.5
-U-1552,Ambedkar Institute of Technology 552,Maharashtra,Private,552,False,A,764093,5.54,3.6
-U-1553,Ambedkar University 553,Maharashtra,Private,553,False,A,389474,9.16,9.9
-U-1554,Jawaharlal College of Engineering 554,Rajasthan,Central,554,True,A,454540,8.93,9.8
-U-1555,Imperial Management Institute 555,Delhi,Central,555,True,A,139969,6.55,9.9
-U-1556,Jawaharlal Institute of Technology 556,Rajasthan,State,556,False,A,119603,7.78,9.9
-U-1557,Savitribai Management Institute 557,Gujarat,Central,557,True,A,765209,6.91,4.5
-U-1558,Ambedkar Management Institute 558,Telangana,Central,558,True,A,555860,9.98,9.0
-U-1559,Global Medical College 559,Gujarat,Private,559,False,A,578397,6.99,6.0
-U-1560,Ambedkar College of Engineering 560,Maharashtra,Private,560,False,A,622005,5.69,4.6
-U-1561,Global Institute of Technology 561,Delhi,State,561,False,A,609496,8.87,7.3
-U-1562,National Management Institute 562,Tamil Nadu,State,562,False,A,374463,6.83,9.1
-U-1563,National Medical College 563,Gujarat,Private,563,False,A,127088,9.48,9.9
-U-1564,National Institute of Technology 564,Punjab,Central,564,True,A,192602,8.94,9.9
-U-1565,Imperial Management Institute 565,Gujarat,Private,565,False,A,747126,9.35,6.3
-U-1566,Ambedkar Institute of Technology 566,West Bengal,State,566,False,A,681115,6.69,4.9
-U-1567,National Medical College 567,Rajasthan,Private,567,False,A,177793,5.04,9.9
-U-1568,Ambedkar Management Institute 568,Maharashtra,Central,568,True,A,704450,9.72,6.9
-U-1569,Global Management Institute 569,Punjab,Deemed,569,False,A,584376,9.45,8.1
-U-1570,National Management Institute 570,Tamil Nadu,Central,570,True,A,423596,4.46,5.3
-U-1571,Savitribai University 571,Rajasthan,State,571,False,A,773849,9.38,6.1
-U-1572,Indian Management Institute 572,Uttar Pradesh,State,572,False,A,589871,8.71,7.4
-U-1573,Savitribai Institute of Technology 573,Karnataka,Central,573,True,A,295953,4.82,8.2
-U-1574,National University 574,Tamil Nadu,Deemed,574,False,A,415271,8.4,9.9
-U-1575,Jawaharlal Management Institute 575,Rajasthan,Deemed,575,False,A,502418,6.45,6.4
-U-1576,Imperial Medical College 576,Rajasthan,State,576,False,A,430546,7.76,9.0
-U-1577,Global Medical College 577,Delhi,Private,577,False,A,420894,8.3,9.9
-U-1578,Indian Medical College 578,Telangana,Deemed,578,False,A,454723,5.11,5.6
-U-1579,National University 579,Delhi,State,579,False,A,522680,5.8,5.5
-U-1580,Jawaharlal University 580,Tamil Nadu,State,580,False,A,210818,4.84,9.9
-U-1581,Savitribai Medical College 581,Gujarat,Deemed,581,False,A,322731,9.24,9.9
-U-1582,Global Medical College 582,Punjab,Central,582,True,A,448460,4.28,4.8
-U-1583,Savitribai Management Institute 583,Karnataka,Deemed,583,False,A,176556,5.24,9.9
-U-1584,Savitribai Management Institute 584,Tamil Nadu,State,584,False,A,566815,5.85,5.2
-U-1585,Savitribai Institute of Technology 585,West Bengal,State,585,False,A,234542,9.33,9.9
-U-1586,National University 586,Tamil Nadu,Deemed,586,False,A,637424,4.38,3.4
-U-1587,Ambedkar University 587,Rajasthan,Deemed,587,False,A,613486,8.08,6.6
-U-1588,National Management Institute 588,Telangana,State,588,False,A,697683,6.71,4.8
-U-1589,Global Management Institute 589,Gujarat,Central,589,True,A,221424,9.32,9.9
-U-1590,Indian Medical College 590,Rajasthan,Central,590,True,A,366519,8.6,9.9
-U-1591,National Institute of Technology 591,Delhi,Central,591,True,A,183189,4.06,9.9
-U-1592,Jawaharlal Management Institute 592,Punjab,Deemed,592,False,A,465888,6.04,6.5
-U-1593,Ambedkar Institute of Technology 593,West Bengal,Deemed,593,False,A,391216,5.16,6.6
-U-1594,Ambedkar Management Institute 594,Karnataka,Central,594,True,A,361640,7.25,9.9
-U-1595,Imperial Management Institute 595,West Bengal,Deemed,595,False,A,628119,4.19,3.3
-U-1596,Ambedkar Management Institute 596,Punjab,Private,596,False,A,684230,8.41,6.1
-U-1597,Imperial College of Engineering 597,Rajasthan,Deemed,597,False,A,101474,8.63,9.9
-U-1598,Savitribai Medical College 598,Delhi,State,598,False,A,107670,8.15,9.9
-U-1599,Savitribai Medical College 599,Rajasthan,Central,599,True,A,495164,7.4,7.5
-U-1600,Indian Institute of Technology 600,Delhi,Central,600,True,A,705587,9.32,6.6
-U-1601,Savitribai Institute of Technology 601,Rajasthan,Private,601,False,A,626716,4.11,3.3
-U-1602,Jawaharlal Institute of Technology 602,Gujarat,Deemed,602,False,A,456543,8.9,9.7
-U-1603,Ambedkar Medical College 603,Maharashtra,State,603,False,A,390105,8.93,9.9
-U-1604,National Institute of Technology 604,Maharashtra,Central,604,True,A,303636,7.73,9.9
-U-1605,Savitribai Management Institute 605,Delhi,Deemed,605,False,A,735113,7.62,5.2
-U-1606,Global Management Institute 606,Tamil Nadu,Deemed,606,False,A,669118,8.72,6.5
-U-1607,National University 607,Telangana,Deemed,607,False,A,279610,4.44,7.9
-U-1608,Jawaharlal Institute of Technology 608,Maharashtra,State,608,False,A,515094,6.29,6.1
-U-1609,Jawaharlal Institute of Technology 609,West Bengal,State,609,False,A,476860,4.99,5.2
-U-1610,Imperial University 610,Telangana,Private,610,False,A,288163,4.13,7.2
-U-1611,Imperial Management Institute 611,Telangana,Private,611,False,A,655862,5.19,4.0
-U-1612,Global Management Institute 612,West Bengal,Private,612,False,A,616909,9.0,7.3
-U-1613,Global Management Institute 613,Maharashtra,State,613,False,A,288034,5.32,9.2
-U-1614,National Medical College 614,Uttar Pradesh,Private,614,False,A,785146,5.7,3.6
-U-1615,Imperial Institute of Technology 615,Delhi,Central,615,True,A,426729,7.97,9.3
-U-1616,Global College of Engineering 616,Uttar Pradesh,Private,616,False,A,403064,9.25,9.9
-U-1617,Ambedkar Institute of Technology 617,Maharashtra,Deemed,617,False,A,236506,9.86,9.9
-U-1618,Indian Medical College 618,Maharashtra,Deemed,618,False,A,275484,8.11,9.9
-U-1619,National Medical College 619,West Bengal,Private,619,False,A,723800,5.01,3.5
-U-1620,Ambedkar University 620,Uttar Pradesh,Private,620,False,A,409633,7.74,9.4
-U-1621,Global University 621,Uttar Pradesh,Deemed,621,False,A,519233,4.76,4.6
-U-1622,Jawaharlal University 622,Punjab,Central,622,True,A,629393,8.75,6.9
-U-1623,Global Institute of Technology 623,Telangana,Deemed,623,False,A,371672,9.32,9.9
-U-1624,Jawaharlal University 624,Maharashtra,Deemed,624,False,A,307045,5.19,8.5
-U-1625,Ambedkar Management Institute 625,Gujarat,Deemed,625,False,A,522088,8.86,8.5
-U-1626,Global University 626,Punjab,Deemed,626,False,A,421723,6.19,7.3
-U-1627,Indian College of Engineering 627,Delhi,State,627,False,A,151043,9.89,9.9
-U-1628,Jawaharlal College of Engineering 628,Gujarat,Deemed,628,False,A,673239,7.38,5.5
-U-1629,Imperial Medical College 629,Gujarat,Central,629,True,A,329226,6.23,9.5
-U-1630,Imperial College of Engineering 630,Punjab,Central,630,True,A,498616,5.45,5.5
-U-1631,Global Management Institute 631,Rajasthan,Private,631,False,A,155399,5.53,9.9
-U-1632,National Medical College 632,Telangana,Deemed,632,False,A,541407,4.16,3.8
-U-1633,Savitribai Medical College 633,Delhi,Deemed,633,False,A,440423,9.75,9.9
-U-1634,Indian University 634,Punjab,Private,634,False,A,163307,7.27,9.9
-U-1635,Savitribai Institute of Technology 635,Gujarat,Deemed,635,False,A,337828,6.99,9.9
-U-1636,Savitribai Management Institute 636,Telangana,State,636,False,A,246403,7.45,9.9
-U-1637,Savitribai Institute of Technology 637,Uttar Pradesh,State,637,False,A,374585,7.48,9.9
-U-1638,Imperial College of Engineering 638,Uttar Pradesh,Private,638,False,A,678111,9.8,7.2
-U-1639,Savitribai University 639,Uttar Pradesh,Deemed,639,False,A,780480,9.52,6.1
-U-1640,Indian Management Institute 640,West Bengal,Central,640,True,A,679376,4.14,3.0
-U-1641,Indian College of Engineering 641,Tamil Nadu,Private,641,False,A,781539,4.29,2.7
-U-1642,Imperial Management Institute 642,Uttar Pradesh,Private,642,False,A,746172,8.67,5.8
-U-1643,Jawaharlal Management Institute 643,Gujarat,Deemed,643,False,A,747091,9.25,6.2
-U-1644,Savitribai University 644,Tamil Nadu,Private,644,False,A,274535,9.96,9.9
-U-1645,Global Medical College 645,Karnataka,Central,645,True,A,315129,9.42,9.9
-U-1646,Indian Management Institute 646,Maharashtra,Central,646,True,A,512906,7.02,6.8
-U-1647,Imperial College of Engineering 647,Gujarat,State,647,False,A,679012,5.24,3.9
-U-1648,Imperial College of Engineering 648,Maharashtra,Central,648,True,A,500911,6.46,6.4
-U-1649,Ambedkar College of Engineering 649,Tamil Nadu,Deemed,649,False,A,288791,7.4,9.9
-U-1650,Jawaharlal College of Engineering 650,Gujarat,Deemed,650,False,A,241335,4.78,9.9
-U-1651,Jawaharlal Management Institute 651,Uttar Pradesh,Central,651,True,A,694664,7.67,5.5
-U-1652,Indian College of Engineering 652,Punjab,State,652,False,A,796431,6.58,4.1
-U-1653,Jawaharlal College of Engineering 653,Rajasthan,Deemed,653,False,A,248371,8.48,9.9
-U-1654,Savitribai Medical College 654,Punjab,State,654,False,A,661324,8.37,6.3
-U-1655,Global University 655,Tamil Nadu,Deemed,655,False,A,680448,9.32,6.9
-U-1656,Jawaharlal Management Institute 656,Maharashtra,Deemed,656,False,A,295278,9.52,9.9
-U-1657,Imperial Medical College 657,Tamil Nadu,Private,657,False,A,269222,4.51,8.4
-U-1658,National University 658,Maharashtra,State,658,False,A,369014,8.26,9.9
-U-1659,Ambedkar College of Engineering 659,Karnataka,Central,659,True,A,494197,6.61,6.7
-U-1660,Ambedkar University 660,Gujarat,State,660,False,A,484538,5.74,5.9
-U-1661,Indian College of Engineering 661,Punjab,Deemed,661,False,A,591589,6.11,5.2
-U-1662,Imperial Institute of Technology 662,Rajasthan,Central,662,True,A,409787,5.47,6.7
-U-1663,Indian College of Engineering 663,Karnataka,State,663,False,A,218296,7.11,9.9
-U-1664,Jawaharlal University 664,Maharashtra,Private,664,False,A,497269,6.68,6.7
-U-1665,Savitribai Management Institute 665,Uttar Pradesh,Deemed,665,False,A,748215,8.07,5.4
-U-1666,Jawaharlal Institute of Technology 666,Rajasthan,State,666,False,A,143673,7.7,9.9
-U-1667,National Medical College 667,Delhi,State,667,False,A,679359,4.46,3.3
-U-1668,National University 668,Tamil Nadu,Central,668,True,A,766629,5.61,3.7
-U-1669,Jawaharlal Medical College 669,Delhi,Central,669,True,A,506079,5.57,5.5
-U-1670,Global Medical College 670,Delhi,Deemed,670,False,A,275724,7.29,9.9
-U-1671,Savitribai Institute of Technology 671,Telangana,Private,671,False,A,668270,5.81,4.3
-U-1672,Indian Medical College 672,Telangana,State,672,False,A,143551,6.67,9.9
-U-1673,Indian Management Institute 673,Tamil Nadu,State,673,False,A,256385,7.53,9.9
-U-1674,Imperial University 674,Maharashtra,Private,674,False,A,437738,4.44,5.1
-U-1675,Ambedkar Management Institute 675,Karnataka,State,675,False,A,487883,9.4,9.6
-U-1676,Imperial Management Institute 676,Rajasthan,State,676,False,A,220052,9.99,9.9
-U-1677,Savitribai College of Engineering 677,Maharashtra,Private,677,False,A,580331,8.84,7.6
-U-1678,Jawaharlal University 678,West Bengal,Deemed,678,False,A,491994,4.76,4.8
-U-1679,Global Management Institute 679,Delhi,Private,679,False,A,490572,8.49,8.7
-U-1680,Savitribai College of Engineering 680,Maharashtra,Central,680,True,A,712572,6.04,4.2
-U-1681,Ambedkar College of Engineering 681,Rajasthan,Central,681,True,A,547988,7.79,7.1
-U-1682,Ambedkar University 682,Punjab,Central,682,True,A,198365,8.58,9.9
-U-1683,Ambedkar Management Institute 683,Rajasthan,Deemed,683,False,A,685484,5.15,3.8
-U-1684,Ambedkar Management Institute 684,Telangana,Private,684,False,A,679273,6.37,4.7
-U-1685,Indian Management Institute 685,Punjab,State,685,False,A,180708,9.37,9.9
-U-1686,National Institute of Technology 686,Maharashtra,Deemed,686,False,A,333099,8.42,9.9
-U-1687,Indian Management Institute 687,Tamil Nadu,Central,687,True,A,718009,7.91,5.5
-U-1688,Jawaharlal Medical College 688,Punjab,State,688,False,A,614542,8.74,7.1
-U-1689,Jawaharlal Management Institute 689,West Bengal,Deemed,689,False,A,255623,4.07,8.0
-U-1690,Jawaharlal Institute of Technology 690,Rajasthan,Private,690,False,A,220083,5.97,9.9
-U-1691,Indian Institute of Technology 691,Uttar Pradesh,State,691,False,A,612095,7.05,5.8
-U-1692,National Medical College 692,Delhi,Private,692,False,A,781703,6.16,3.9
-U-1693,National University 693,Gujarat,State,693,False,A,573772,4.39,3.8
-U-1694,Jawaharlal University 694,Gujarat,Deemed,694,False,A,737069,9.76,6.6
-U-1695,Savitribai Medical College 695,Gujarat,Central,695,True,A,181656,6.96,9.9
-U-1696,Jawaharlal Management Institute 696,Tamil Nadu,Deemed,696,False,A,504860,6.1,6.0
-U-1697,Ambedkar University 697,West Bengal,Private,697,False,A,352284,9.35,9.9
-U-1698,Imperial College of Engineering 698,Delhi,Central,698,True,A,403694,4.96,6.1
-U-1699,Jawaharlal Medical College 699,Rajasthan,Central,699,True,A,367390,6.89,9.4
-U-1700,Imperial Institute of Technology 700,Tamil Nadu,Central,700,True,A,533531,4.13,3.9
-U-1701,Ambedkar College of Engineering 701,West Bengal,Private,701,False,A,777430,6.87,4.4
-U-1702,Indian University 702,Gujarat,Private,702,False,A,413871,5.3,6.4
-U-1703,Imperial Management Institute 703,Rajasthan,Central,703,True,A,346445,9.81,9.9
-U-1704,Ambedkar Management Institute 704,Karnataka,Central,704,True,A,757939,9.56,6.3
-U-1705,National Medical College 705,Rajasthan,Private,705,False,A,688388,9.49,6.9
-U-1706,Global University 706,Uttar Pradesh,State,706,False,A,418639,7.84,9.4
-U-1707,Global Management Institute 707,Rajasthan,State,707,False,A,195654,6.9,9.9
-U-1708,Imperial Management Institute 708,Rajasthan,Central,708,True,A,287542,8.33,9.9
-U-1709,Indian Institute of Technology 709,Maharashtra,Deemed,709,False,A,647614,7.05,5.4
-U-1710,Savitribai College of Engineering 710,Karnataka,State,710,False,A,766978,6.58,4.3
-U-1711,Jawaharlal Management Institute 711,West Bengal,Central,711,True,A,788375,8.92,5.7
-U-1712,Jawaharlal Medical College 712,Delhi,State,712,False,A,398702,8.97,9.9
-U-1713,Global Institute of Technology 713,Uttar Pradesh,State,713,False,A,533041,6.95,6.5
-U-1714,Global College of Engineering 714,Punjab,State,714,False,A,174296,7.57,9.9
-U-1715,National Institute of Technology 715,Karnataka,Central,715,True,A,766226,5.61,3.7
-U-1716,Ambedkar Management Institute 716,Uttar Pradesh,State,716,False,A,720190,4.12,2.9
-U-1717,Savitribai College of Engineering 717,Uttar Pradesh,Central,717,True,A,769389,8.06,5.2
-U-1718,National College of Engineering 718,Gujarat,State,718,False,A,191361,6.81,9.9
-U-1719,Savitribai College of Engineering 719,Uttar Pradesh,Central,719,True,A,183355,5.6,9.9
-U-1720,Jawaharlal University 720,Punjab,State,720,False,A,779528,8.69,5.6
-U-1721,National Institute of Technology 721,Uttar Pradesh,Private,721,False,A,782406,7.43,4.7
-U-1722,Indian College of Engineering 722,Uttar Pradesh,Private,722,False,A,615340,8.87,7.2
-U-1723,Savitribai University 723,Rajasthan,Central,723,True,A,529835,5.97,5.6
-U-1724,Global University 724,Delhi,Deemed,724,False,A,288670,4.08,7.1
-U-1725,Indian College of Engineering 725,Uttar Pradesh,State,725,False,A,659437,4.25,3.2
-U-1726,Savitribai College of Engineering 726,West Bengal,Private,726,False,A,146307,9.57,9.9
-U-1727,Savitribai Management Institute 727,Delhi,Private,727,False,A,381829,9.32,9.9
-U-1728,Indian Medical College 728,Delhi,Private,728,False,A,740525,8.54,5.8
-U-1729,Ambedkar Institute of Technology 729,Punjab,Central,729,True,A,440709,5.31,6.0
-U-1730,Savitribai Medical College 730,West Bengal,State,730,False,A,273957,4.25,7.8
-U-1731,Global Institute of Technology 731,Uttar Pradesh,Central,731,True,A,195625,9.83,9.9
-U-1732,National University 732,Maharashtra,Central,732,True,A,467359,6.19,6.6
-U-1733,Imperial College of Engineering 733,Tamil Nadu,Deemed,733,False,A,701191,9.59,6.8
-U-1734,Savitribai Management Institute 734,Rajasthan,Deemed,734,False,A,691259,9.09,6.6
-U-1735,Global Management Institute 735,Telangana,Deemed,735,False,A,309782,4.56,7.4
-U-1736,Savitribai Institute of Technology 736,Karnataka,Central,736,True,A,196404,6.74,9.9
-U-1737,National Management Institute 737,Delhi,State,737,False,A,151188,7.91,9.9
-U-1738,Global Management Institute 738,Telangana,State,738,False,A,580710,6.51,5.6
-U-1739,Global University 739,Tamil Nadu,State,739,False,A,659228,9.61,7.3
-U-1740,Ambedkar Institute of Technology 740,Tamil Nadu,Private,740,False,A,739765,5.38,3.6
-U-1741,Indian Management Institute 741,West Bengal,Deemed,741,False,A,219000,5.48,9.9
-U-1742,Global University 742,Karnataka,State,742,False,A,597147,7.59,6.4
-U-1743,Jawaharlal Management Institute 743,Telangana,Private,743,False,A,579618,8.41,7.3
-U-1744,Global Management Institute 744,Gujarat,Deemed,744,False,A,569713,9.01,7.9
-U-1745,Savitribai Medical College 745,Tamil Nadu,State,745,False,A,382359,8.27,9.9
-U-1746,Indian Management Institute 746,Telangana,Private,746,False,A,426350,9.7,9.9
-U-1747,Indian Medical College 747,Telangana,Private,747,False,A,688226,5.7,4.1
-U-1748,Imperial College of Engineering 748,Rajasthan,Central,748,True,A,273295,6.78,9.9
-U-1749,Jawaharlal Institute of Technology 749,Rajasthan,Deemed,749,False,A,339123,8.42,9.9
-U-1750,National Institute of Technology 750,Tamil Nadu,State,750,False,A,641246,4.92,3.8
-U-1751,Imperial College of Engineering 751,Karnataka,State,751,False,A,353569,6.3,8.9
-U-1752,Savitribai University 752,Tamil Nadu,Central,752,True,A,683063,8.85,6.5
-U-1753,Imperial Institute of Technology 753,Maharashtra,Deemed,753,False,A,316056,7.83,9.9
-U-1754,National Medical College 754,Tamil Nadu,Central,754,True,A,667608,7.11,5.3
-U-1755,Indian College of Engineering 755,Tamil Nadu,Central,755,True,A,186838,8.69,9.9
-U-1756,Ambedkar Institute of Technology 756,Rajasthan,Deemed,756,False,A,739676,7.53,5.1
-U-1757,Ambedkar University 757,Karnataka,Central,757,True,A,188439,5.91,9.9
-U-1758,Ambedkar Institute of Technology 758,Delhi,Central,758,True,A,699112,8.71,6.2
-U-1759,National Institute of Technology 759,Rajasthan,Deemed,759,False,A,324179,5.06,7.8
-U-1760,Indian College of Engineering 760,Karnataka,State,760,False,A,791989,6.23,3.9
-U-1761,Jawaharlal University 761,Maharashtra,Deemed,761,False,A,155066,9.24,9.9
-U-1762,Ambedkar College of Engineering 762,Maharashtra,Central,762,True,A,679853,5.43,4.0
-U-1763,Ambedkar Management Institute 763,Gujarat,State,763,False,A,538807,7.65,7.1
-U-1764,Ambedkar College of Engineering 764,Uttar Pradesh,Deemed,764,False,A,435692,4.68,5.4
-U-1765,Global Management Institute 765,Telangana,State,765,False,A,719600,5.37,3.7
-U-1766,Imperial Institute of Technology 766,Gujarat,Deemed,766,False,A,547354,6.06,5.5
-U-1767,Jawaharlal University 767,Rajasthan,State,767,False,A,795214,7.52,4.7
-U-1768,Imperial College of Engineering 768,Maharashtra,State,768,False,A,411459,8.78,9.9
-U-1769,Indian Medical College 769,Tamil Nadu,State,769,False,A,743085,6.54,4.4
-U-1770,Indian Medical College 770,West Bengal,Private,770,False,A,313699,9.88,9.9
-U-1771,Savitribai Institute of Technology 771,West Bengal,Central,771,True,A,205540,9.99,9.9
-U-1772,National Institute of Technology 772,Tamil Nadu,Central,772,True,A,450514,7.51,8.3
-U-1773,Indian Management Institute 773,Delhi,Deemed,773,False,A,202738,4.14,9.9
-U-1774,Savitribai Institute of Technology 774,Gujarat,Central,774,True,A,216357,9.03,9.9
-U-1775,Imperial University 775,West Bengal,Private,775,False,A,764961,6.29,4.1
-U-1776,Global Institute of Technology 776,West Bengal,Private,776,False,A,237690,9.4,9.9
-U-1777,National Medical College 777,Tamil Nadu,Central,777,True,A,726915,9.76,6.7
-U-1778,Ambedkar College of Engineering 778,Rajasthan,Central,778,True,A,779080,6.87,4.4
-U-1779,National Medical College 779,Uttar Pradesh,Deemed,779,False,A,157073,7.51,9.9
-U-1780,Indian Institute of Technology 780,Uttar Pradesh,Central,780,True,A,570961,8.06,7.1
-U-1781,National University 781,Rajasthan,Central,781,True,A,656580,7.37,5.6
-U-1782,Indian Management Institute 782,Gujarat,State,782,False,A,462551,5.45,5.9
-U-1783,Indian Medical College 783,Tamil Nadu,State,783,False,A,574302,5.42,4.7
-U-1784,Ambedkar College of Engineering 784,Rajasthan,Deemed,784,False,A,374284,4.82,6.4
-U-1785,National Medical College 785,Karnataka,Central,785,True,A,354444,7.61,9.9
-U-1786,Savitribai University 786,Telangana,Central,786,True,A,103580,4.65,9.9
-U-1787,Jawaharlal University 787,Telangana,State,787,False,A,161501,6.87,9.9
-U-1788,National College of Engineering 788,Karnataka,Deemed,788,False,A,526918,6.5,6.2
-U-1789,Ambedkar University 789,Uttar Pradesh,Central,789,True,A,189279,5.66,9.9
-U-1790,Global University 790,Rajasthan,Central,790,True,A,623166,7.24,5.8
-U-1791,National Medical College 791,West Bengal,Central,791,True,A,541725,7.2,6.6
-U-1792,Ambedkar College of Engineering 792,Punjab,Central,792,True,A,347951,6.06,8.7
-U-1793,Indian University 793,Gujarat,Deemed,793,False,A,454264,5.7,6.3
-U-1794,Savitribai Management Institute 794,Punjab,State,794,False,A,624437,8.0,6.4
-U-1795,Indian University 795,Delhi,Central,795,True,A,166516,6.6,9.9
-U-1796,Savitribai Management Institute 796,West Bengal,Central,796,True,A,684845,6.26,4.6
-U-1797,Imperial College of Engineering 797,Gujarat,Central,797,True,A,564743,8.19,7.3
-U-1798,Imperial Management Institute 798,Uttar Pradesh,Deemed,798,False,A,378976,6.52,8.6
-U-1799,Ambedkar University 799,Tamil Nadu,Private,799,False,A,548478,5.67,5.2
-U-1800,Jawaharlal University 800,Punjab,Private,800,False,A,220689,4.72,9.9
-U-1801,National Management Institute 801,Punjab,State,801,False,A,162039,4.56,9.9
-U-1802,Ambedkar University 802,Uttar Pradesh,Deemed,802,False,A,421240,5.9,7.0
-U-1803,Jawaharlal College of Engineering 803,Karnataka,Private,803,False,A,757267,8.52,5.6
-U-1804,Indian Institute of Technology 804,Telangana,Private,804,False,A,780633,7.01,4.5
-U-1805,Indian Management Institute 805,Rajasthan,Private,805,False,A,762060,4.31,2.8
-U-1806,Imperial University 806,Tamil Nadu,Deemed,806,False,A,540904,5.24,4.8
-U-1807,Imperial Institute of Technology 807,Delhi,Deemed,807,False,A,229968,6.23,9.9
-U-1808,Imperial Institute of Technology 808,Gujarat,Private,808,False,A,688624,5.86,4.3
-U-1809,Global University 809,Delhi,Central,809,True,A,561071,6.28,5.6
-U-1810,Jawaharlal Medical College 810,Karnataka,Deemed,810,False,A,676882,9.32,6.9
-U-1811,Savitribai College of Engineering 811,Telangana,Central,811,True,A,228469,6.72,9.9
-U-1812,Jawaharlal University 812,Uttar Pradesh,Private,812,False,A,222605,7.46,9.9
-U-1813,Indian College of Engineering 813,Telangana,Private,813,False,A,302756,9.28,9.9
-U-1814,National College of Engineering 814,Delhi,Private,814,False,A,286194,6.9,9.9
-U-1815,Imperial Institute of Technology 815,Tamil Nadu,Central,815,True,A,522984,9.73,9.3
-U-1816,Indian College of Engineering 816,West Bengal,Deemed,816,False,A,532615,4.09,3.8
-U-1817,Global College of Engineering 817,Delhi,State,817,False,A,266405,4.02,7.6
-U-1818,Savitribai Medical College 818,Punjab,Central,818,True,A,483208,6.86,7.1
-U-1819,Savitribai Management Institute 819,Tamil Nadu,Central,819,True,A,278871,8.89,9.9
-U-1820,Indian Medical College 820,West Bengal,Private,820,False,A,100926,7.6,9.9
-U-1821,Jawaharlal College of Engineering 821,Maharashtra,Private,821,False,A,186462,4.74,9.9
-U-1822,Ambedkar College of Engineering 822,Tamil Nadu,Private,822,False,A,596301,7.47,6.3
-U-1823,Indian Institute of Technology 823,West Bengal,Central,823,True,A,555895,6.23,5.6
-U-1824,Ambedkar College of Engineering 824,Karnataka,Private,824,False,A,558823,6.06,5.4
-U-1825,Savitribai University 825,West Bengal,State,825,False,A,496178,7.49,7.5
-U-1826,Indian Medical College 826,Telangana,Deemed,826,False,A,720717,6.07,4.2
-U-1827,National Management Institute 827,Karnataka,Private,827,False,A,568890,6.8,6.0
-U-1828,Imperial Medical College 828,Tamil Nadu,Central,828,True,A,115556,5.1,9.9
-U-1829,Global University 829,Maharashtra,Central,829,True,A,463954,7.49,8.1
-U-1830,Indian Management Institute 830,Telangana,Central,830,True,A,347797,9.02,9.9
-U-1831,Imperial University 831,Gujarat,Deemed,831,False,A,568617,9.94,8.7
-U-1832,Indian University 832,Maharashtra,Central,832,True,A,523089,7.47,7.1
-U-1833,Indian Institute of Technology 833,Rajasthan,Private,833,False,A,306112,9.97,9.9
-U-1834,Jawaharlal College of Engineering 834,Karnataka,Deemed,834,False,A,662824,9.41,7.1
-U-1835,Indian Medical College 835,Tamil Nadu,State,835,False,A,714526,7.41,5.2
-U-1836,Jawaharlal Medical College 836,Gujarat,State,836,False,A,154214,8.76,9.9
-U-1837,National Medical College 837,Gujarat,Private,837,False,A,773997,8.11,5.2
-U-1838,Imperial Institute of Technology 838,Punjab,State,838,False,A,480171,5.86,6.1
-U-1839,National University 839,Rajasthan,Central,839,True,A,756428,6.98,4.6
-U-1840,National Institute of Technology 840,Karnataka,State,840,False,A,384867,9.75,9.9
-U-1841,National University 841,Punjab,State,841,False,A,141658,8.66,9.9
-U-1842,Imperial College of Engineering 842,Gujarat,Deemed,842,False,A,792669,9.04,5.7
-U-1843,Indian University 843,Uttar Pradesh,Deemed,843,False,A,703326,9.16,6.5
-U-1844,Indian Medical College 844,Rajasthan,Private,844,False,A,152446,9.67,9.9
-U-1845,Jawaharlal University 845,West Bengal,Private,845,False,A,374886,6.57,8.8
-U-1846,National Institute of Technology 846,Maharashtra,State,846,False,A,205938,5.3,9.9
-U-1847,Savitribai College of Engineering 847,Telangana,State,847,False,A,796327,5.33,3.3
-U-1848,Global College of Engineering 848,Karnataka,State,848,False,A,778809,6.14,3.9
-U-1849,Indian Medical College 849,Tamil Nadu,State,849,False,A,379557,4.12,5.4
-U-1850,National College of Engineering 850,Uttar Pradesh,Deemed,850,False,A,735886,5.29,3.6
-U-1851,Jawaharlal Institute of Technology 851,Punjab,Private,851,False,A,419793,7.48,8.9
-U-1852,Ambedkar University 852,Telangana,State,852,False,A,196323,5.82,9.9
-U-1853,Ambedkar Medical College 853,Uttar Pradesh,Deemed,853,False,A,680381,5.37,3.9
-U-1854,Ambedkar Institute of Technology 854,Maharashtra,Private,854,False,A,150500,8.6,9.9
-U-1855,Jawaharlal College of Engineering 855,West Bengal,Central,855,True,A,454217,8.94,9.8
-U-1856,Indian University 856,Rajasthan,Central,856,True,A,472197,5.72,6.1
-U-1857,Imperial University 857,Punjab,Private,857,False,A,350095,5.52,7.9
-U-1858,Imperial Management Institute 858,Karnataka,State,858,False,A,410712,6.02,7.3
-U-1859,Savitribai University 859,Maharashtra,Deemed,859,False,A,374232,8.72,9.9
-U-1860,Ambedkar Institute of Technology 860,Gujarat,State,860,False,A,419265,4.95,5.9
-U-1861,Ambedkar Management Institute 861,Punjab,State,861,False,A,216308,7.83,9.9
-U-1862,Global University 862,Telangana,Deemed,862,False,A,663130,6.2,4.7
-U-1863,Jawaharlal College of Engineering 863,Gujarat,Central,863,True,A,179428,5.34,9.9
-U-1864,Indian University 864,West Bengal,Private,864,False,A,377058,4.24,5.6
-U-1865,Imperial Management Institute 865,Delhi,State,865,False,A,354939,5.68,8.0
-U-1866,National Institute of Technology 866,Telangana,Central,866,True,A,236990,8.39,9.9
-U-1867,National Institute of Technology 867,Telangana,State,867,False,A,508533,9.55,9.4
-U-1868,Ambedkar Management Institute 868,Telangana,Central,868,True,A,352402,7.18,9.9
-U-1869,Indian Medical College 869,West Bengal,Central,869,True,A,467518,8.79,9.4
-U-1870,Jawaharlal University 870,Tamil Nadu,Deemed,870,False,A,104254,4.99,9.9
-U-1871,Indian Medical College 871,West Bengal,Central,871,True,A,218416,8.61,9.9
-U-1872,Savitribai College of Engineering 872,Uttar Pradesh,State,872,False,A,395663,8.61,9.9
-U-1873,Global College of Engineering 873,Punjab,State,873,False,A,687685,4.89,3.6
-U-1874,Indian Management Institute 874,Maharashtra,Central,874,True,A,148571,5.84,9.9
-U-1875,Global University 875,Tamil Nadu,State,875,False,A,402773,9.7,9.9
-U-1876,Global University 876,Rajasthan,Deemed,876,False,A,153566,4.39,9.9
-U-1877,Imperial Institute of Technology 877,West Bengal,Central,877,True,A,782737,4.41,2.8
-U-1878,Ambedkar Medical College 878,Punjab,Private,878,False,A,152346,6.05,9.9
-U-1879,Jawaharlal University 879,Tamil Nadu,Central,879,True,A,259579,7.1,9.9
-U-1880,Indian Management Institute 880,Gujarat,Central,880,True,A,586754,9.13,7.8
-U-1881,Global Medical College 881,Uttar Pradesh,Central,881,True,A,200927,7.64,9.9
-U-1882,Global Medical College 882,Punjab,State,882,False,A,291924,5.52,9.4
-U-1883,Global Medical College 883,Rajasthan,Private,883,False,A,681603,9.04,6.6
-U-1884,National College of Engineering 884,Telangana,State,884,False,A,501948,7.14,7.1
-U-1885,Jawaharlal University 885,Tamil Nadu,Deemed,885,False,A,168933,7.57,9.9
-U-1886,Ambedkar Medical College 886,Telangana,Central,886,True,A,317579,4.41,6.9
-U-1887,Imperial Management Institute 887,Karnataka,Private,887,False,A,699792,8.27,5.9
-U-1888,Ambedkar College of Engineering 888,Maharashtra,State,888,False,A,691313,9.59,6.9
-U-1889,Savitribai Medical College 889,Uttar Pradesh,Deemed,889,False,A,621749,9.56,7.7
-U-1890,National Institute of Technology 890,Maharashtra,Central,890,True,A,274807,8.75,9.9
-U-1891,Indian Medical College 891,Karnataka,State,891,False,A,173547,6.28,9.9
-U-1892,Indian University 892,West Bengal,Deemed,892,False,A,478618,8.68,9.1
-U-1893,Imperial Medical College 893,Delhi,Deemed,893,False,A,787610,9.35,5.9
-U-1894,Global College of Engineering 894,Delhi,Central,894,True,A,643031,4.16,3.2
-U-1895,Global Medical College 895,Telangana,Central,895,True,A,766767,8.08,5.3
-U-1896,Jawaharlal University 896,Rajasthan,Central,896,True,A,148897,9.68,9.9
-U-1897,Ambedkar University 897,Delhi,State,897,False,A,555090,8.69,7.8
-U-1898,Savitribai Management Institute 898,Telangana,Private,898,False,A,189645,5.03,9.9
-U-1899,Global Management Institute 899,Karnataka,Private,899,False,A,789448,4.08,2.6
-U-1900,Jawaharlal University 900,West Bengal,Private,900,False,A,775785,7.36,4.7
-U-1901,Indian Institute of Technology 901,Punjab,State,901,False,A,405770,8.56,9.9
-U-1902,National University 902,Karnataka,Private,902,False,A,321241,6.98,9.9
-U-1903,Indian College of Engineering 903,Rajasthan,Deemed,903,False,A,611948,9.59,7.8
-U-1904,Ambedkar Management Institute 904,Maharashtra,Deemed,904,False,A,757137,7.66,5.1
-U-1905,National College of Engineering 905,Punjab,Central,905,True,A,145559,7.57,9.9
-U-1906,Imperial University 906,West Bengal,Central,906,True,A,617151,5.77,4.7
-U-1907,Indian Institute of Technology 907,Telangana,State,907,False,A,792596,4.49,2.8
-U-1908,Global Medical College 908,Uttar Pradesh,Central,908,True,A,194150,9.85,9.9
-U-1909,Global Management Institute 909,Delhi,Central,909,True,A,516635,4.58,4.4
-U-1910,Indian Management Institute 910,Tamil Nadu,Central,910,True,A,541102,9.2,8.5
-U-1911,Imperial Management Institute 911,Rajasthan,Private,911,False,A,779847,8.78,5.6
-U-1912,Global Medical College 912,Rajasthan,State,912,False,A,315267,8.07,9.9
-U-1913,Savitribai Institute of Technology 913,Rajasthan,Private,913,False,A,406234,7.83,9.6
-U-1914,Jawaharlal Institute of Technology 914,Maharashtra,Deemed,914,False,A,526444,8.13,7.7
-U-1915,Imperial Institute of Technology 915,Delhi,State,915,False,A,742083,6.59,4.4
-U-1916,Ambedkar College of Engineering 916,West Bengal,Central,916,True,A,717853,6.71,4.7
-U-1917,Global Management Institute 917,Rajasthan,Central,917,True,A,619264,7.89,6.4
-U-1918,National Medical College 918,Tamil Nadu,Private,918,False,A,752220,4.08,2.7
-U-1919,Imperial Management Institute 919,Rajasthan,State,919,False,A,116054,5.26,9.9
-U-1920,Ambedkar Institute of Technology 920,Karnataka,State,920,False,A,490127,6.33,6.5
-U-1921,Ambedkar University 921,Punjab,Private,921,False,A,138320,9.79,9.9
-U-1922,Savitribai Management Institute 922,Uttar Pradesh,Central,922,True,A,454301,4.95,5.4
-U-1923,Ambedkar Medical College 923,Maharashtra,Deemed,923,False,A,463320,4.05,4.4
-U-1924,Jawaharlal College of Engineering 924,Gujarat,Central,924,True,A,217546,5.81,9.9
-U-1925,Savitribai College of Engineering 925,Uttar Pradesh,Deemed,925,False,A,621486,8.92,7.2
-U-1926,Jawaharlal Medical College 926,Karnataka,Deemed,926,False,A,374719,6.52,8.7
-U-1927,Indian University 927,Gujarat,State,927,False,A,351636,6.34,9.0
-U-1928,National University 928,Punjab,Deemed,928,False,A,218062,7.82,9.9
-U-1929,Indian Management Institute 929,Gujarat,Private,929,False,A,567505,5.46,4.8
-U-1930,Imperial College of Engineering 930,Tamil Nadu,Deemed,930,False,A,366427,9.45,9.9
-U-1931,Indian Institute of Technology 931,Maharashtra,Central,931,True,A,306569,5.86,9.6
-U-1932,Indian University 932,Rajasthan,Central,932,True,A,640640,4.2,3.3
-U-1933,Savitribai University 933,Delhi,State,933,False,A,753222,4.06,2.7
-U-1934,Ambedkar College of Engineering 934,Tamil Nadu,Private,934,False,A,272575,8.61,9.9
-U-1935,Ambedkar University 935,Delhi,Deemed,935,False,A,620229,7.6,6.1
-U-1936,Imperial College of Engineering 936,Karnataka,Private,936,False,A,525920,8.53,8.1
-U-1937,National Management Institute 937,Telangana,State,937,False,A,259513,7.69,9.9
-U-1938,Indian Medical College 938,Rajasthan,State,938,False,A,732673,8.73,6.0
-U-1939,National University 939,Gujarat,State,939,False,A,517480,9.29,9.0
-U-1940,Savitribai Institute of Technology 940,Karnataka,Private,940,False,A,163208,7.89,9.9
-U-1941,Ambedkar Institute of Technology 941,Rajasthan,Private,941,False,A,135113,5.85,9.9
-U-1942,Imperial College of Engineering 942,Tamil Nadu,Deemed,942,False,A,228728,7.42,9.9
-U-1943,Indian Management Institute 943,Karnataka,Private,943,False,A,560414,7.74,6.9
-U-1944,National Management Institute 944,Telangana,State,944,False,A,180520,5.36,9.9
-U-1945,Ambedkar Management Institute 945,West Bengal,Central,945,True,A,341249,4.34,6.4
-U-1946,National University 946,Maharashtra,Private,946,False,A,224416,4.66,9.9
-U-1947,National Management Institute 947,West Bengal,State,947,False,A,357651,7.9,9.9
-U-1948,Indian Management Institute 948,Delhi,Deemed,948,False,A,606344,4.75,3.9
-U-1949,Ambedkar College of Engineering 949,Tamil Nadu,State,949,False,A,152398,8.73,9.9
-U-1950,Savitribai Management Institute 950,Gujarat,Private,950,False,A,696274,6.88,4.9
-U-1951,Global College of Engineering 951,West Bengal,Central,951,True,A,658431,6.58,5.0
-U-1952,Imperial Management Institute 952,Rajasthan,Central,952,True,A,430014,5.97,6.9
-U-1953,Ambedkar Management Institute 953,Maharashtra,Deemed,953,False,A,526969,5.38,5.1
-U-1954,Ambedkar University 954,Tamil Nadu,Deemed,954,False,A,487134,6.62,6.8
-U-1955,Savitribai College of Engineering 955,Maharashtra,Deemed,955,False,A,310066,9.93,9.9
-U-1956,National Institute of Technology 956,Telangana,Central,956,True,A,233645,8.76,9.9
-U-1957,Imperial Institute of Technology 957,Punjab,Deemed,957,False,A,213355,4.14,9.7
-U-1958,Ambedkar Management Institute 958,Telangana,Deemed,958,False,A,422498,7.98,9.4
-U-1959,Indian Institute of Technology 959,Delhi,Deemed,959,False,A,752527,6.34,4.2
-U-1960,Ambedkar College of Engineering 960,Rajasthan,State,960,False,A,443528,4.93,5.6
-U-1961,Ambedkar University 961,Rajasthan,Private,961,False,A,717927,6.66,4.6
-U-1962,Savitribai Management Institute 962,Delhi,Central,962,True,A,379304,9.39,9.9
-U-1963,National College of Engineering 963,Punjab,State,963,False,A,378293,7.31,9.7
-U-1964,Jawaharlal Medical College 964,Gujarat,Deemed,964,False,A,634551,4.89,3.9
-U-1965,Imperial Medical College 965,Punjab,Private,965,False,A,307863,7.65,9.9
-U-1966,Jawaharlal University 966,Telangana,Central,966,True,A,285072,5.21,9.1
-U-1967,National University 967,Uttar Pradesh,Deemed,967,False,A,758420,6.01,4.0
-U-1968,Indian Management Institute 968,Uttar Pradesh,State,968,False,A,490640,6.55,6.7
-U-1969,Savitribai College of Engineering 969,Punjab,Private,969,False,A,287336,5.3,9.2
-U-1970,National Management Institute 970,Rajasthan,State,970,False,A,718008,7.26,5.1
-U-1971,National University 971,Telangana,Deemed,971,False,A,700846,7.25,5.2
-U-1972,Indian Medical College 972,Uttar Pradesh,Private,972,False,A,724622,9.86,6.8
-U-1973,Jawaharlal University 973,Rajasthan,State,973,False,A,781228,8.52,5.5
-U-1974,National College of Engineering 974,Punjab,State,974,False,A,557272,6.82,6.1
-U-1975,Indian University 975,Punjab,Private,975,False,A,156013,9.44,9.9
-U-1976,Global Medical College 976,West Bengal,Central,976,True,A,244108,7.32,9.9
-U-1977,Global Medical College 977,West Bengal,State,977,False,A,533749,9.0,8.4
-U-1978,National Management Institute 978,Karnataka,Central,978,True,A,722409,4.96,3.4
-U-1979,Jawaharlal Medical College 979,Telangana,State,979,False,A,378992,6.36,8.4
-U-1980,Savitribai University 980,Uttar Pradesh,Deemed,980,False,A,576935,7.88,6.8
-U-1981,Indian Management Institute 981,Gujarat,Deemed,981,False,A,549054,6.58,6.0
-U-1982,National College of Engineering 982,Karnataka,Private,982,False,A,314803,6.06,9.6
-U-1983,Imperial Institute of Technology 983,Karnataka,Central,983,True,A,321597,4.11,6.4
-U-1984,Indian University 984,Uttar Pradesh,Central,984,True,A,563092,6.93,6.1
-U-1985,Indian Medical College 985,Uttar Pradesh,Private,985,False,A,555926,8.94,8.0
-U-1986,Savitribai Management Institute 986,Rajasthan,Private,986,False,A,662558,6.86,5.2
-U-1987,Global Medical College 987,Telangana,Deemed,987,False,A,390101,6.01,7.7
-U-1988,Global Institute of Technology 988,West Bengal,Private,988,False,A,687819,6.4,4.7
-U-1989,Ambedkar University 989,Punjab,State,989,False,A,258531,7.45,9.9
-U-1990,Ambedkar Medical College 990,Karnataka,Private,990,False,A,229863,9.28,9.9
-U-1991,Ambedkar Management Institute 991,Delhi,Private,991,False,A,516707,5.04,4.9
-U-1992,Jawaharlal College of Engineering 992,Maharashtra,Deemed,992,False,A,289225,7.87,9.9
-U-1993,Ambedkar Medical College 993,Gujarat,Private,993,False,A,687340,9.6,7.0
-U-1994,Imperial Management Institute 994,Tamil Nadu,Deemed,994,False,A,335486,8.12,9.9
-U-1995,Savitribai Medical College 995,Uttar Pradesh,Private,995,False,A,390652,7.93,9.9
-U-1996,Ambedkar Management Institute 996,Maharashtra,Private,996,False,A,239016,4.33,9.0
-U-1997,Savitribai College of Engineering 997,West Bengal,Deemed,997,False,A,226159,9.92,9.9
-U-1998,Jawaharlal Management Institute 998,Delhi,Deemed,998,False,A,270558,5.83,9.9
-U-1999,Ambedkar College of Engineering 999,Rajasthan,Private,999,False,A,283719,8.6,9.9
-U-2000,Imperial Medical College 1000,Tamil Nadu,State,1000,False,A,783474,8.06,5.1
+U-0248,IISc Bangalore,Karnataka,Deemed,1,True,AAA,145000,18.5,9.8
+U-0100,IIT Delhi,Delhi,Central,2,True,AAA,1050000,22.0,2.1
+U-0139,IIT Bombay,Maharashtra,Central,3,True,AAA,950000,21.5,2.26
+U-0319,JNU,Delhi,Central,4,True,AA,1200,11.5,9.8
+U-0745,University of Hyderabad,Telangana,Central,5,True,AA,45000,9.8,9.8
+U-0391,BITS Pilani,Rajasthan,Private,7,True,AAA,2450000,20.5,0.84
+U-0221,MAHE Manipal,Karnataka,Private,8,True,AA,1850000,11.2,0.61
+U-0108,Jamia Millia Islamia,Delhi,Central,9,True,AA,48000,9.2,9.8
+U-0480,VIT Vellore,Tamil Nadu,Private,10,True,A,980000,9.5,0.97
+U-0500,Banaras Hindu University,Uttar Pradesh,Central,11,True,AA,35000,9.1,9.8
+U-0111,Delhi University (DU),Delhi,Central,12,True,AA,65000,8.9,9.8
+U-0439,Anna University,Tamil Nadu,State,13,True,A,125000,8.5,6.8
+U-0273,Savitribai Phule Pune University,Maharashtra,State,14,True,A,95000,8.2,8.63
+U-0558,Panjab University,Chandigarh,State,15,True,A,115000,8.4,7.3
+U-0012,ICFAI Hyderabad,Telangana,Private,16,True,A,1250000,7.8,0.62
+U-0584,IIEST Shibpur,West Bengal,Central,17,True,AAA,750000,9.5,1.27
+U-0688,AIIMS Bhubaneswar,Odisha,Central,18,True,AAA,35000,15.5,9.8
+U-0096,AIIMS Delhi,Delhi,Central,19,True,AAA,42000,18.0,9.8
+U-1016,IIM Ahmedabad,Gujarat,Central,1,True,AAA,2800000,32.5,1.16
+U-1014,IIM Bangalore,Karnataka,Central,2,True,AAA,2650000,31.5,1.19
+U-1012,IIM Indore,Madhya Pradesh,Central,20,True,AAA,2100000,24.5,1.17
+U-1008,IIM Lucknow,Uttar Pradesh,Central,21,True,AAA,1950000,26.0,1.33
+U-0701,IIT (BHU) Varanasi,Uttar Pradesh,Central,14,True,AAA,1150000,19.5,1.7
+U-0497,Amity University,Uttar Pradesh,Private,23,True,A,1450000,7.2,0.5
+U-0127,CEPT University,Gujarat,Private,24,True,A,1650000,8.5,0.52
+U-2000,Christ University (South),Telangana,Private,66,True,AA,2795926,17.46921913599553,0.62
+U-2001,Christ University (Extension),Delhi,Central,131,False,AA,65430,3.605265200094277,5.51
+U-2002,UPES Dehradun (Extension),Maharashtra,State,398,False,A,2795926,3.605265200094277,0.13
+U-2003,Symbiosis International (East),Punjab,State,138,False,AA,2795926,3.605265200094277,0.13
+U-2004,UPES Dehradun (North),Karnataka,Private,196,False,A,2795926,3.605265200094277,0.13
+U-2005,Jaypee Institute (East),Karnataka,Central,358,False,A,65430,3.605265200094277,5.51
+U-2006,Thapar University (West),Karnataka,Central,406,False,A,65430,3.605265200094277,5.51
+U-2007,Thapar University (South),Delhi,State,68,True,AA,2795926,17.46921913599553,0.62
+U-2008,PES University (East),Gujarat,Deemed,257,False,A,2795926,3.605265200094277,0.13
+U-2009,LPU (South),Uttar Pradesh,State,76,True,AA,2795926,17.46921913599553,0.62
+U-2010,LPU (Main),Karnataka,Private,354,False,A,2795926,3.605265200094277,0.13
+U-2011,Kalinga Institute (Extension),West Bengal,Private,275,False,A,2795926,3.605265200094277,0.13
+U-2012,NIT Trichy (Extension),Karnataka,Deemed,293,False,A,2795926,3.605265200094277,0.13
+U-2013,Chandigarh University (North),Tamil Nadu,Private,214,False,A,2795926,3.605265200094277,0.13
+U-2014,Reva University (Main),Tamil Nadu,Central,469,False,A,65430,3.605265200094277,5.51
+U-2015,Chandigarh University (East),Maharashtra,Deemed,450,False,A,2795926,3.605265200094277,0.13
+U-2016,Shiv Nadar University (Main),Telangana,State,184,False,A,2795926,3.605265200094277,0.13
+U-2017,Jaypee Institute (South),West Bengal,Central,494,False,A,65430,3.605265200094277,5.51
+U-2018,Shiv Nadar University (East),Punjab,Central,298,False,A,65430,3.605265200094277,5.51
+U-2019,Christ University (South),Telangana,Private,260,False,A,2795926,3.605265200094277,0.13
+U-2020,Shiv Nadar University (North),Delhi,State,300,False,A,2795926,3.605265200094277,0.13
+U-2021,SRM University (West),Tamil Nadu,State,165,False,A,2795926,3.605265200094277,0.13
+U-2022,Jain University (Extension),Maharashtra,State,231,False,A,2795926,3.605265200094277,0.13
+U-2023,LPU (Extension),Gujarat,Central,81,True,AA,65430,17.46921913599553,9.8
+U-2024,Chandigarh University (East),West Bengal,Private,172,False,A,2795926,3.605265200094277,0.13
+U-2025,Thapar University (South),Karnataka,State,59,True,AA,2795926,17.46921913599553,0.62
+U-2026,LPU (Extension),Uttar Pradesh,Private,160,False,A,2795926,3.605265200094277,0.13
+U-2027,UPES Dehradun (East),West Bengal,Deemed,100,False,AA,2795926,3.605265200094277,0.13
+U-2028,Thapar University (East),Gujarat,Deemed,341,False,A,2795926,3.605265200094277,0.13
+U-2029,Christ University (West),Gujarat,Private,90,True,AA,2795926,17.46921913599553,0.62
+U-2030,Reva University (West),Gujarat,State,121,False,AA,2795926,3.605265200094277,0.13
+U-2031,Symbiosis International (East),Gujarat,Private,384,False,A,2795926,3.605265200094277,0.13
+U-2032,Jaypee Institute (Extension),Telangana,Deemed,30,True,AA,2795926,17.46921913599553,0.62
+U-2033,UPES Dehradun (West),Delhi,Deemed,325,False,A,2795926,3.605265200094277,0.13
+U-2034,Jaypee Institute (Extension),Delhi,State,90,True,AA,2795926,17.46921913599553,0.62
+U-2035,Jain University (North),Delhi,State,471,False,A,2795926,3.605265200094277,0.13
+U-2036,NIT Trichy (East),Karnataka,State,323,False,A,2795926,3.605265200094277,0.13
+U-2037,SRM University (Extension),Maharashtra,Deemed,50,True,AA,2795926,17.46921913599553,0.62
+U-2038,Thapar University (Main),West Bengal,Deemed,288,False,A,2795926,3.605265200094277,0.13
+U-2039,Reva University (Extension),Delhi,Deemed,462,False,A,2795926,3.605265200094277,0.13
+U-2040,Jain University (West),Uttar Pradesh,State,215,False,A,2795926,3.605265200094277,0.13
+U-2041,Thapar University (South),Maharashtra,Central,422,False,A,65430,3.605265200094277,5.51
+U-2042,Chandigarh University (Main),Punjab,Deemed,304,False,A,2795926,3.605265200094277,0.13
+U-2043,Jaypee Institute (Main),Uttar Pradesh,Private,219,False,A,2795926,3.605265200094277,0.13
+U-2044,Jain University (Main),Punjab,Private,72,True,AA,2795926,17.46921913599553,0.62
+U-2045,NIT Trichy (Extension),Delhi,Private,322,False,A,2795926,3.605265200094277,0.13
+U-2046,Amity University (North),Telangana,State,267,False,A,2795926,3.605265200094277,0.13
+U-2047,Thapar University (East),Rajasthan,State,241,False,A,2795926,3.605265200094277,0.13
+U-2048,Thapar University (West),Rajasthan,Deemed,150,False,A,2795926,3.605265200094277,0.13
+U-2049,Reva University (North),Delhi,State,205,False,A,2795926,3.605265200094277,0.13
+U-2050,LPU (South),Uttar Pradesh,Deemed,355,False,A,2795926,3.605265200094277,0.13
+U-2051,Reva University (North),Uttar Pradesh,State,451,False,A,2795926,3.605265200094277,0.13
+U-2052,PES University (South),Tamil Nadu,Private,449,False,A,2795926,3.605265200094277,0.13
+U-2053,PES University (West),Punjab,State,331,False,A,2795926,3.605265200094277,0.13
+U-2054,Reva University (East),Delhi,Private,127,False,AA,2795926,3.605265200094277,0.13
+U-2055,Jaypee Institute (Extension),Rajasthan,State,380,False,A,2795926,3.605265200094277,0.13
+U-2056,NIT Surathkal (East),West Bengal,Central,260,False,A,65430,3.605265200094277,5.51
+U-2057,Reva University (South),Punjab,Central,261,False,A,65430,3.605265200094277,5.51
+U-2058,Symbiosis International (Extension),Gujarat,Private,150,False,A,2795926,3.605265200094277,0.13
+U-2059,Thapar University (Main),Karnataka,Central,232,False,A,65430,3.605265200094277,5.51
+U-2060,Jaypee Institute (Extension),Telangana,Deemed,251,False,A,2795926,3.605265200094277,0.13
+U-2061,Christ University (North),West Bengal,Central,386,False,A,65430,3.605265200094277,5.51
+U-2062,Christ University (South),Gujarat,Private,69,True,AA,2795926,17.46921913599553,0.62
+U-2063,Christ University (West),Maharashtra,Central,478,False,A,65430,3.605265200094277,5.51
+U-2064,Shiv Nadar University (South),Telangana,Private,81,True,AA,2795926,17.46921913599553,0.62
+U-2065,Thapar University (Extension),West Bengal,State,128,False,AA,2795926,3.605265200094277,0.13
+U-2066,Symbiosis International (Extension),Punjab,Deemed,423,False,A,2795926,3.605265200094277,0.13
+U-2067,SRM University (West),Maharashtra,Central,188,False,A,65430,3.605265200094277,5.51
+U-2068,NIT Trichy (South),West Bengal,Private,89,True,AA,2795926,17.46921913599553,0.62
+U-2069,NIT Trichy (Main),West Bengal,Private,368,False,A,2795926,3.605265200094277,0.13
+U-2070,Shiv Nadar University (North),Punjab,State,320,False,A,2795926,3.605265200094277,0.13
+U-2071,Jaypee Institute (Extension),Karnataka,State,369,False,A,2795926,3.605265200094277,0.13
+U-2072,Jain University (West),Rajasthan,State,127,False,AA,2795926,3.605265200094277,0.13
+U-2073,Reva University (West),West Bengal,Deemed,377,False,A,2795926,3.605265200094277,0.13
+U-2074,SRM University (Extension),Tamil Nadu,State,149,False,AA,2795926,3.605265200094277,0.13
+U-2075,PES University (Main),Karnataka,Deemed,185,False,A,2795926,3.605265200094277,0.13
+U-2076,NIT Surathkal (West),Delhi,Private,240,False,A,2795926,3.605265200094277,0.13
+U-2077,Shiv Nadar University (North),West Bengal,Private,154,False,A,2795926,3.605265200094277,0.13
+U-2078,SRM University (North),West Bengal,Deemed,242,False,A,2795926,3.605265200094277,0.13
+U-2079,Amity University (East),Karnataka,State,391,False,A,2795926,3.605265200094277,0.13
+U-2080,Kalinga Institute (South),West Bengal,State,478,False,A,2795926,3.605265200094277,0.13
+U-2081,SRM University (South),Punjab,State,414,False,A,2795926,3.605265200094277,0.13
+U-2082,Shiv Nadar University (West),Tamil Nadu,Private,345,False,A,2795926,3.605265200094277,0.13
+U-2083,Christ University (West),Karnataka,Central,219,False,A,65430,3.605265200094277,5.51
+U-2084,Reva University (North),Rajasthan,Deemed,118,False,AA,2795926,3.605265200094277,0.13
+U-2085,NIT Trichy (Main),Telangana,Private,90,True,AA,2795926,17.46921913599553,0.62
+U-2086,Reva University (Extension),Tamil Nadu,Central,45,True,AA,65430,17.46921913599553,9.8
+U-2087,Chandigarh University (East),Uttar Pradesh,Private,326,False,A,2795926,3.605265200094277,0.13
+U-2088,Shiv Nadar University (Extension),Delhi,Private,146,False,AA,2795926,3.605265200094277,0.13
+U-2089,UPES Dehradun (Main),West Bengal,State,405,False,A,2795926,3.605265200094277,0.13
+U-2090,LPU (South),Telangana,State,54,True,AA,2795926,17.46921913599553,0.62
+U-2091,Reva University (Main),Punjab,Central,300,False,A,65430,3.605265200094277,5.51
+U-2092,PES University (South),Rajasthan,Central,393,False,A,65430,3.605265200094277,5.51
+U-2093,Jain University (East),West Bengal,Private,457,False,A,2795926,3.605265200094277,0.13
+U-2094,Kalinga Institute (South),Telangana,Central,183,False,A,65430,3.605265200094277,5.51
+U-2095,Jain University (North),West Bengal,Deemed,330,False,A,2795926,3.605265200094277,0.13
+U-2096,Reva University (Extension),Tamil Nadu,Central,319,False,A,65430,3.605265200094277,5.51
+U-2097,Thapar University (Main),Telangana,Deemed,235,False,A,2795926,3.605265200094277,0.13
+U-2098,UPES Dehradun (North),Karnataka,Deemed,51,True,AA,2795926,17.46921913599553,0.62
+U-2099,Christ University (South),Maharashtra,Central,98,True,AA,65430,17.46921913599553,9.8
+U-2100,LPU (South),Uttar Pradesh,Central,207,False,A,65430,3.605265200094277,5.51
+U-2101,Christ University (Main),Karnataka,Private,261,False,A,2795926,3.605265200094277,0.13
+U-2102,LPU (South),Punjab,Central,47,True,AA,65430,17.46921913599553,9.8
+U-2103,LPU (Extension),Tamil Nadu,State,204,False,A,2795926,3.605265200094277,0.13
+U-2104,Reva University (North),Punjab,Deemed,134,False,AA,2795926,3.605265200094277,0.13
+U-2105,Thapar University (Extension),West Bengal,Central,69,True,AA,65430,17.46921913599553,9.8
+U-2106,Jain University (Extension),Tamil Nadu,Central,129,False,AA,65430,3.605265200094277,5.51
+U-2107,NIT Surathkal (South),Delhi,Central,97,True,AA,65430,17.46921913599553,9.8
+U-2108,Symbiosis International (West),Karnataka,Central,33,True,AA,65430,17.46921913599553,9.8
+U-2109,Thapar University (Main),Tamil Nadu,Private,164,False,A,2795926,3.605265200094277,0.13
+U-2110,UPES Dehradun (Main),Uttar Pradesh,State,173,False,A,2795926,3.605265200094277,0.13
+U-2111,Jain University (East),Tamil Nadu,Central,348,False,A,65430,3.605265200094277,5.51
+U-2112,LPU (Extension),Delhi,Central,221,False,A,65430,3.605265200094277,5.51
+U-2113,Reva University (North),Delhi,Deemed,434,False,A,2795926,3.605265200094277,0.13
+U-2114,Chandigarh University (Extension),Delhi,Central,428,False,A,65430,3.605265200094277,5.51
+U-2115,Jain University (South),Gujarat,Deemed,370,False,A,2795926,3.605265200094277,0.13
+U-2116,PES University (West),Telangana,Central,447,False,A,65430,3.605265200094277,5.51
+U-2117,Thapar University (West),Gujarat,Deemed,430,False,A,2795926,3.605265200094277,0.13
+U-2118,Chandigarh University (Extension),Delhi,Central,313,False,A,65430,3.605265200094277,5.51
+U-2119,Shiv Nadar University (North),Maharashtra,Central,189,False,A,65430,3.605265200094277,5.51
+U-2120,Christ University (Extension),West Bengal,State,402,False,A,2795926,3.605265200094277,0.13
+U-2121,Amity University (Extension),Uttar Pradesh,Private,252,False,A,2795926,3.605265200094277,0.13
+U-2122,Jaypee Institute (Extension),Telangana,Central,88,True,AA,65430,17.46921913599553,9.8
+U-2123,UPES Dehradun (West),Rajasthan,Central,410,False,A,65430,3.605265200094277,5.51
+U-2124,Jaypee Institute (Extension),Maharashtra,State,251,False,A,2795926,3.605265200094277,0.13
+U-2125,Symbiosis International (West),Punjab,Private,369,False,A,2795926,3.605265200094277,0.13
+U-2126,Shiv Nadar University (Main),Delhi,Deemed,168,False,A,2795926,3.605265200094277,0.13
+U-2127,UPES Dehradun (East),Maharashtra,Central,127,False,AA,65430,3.605265200094277,5.51
+U-2128,PES University (Extension),Rajasthan,Deemed,102,False,AA,2795926,3.605265200094277,0.13
+U-2129,Kalinga Institute (West),Delhi,Central,322,False,A,65430,3.605265200094277,5.51
+U-2130,Shiv Nadar University (West),Punjab,Central,111,False,AA,65430,3.605265200094277,5.51
+U-2131,Amity University (West),Tamil Nadu,Private,347,False,A,2795926,3.605265200094277,0.13
+U-2132,NIT Trichy (Main),Rajasthan,State,301,False,A,2795926,3.605265200094277,0.13
+U-2133,Chandigarh University (North),Karnataka,Central,174,False,A,65430,3.605265200094277,5.51
+U-2134,Jain University (Main),Rajasthan,Central,145,False,AA,65430,3.605265200094277,5.51
+U-2135,PES University (Main),Tamil Nadu,Central,186,False,A,65430,3.605265200094277,5.51
+U-2136,Christ University (East),West Bengal,Central,480,False,A,65430,3.605265200094277,5.51
+U-2137,NIT Trichy (North),Tamil Nadu,Central,272,False,A,65430,3.605265200094277,5.51
+U-2138,LPU (Extension),Uttar Pradesh,Central,483,False,A,65430,3.605265200094277,5.51
+U-2139,Amity University (Main),Uttar Pradesh,State,35,True,AA,2795926,17.46921913599553,0.62
+U-2140,Shiv Nadar University (West),Uttar Pradesh,Private,168,False,A,2795926,3.605265200094277,0.13
+U-2141,Chandigarh University (West),Gujarat,State,146,False,AA,2795926,3.605265200094277,0.13
+U-2142,Jaypee Institute (West),Karnataka,Private,364,False,A,2795926,3.605265200094277,0.13
+U-2143,NIT Trichy (Main),Telangana,Deemed,453,False,A,2795926,3.605265200094277,0.13
+U-2144,Jaypee Institute (Extension),Tamil Nadu,Central,185,False,A,65430,3.605265200094277,5.51
+U-2145,Jain University (Main),Rajasthan,State,127,False,AA,2795926,3.605265200094277,0.13
+U-2146,UPES Dehradun (Main),Punjab,State,322,False,A,2795926,3.605265200094277,0.13
+U-2147,Kalinga Institute (Extension),West Bengal,Deemed,94,True,AA,2795926,17.46921913599553,0.62
+U-2148,Chandigarh University (Extension),Delhi,Private,418,False,A,2795926,3.605265200094277,0.13
+U-2149,Reva University (Main),Rajasthan,Central,92,True,AA,65430,17.46921913599553,9.8
+U-2150,Thapar University (Extension),Telangana,Private,223,False,A,2795926,3.605265200094277,0.13
+U-2151,PES University (West),Tamil Nadu,Central,217,False,A,65430,3.605265200094277,5.51
+U-2152,Jaypee Institute (Extension),Gujarat,Private,340,False,A,2795926,3.605265200094277,0.13
+U-2153,NIT Trichy (West),Telangana,Deemed,282,False,A,2795926,3.605265200094277,0.13
+U-2154,NIT Trichy (North),Telangana,Deemed,409,False,A,2795926,3.605265200094277,0.13
+U-2155,Reva University (Main),Gujarat,Private,220,False,A,2795926,3.605265200094277,0.13
+U-2156,Shiv Nadar University (North),Gujarat,State,73,True,AA,2795926,17.46921913599553,0.62
+U-2157,Reva University (East),Punjab,Private,118,False,AA,2795926,3.605265200094277,0.13
+U-2158,Kalinga Institute (South),Punjab,Deemed,453,False,A,2795926,3.605265200094277,0.13
+U-2159,Jain University (Main),West Bengal,Deemed,428,False,A,2795926,3.605265200094277,0.13
+U-2160,NIT Surathkal (Main),West Bengal,Central,489,False,A,65430,3.605265200094277,5.51
+U-2161,PES University (South),Gujarat,Deemed,479,False,A,2795926,3.605265200094277,0.13
+U-2162,Jaypee Institute (North),Gujarat,Central,345,False,A,65430,3.605265200094277,5.51
+U-2163,Chandigarh University (South),Rajasthan,Central,463,False,A,65430,3.605265200094277,5.51
+U-2164,Christ University (East),Telangana,State,329,False,A,2795926,3.605265200094277,0.13
+U-2165,NIT Trichy (North),Delhi,Deemed,391,False,A,2795926,3.605265200094277,0.13
+U-2166,Amity University (West),Gujarat,Private,495,False,A,2795926,3.605265200094277,0.13
+U-2167,NIT Trichy (West),Gujarat,Private,266,False,A,2795926,3.605265200094277,0.13
+U-2168,Jain University (West),Rajasthan,Deemed,262,False,A,2795926,3.605265200094277,0.13
+U-2169,Christ University (East),Rajasthan,Private,190,False,A,2795926,3.605265200094277,0.13
+U-2170,Chandigarh University (East),Punjab,Private,87,True,AA,2795926,17.46921913599553,0.62
+U-2171,NIT Trichy (West),Delhi,Private,390,False,A,2795926,3.605265200094277,0.13
+U-2172,Amity University (North),Gujarat,Deemed,281,False,A,2795926,3.605265200094277,0.13
+U-2173,Reva University (East),Punjab,State,484,False,A,2795926,3.605265200094277,0.13
+U-2174,Thapar University (North),Delhi,Central,440,False,A,65430,3.605265200094277,5.51
+U-2175,Chandigarh University (North),Uttar Pradesh,State,483,False,A,2795926,3.605265200094277,0.13
+U-2176,Chandigarh University (South),Tamil Nadu,State,409,False,A,2795926,3.605265200094277,0.13
+U-2177,Amity University (Extension),Uttar Pradesh,Deemed,129,False,AA,2795926,3.605265200094277,0.13
+U-2178,Thapar University (North),Rajasthan,State,66,True,AA,2795926,17.46921913599553,0.62
+U-2179,Jain University (South),Punjab,Central,165,False,A,65430,3.605265200094277,5.51
+U-2180,LPU (West),West Bengal,Deemed,139,False,AA,2795926,3.605265200094277,0.13
+U-2181,Amity University (Main),Uttar Pradesh,Private,162,False,A,2795926,3.605265200094277,0.13
+U-2182,Shiv Nadar University (Main),Rajasthan,State,124,False,AA,2795926,3.605265200094277,0.13
+U-2183,SRM University (East),Uttar Pradesh,Deemed,252,False,A,2795926,3.605265200094277,0.13
+U-2184,LPU (Main),Rajasthan,Private,200,False,A,2795926,3.605265200094277,0.13
+U-2185,Shiv Nadar University (South),Punjab,State,139,False,AA,2795926,3.605265200094277,0.13
+U-2186,Reva University (Main),Telangana,Private,305,False,A,2795926,3.605265200094277,0.13
+U-2187,Kalinga Institute (South),Karnataka,Deemed,114,False,AA,2795926,3.605265200094277,0.13
+U-2188,SRM University (Extension),Telangana,Private,45,True,AA,2795926,17.46921913599553,0.62
+U-2189,Reva University (Extension),Telangana,State,197,False,A,2795926,3.605265200094277,0.13
+U-2190,Symbiosis International (Extension),Karnataka,Private,179,False,A,2795926,3.605265200094277,0.13
+U-2191,Reva University (East),Punjab,Deemed,109,False,AA,2795926,3.605265200094277,0.13
+U-2192,NIT Trichy (North),Rajasthan,Deemed,358,False,A,2795926,3.605265200094277,0.13
+U-2193,UPES Dehradun (East),Delhi,Central,173,False,A,65430,3.605265200094277,5.51
+U-2194,Symbiosis International (Extension),Tamil Nadu,Deemed,147,False,AA,2795926,3.605265200094277,0.13
+U-2195,Christ University (North),Telangana,Central,189,False,A,65430,3.605265200094277,5.51
+U-2196,Christ University (North),Punjab,State,387,False,A,2795926,3.605265200094277,0.13
+U-2197,Christ University (North),Delhi,State,250,False,A,2795926,3.605265200094277,0.13
+U-2198,LPU (West),Karnataka,Deemed,456,False,A,2795926,3.605265200094277,0.13
+U-2199,NIT Trichy (Main),Gujarat,Deemed,220,False,A,2795926,3.605265200094277,0.13
+U-2200,UPES Dehradun (East),Rajasthan,Central,171,False,A,65430,3.605265200094277,5.51
+U-2201,NIT Trichy (East),Gujarat,Deemed,405,False,A,2795926,3.605265200094277,0.13
+U-2202,Kalinga Institute (Extension),West Bengal,Private,485,False,A,2795926,3.605265200094277,0.13
+U-2203,NIT Surathkal (South),Uttar Pradesh,Central,449,False,A,65430,3.605265200094277,5.51
+U-2204,Shiv Nadar University (Main),Delhi,State,223,False,A,2795926,3.605265200094277,0.13
+U-2205,Amity University (West),West Bengal,Central,58,True,AA,65430,17.46921913599553,9.8
+U-2206,PES University (West),Telangana,State,373,False,A,2795926,3.605265200094277,0.13
+U-2207,Shiv Nadar University (West),Tamil Nadu,Deemed,211,False,A,2795926,3.605265200094277,0.13
+U-2208,Amity University (North),West Bengal,Deemed,267,False,A,2795926,3.605265200094277,0.13
+U-2209,NIT Trichy (Extension),Karnataka,Private,266,False,A,2795926,3.605265200094277,0.13
+U-2210,Kalinga Institute (North),Maharashtra,Private,263,False,A,2795926,3.605265200094277,0.13
+U-2211,Amity University (North),Gujarat,Private,57,True,AA,2795926,17.46921913599553,0.62
+U-2212,UPES Dehradun (West),Karnataka,Deemed,275,False,A,2795926,3.605265200094277,0.13
+U-2213,Thapar University (West),Uttar Pradesh,Central,375,False,A,65430,3.605265200094277,5.51
+U-2214,UPES Dehradun (Extension),West Bengal,Central,137,False,AA,65430,3.605265200094277,5.51
+U-2215,Chandigarh University (Main),Gujarat,Private,297,False,A,2795926,3.605265200094277,0.13
+U-2216,NIT Surathkal (Extension),Karnataka,Private,262,False,A,2795926,3.605265200094277,0.13
+U-2217,UPES Dehradun (North),Telangana,Central,199,False,A,65430,3.605265200094277,5.51
+U-2218,Chandigarh University (West),Delhi,Central,186,False,A,65430,3.605265200094277,5.51
+U-2219,Symbiosis International (West),West Bengal,Central,224,False,A,65430,3.605265200094277,5.51
+U-2220,Symbiosis International (West),West Bengal,Private,284,False,A,2795926,3.605265200094277,0.13
+U-2221,NIT Trichy (East),Delhi,State,466,False,A,2795926,3.605265200094277,0.13
+U-2222,Chandigarh University (East),Tamil Nadu,Central,135,False,AA,65430,3.605265200094277,5.51
+U-2223,Jaypee Institute (Main),Delhi,Private,306,False,A,2795926,3.605265200094277,0.13
+U-2224,Jaypee Institute (West),Maharashtra,State,55,True,AA,2795926,17.46921913599553,0.62
+U-2225,NIT Surathkal (North),Punjab,Deemed,491,False,A,2795926,3.605265200094277,0.13
+U-2226,UPES Dehradun (Main),Delhi,Deemed,383,False,A,2795926,3.605265200094277,0.13
+U-2227,Kalinga Institute (West),Telangana,Deemed,440,False,A,2795926,3.605265200094277,0.13
+U-2228,Symbiosis International (South),Karnataka,Private,299,False,A,2795926,3.605265200094277,0.13
+U-2229,Reva University (Main),West Bengal,Private,216,False,A,2795926,3.605265200094277,0.13
+U-2230,Shiv Nadar University (North),Karnataka,State,417,False,A,2795926,3.605265200094277,0.13
+U-2231,Chandigarh University (Extension),Telangana,State,144,False,AA,2795926,3.605265200094277,0.13
+U-2232,Christ University (West),Tamil Nadu,Deemed,443,False,A,2795926,3.605265200094277,0.13
+U-2233,Amity University (North),Gujarat,Deemed,294,False,A,2795926,3.605265200094277,0.13
+U-2234,LPU (Main),Karnataka,Deemed,78,True,AA,2795926,17.46921913599553,0.62
+U-2235,Symbiosis International (North),Uttar Pradesh,State,82,True,AA,2795926,17.46921913599553,0.62
+U-2236,Kalinga Institute (Extension),Gujarat,Central,111,False,AA,65430,3.605265200094277,5.51
+U-2237,Amity University (West),Maharashtra,Deemed,357,False,A,2795926,3.605265200094277,0.13
+U-2238,Symbiosis International (Extension),Telangana,State,354,False,A,2795926,3.605265200094277,0.13
+U-2239,Shiv Nadar University (West),Uttar Pradesh,Deemed,197,False,A,2795926,3.605265200094277,0.13
+U-2240,Jain University (East),West Bengal,State,293,False,A,2795926,3.605265200094277,0.13
+U-2241,Christ University (South),Rajasthan,Deemed,369,False,A,2795926,3.605265200094277,0.13
+U-2242,SRM University (South),West Bengal,Central,123,False,AA,65430,3.605265200094277,5.51
+U-2243,PES University (West),Punjab,Private,368,False,A,2795926,3.605265200094277,0.13
+U-2244,Chandigarh University (East),Punjab,State,157,False,A,2795926,3.605265200094277,0.13
+U-2245,UPES Dehradun (South),Karnataka,State,213,False,A,2795926,3.605265200094277,0.13
+U-2246,Jain University (Main),Uttar Pradesh,Deemed,51,True,AA,2795926,17.46921913599553,0.62
+U-2247,Jaypee Institute (West),Maharashtra,Deemed,193,False,A,2795926,3.605265200094277,0.13
+U-2248,Jaypee Institute (Main),Uttar Pradesh,State,394,False,A,2795926,3.605265200094277,0.13
+U-2249,Thapar University (South),Gujarat,State,133,False,AA,2795926,3.605265200094277,0.13
+U-2250,SRM University (South),Delhi,Central,110,False,AA,65430,3.605265200094277,5.51
+U-2251,Jain University (Main),Karnataka,Deemed,348,False,A,2795926,3.605265200094277,0.13
+U-2252,SRM University (Extension),Delhi,Deemed,249,False,A,2795926,3.605265200094277,0.13
+U-2253,Christ University (South),Uttar Pradesh,Central,48,True,AA,65430,17.46921913599553,9.8
+U-2254,NIT Trichy (East),Tamil Nadu,Private,390,False,A,2795926,3.605265200094277,0.13
+U-2255,SRM University (North),Tamil Nadu,Deemed,64,True,AA,2795926,17.46921913599553,0.62
+U-2256,NIT Surathkal (Main),Delhi,Private,455,False,A,2795926,3.605265200094277,0.13
+U-2257,Shiv Nadar University (East),Rajasthan,Deemed,488,False,A,2795926,3.605265200094277,0.13
+U-2258,NIT Surathkal (North),Maharashtra,State,65,True,AA,2795926,17.46921913599553,0.62
+U-2259,Reva University (South),Karnataka,Deemed,80,True,AA,2795926,17.46921913599553,0.62
+U-2260,Reva University (South),Delhi,Private,421,False,A,2795926,3.605265200094277,0.13
+U-2261,PES University (Extension),Karnataka,Private,463,False,A,2795926,3.605265200094277,0.13
+U-2262,Shiv Nadar University (West),Rajasthan,Central,240,False,A,65430,3.605265200094277,5.51
+U-2263,PES University (East),Karnataka,Private,103,False,AA,2795926,3.605265200094277,0.13
+U-2264,SRM University (East),Uttar Pradesh,Private,51,True,AA,2795926,17.46921913599553,0.62
+U-2265,Jaypee Institute (South),Punjab,Deemed,223,False,A,2795926,3.605265200094277,0.13
+U-2266,Reva University (East),Maharashtra,Deemed,490,False,A,2795926,3.605265200094277,0.13
+U-2267,Reva University (West),Uttar Pradesh,Deemed,277,False,A,2795926,3.605265200094277,0.13
+U-2268,NIT Trichy (Extension),Gujarat,Deemed,161,False,A,2795926,3.605265200094277,0.13
+U-2269,Jaypee Institute (West),Punjab,Private,345,False,A,2795926,3.605265200094277,0.13
+U-2270,Shiv Nadar University (East),Uttar Pradesh,State,281,False,A,2795926,3.605265200094277,0.13
+U-2271,Chandigarh University (South),Delhi,Deemed,277,False,A,2795926,3.605265200094277,0.13
+U-2272,Reva University (Main),Karnataka,Deemed,280,False,A,2795926,3.605265200094277,0.13
+U-2273,NIT Surathkal (North),Gujarat,Deemed,397,False,A,2795926,3.605265200094277,0.13
+U-2274,Shiv Nadar University (Extension),Tamil Nadu,State,280,False,A,2795926,3.605265200094277,0.13
+U-2275,Shiv Nadar University (West),Tamil Nadu,State,109,False,AA,2795926,3.605265200094277,0.13
+U-2276,UPES Dehradun (North),Karnataka,Deemed,83,True,AA,2795926,17.46921913599553,0.62
+U-2277,Jaypee Institute (West),Delhi,State,476,False,A,2795926,3.605265200094277,0.13
+U-2278,LPU (Main),Uttar Pradesh,Private,100,False,AA,2795926,3.605265200094277,0.13
+U-2279,UPES Dehradun (Main),Delhi,Central,238,False,A,65430,3.605265200094277,5.51
+U-2280,UPES Dehradun (East),Tamil Nadu,Private,77,True,AA,2795926,17.46921913599553,0.62
+U-2281,Thapar University (Main),Maharashtra,State,143,False,AA,2795926,3.605265200094277,0.13
+U-2282,Symbiosis International (North),West Bengal,Private,248,False,A,2795926,3.605265200094277,0.13
+U-2283,Jain University (South),Karnataka,Central,87,True,AA,65430,17.46921913599553,9.8
+U-2284,Thapar University (North),West Bengal,State,40,True,AA,2795926,17.46921913599553,0.62
+U-2285,LPU (South),Maharashtra,Central,299,False,A,65430,3.605265200094277,5.51
+U-2286,Symbiosis International (Main),Uttar Pradesh,State,305,False,A,2795926,3.605265200094277,0.13
+U-2287,LPU (North),Maharashtra,Private,70,True,AA,2795926,17.46921913599553,0.62
+U-2288,Amity University (Extension),Uttar Pradesh,State,32,True,AA,2795926,17.46921913599553,0.62
+U-2289,Jaypee Institute (East),Maharashtra,State,263,False,A,2795926,3.605265200094277,0.13
+U-2290,Reva University (North),Telangana,Private,300,False,A,2795926,3.605265200094277,0.13
+U-2291,Kalinga Institute (Main),Punjab,Deemed,169,False,A,2795926,3.605265200094277,0.13
+U-2292,Symbiosis International (West),Tamil Nadu,State,158,False,A,2795926,3.605265200094277,0.13
+U-2293,Symbiosis International (South),Delhi,Deemed,305,False,A,2795926,3.605265200094277,0.13
+U-2294,Thapar University (North),Uttar Pradesh,State,260,False,A,2795926,3.605265200094277,0.13
+U-2295,Jaypee Institute (South),Punjab,State,486,False,A,2795926,3.605265200094277,0.13
+U-2296,UPES Dehradun (Extension),Maharashtra,Deemed,176,False,A,2795926,3.605265200094277,0.13
+U-2297,PES University (South),Tamil Nadu,Deemed,202,False,A,2795926,3.605265200094277,0.13
+U-2298,UPES Dehradun (West),West Bengal,State,318,False,A,2795926,3.605265200094277,0.13
+U-2299,Reva University (North),Rajasthan,Private,409,False,A,2795926,3.605265200094277,0.13

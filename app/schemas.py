@@ -110,6 +110,13 @@ class ScenarioResult(BaseModel):
     interest_saved: Decimal
     months_saved: int
 
+class ScenarioComparisonRequest(BaseModel):
+    loan_amount: Decimal
+    interest_rate: Decimal
+    tenure_years: int
+    family_income: Decimal
+    course_duration: int
+
 class ScenarioComparisonResponse(BaseModel):
     scenarios: List[ScenarioResult]
 

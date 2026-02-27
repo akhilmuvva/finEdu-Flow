@@ -6,12 +6,13 @@ from decimal import Decimal
 from jose import JWTError, jwt
 from datetime import timedelta
 
-from app.database import engine, get_db, Base
+from app.database import engine, get_db, Base, SessionLocal
 from app import models, schemas, auth
 from app.services.calculator import LoanCalculator
 from app.services.reports import PDFReportProvider
 from app.services.forex import ForexService
 from fastapi.responses import StreamingResponse
+from fastapi.middleware.cors import CORSMiddleware
 import json
 
 # Initialize DB Tables
@@ -21,6 +22,15 @@ app = FastAPI(
     title="FinnEDu - Premium FinTech Backend",
     description="Advanced Education Loan Logic with JWT Security (2026 Compliance)",
     version="1.3.0"
+)
+
+# Enable CORS for Frontend Communication
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], # In production, replace with specific origins
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")

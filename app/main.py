@@ -159,25 +159,35 @@ def get_my_loans(db: Session = Depends(get_db), current_user: models.User = Depe
 
 @app.post("/simulate", response_model=schemas.RepaymentSimulationResponse)
 def simulate_loan(request: schemas.RepaymentSimulationRequest, db: Session = Depends(get_db)):
-    # Try to find university in DB to determine category-based rate
+    # Try to find university in DB
     university = None
-    if request.university_name:
-        university = db.query(models.University).filter(models.University.name == request.university_name).first()
+    forex_rate = Decimal('1.00')
+    currency = "INR"
     
-    # If found, use category rate, else use default spread
-    if university:
-        effective_rate = Decimal(str(university.base_interest_rate))
-        is_qhei_val = university.is_qhei
+    if request.is_foreign:
+        university = db.query(models.ForeignInstitution).filter(models.ForeignInstitution.name == request.university_name).first()
+        if university:
+            forex_rate = ForexService.get_rate(db, university.currency)
+            currency = university.currency
+            effective_rate = RLLR_BASE + Decimal('2.50') # Standard International Spread
+            is_qhei_val = False # Usually domestic subventions don't apply fully to foreign
     else:
-        effective_rate = RLLR_BASE + DEFAULT_SPREAD
-        is_qhei_val = False
+        university = db.query(models.University).filter(models.University.name == request.university_name).first()
+        if university:
+            effective_rate = Decimal(str(university.base_interest_rate))
+            is_qhei_val = university.is_qhei
+        else:
+            effective_rate = RLLR_BASE + DEFAULT_SPREAD
+            is_qhei_val = False
 
     calc = LoanCalculator(
         loan_amount=request.loan_amount,
         interest_rate=effective_rate,
         course_duration_years=request.course_duration,
         family_income=request.family_income,
-        is_qhei=is_qhei_val
+        is_qhei=is_qhei_val,
+        currency=currency,
+        forex_rate=forex_rate
     )
     
     subv = calc.calculate_subventions()

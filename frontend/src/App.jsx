@@ -31,6 +31,9 @@ const API_BASE_URL = 'http://localhost:8000';
 
 function App() {
   const [universities, setUniversities] = useState([]);
+  const [foreignUnivs, setForeignUnivs] = useState([]);
+  const [forexRates, setForexRates] = useState([]);
+  const [isForeign, setIsForeign] = useState(false);
   const [selectedUniv, setSelectedUniv] = useState(null);
   const [loanAmount, setLoanAmount] = useState(1000000);
   const [courseDuration, setCourseDuration] = useState(4);
@@ -40,18 +43,39 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetchUniversities();
+    fetchData();
   }, []);
 
-  const fetchUniversities = async () => {
+  const fetchData = async () => {
     try {
-      const res = await axios.get(`${API_BASE_URL}/universities`);
-      setUniversities(res.data);
-      if (res.data.length > 0) setSelectedUniv(res.data[0]);
+      const [uRes, fRes, fxRes] = await Promise.all([
+        axios.get(`${API_BASE_URL}/universities`),
+        axios.get(`${API_BASE_URL}/foreign-universities`),
+        axios.get(`${API_BASE_URL}/forex`)
+      ]);
+      setUniversities(uRes.data);
+      setForeignUnivs(fRes.data);
+      setForexRates(fxRes.data);
+
+      if (uRes.data.length > 0) setSelectedUniv(uRes.data[0]);
     } catch (err) {
-      console.error("Error fetching universities", err);
+      console.error("Error fetching data", err);
     }
   };
+
+  useEffect(() => {
+    if (isForeign) {
+      if (foreignUnivs.length > 0) {
+        setSelectedUniv(foreignUnivs[0]);
+        setLoanAmount(foreignUnivs[0].avg_tuition_annual);
+      }
+    } else {
+      if (universities.length > 0) {
+        setSelectedUniv(universities[0]);
+        setLoanAmount(1000000);
+      }
+    }
+  }, [isForeign, foreignUnivs, universities]);
 
   const runSimulation = async () => {
     setLoading(true);
@@ -62,6 +86,7 @@ function App() {
         family_income: familyIncome,
         tenure_years: tenure,
         university_name: selectedUniv?.name,
+        is_foreign: isForeign,
         extra_emi_per_year: 0
       });
       setSimulation(res.data);
@@ -71,6 +96,8 @@ function App() {
       setLoading(false);
     }
   };
+
+  const getForex = (currency) => forexRates.find(r => r.base_currency === currency)?.rate || 1;
 
   return (
     <div className="min-h-screen bg-gray-950 text-white font-sans selection:bg-primary-500/30">
@@ -169,6 +196,23 @@ function App() {
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">The Prediction <span className="text-primary-500">Engine</span></h2>
           <p className="text-gray-400">Adjust parameters to see 2026-compliant repayment schedules.</p>
+
+          <div className="flex justify-center mt-8">
+            <div className="bg-gray-900/50 p-1 rounded-2xl border border-white/5 flex gap-1">
+              <button
+                onClick={() => setIsForeign(false)}
+                className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${!isForeign ? 'bg-primary-600 text-white shadow-lg shadow-primary-500/20' : 'text-gray-500 hover:text-white'}`}
+              >
+                Domestic (INR)
+              </button>
+              <button
+                onClick={() => setIsForeign(true)}
+                className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${isForeign ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/20' : 'text-gray-500 hover:text-white'}`}
+              >
+                International
+              </button>
+            </div>
+          </div>
         </div>
 
         <div className="grid lg:grid-cols-12 gap-8 items-start">
@@ -176,35 +220,70 @@ function App() {
           <div className="lg:col-span-5 space-y-6">
             <div className="p-8 glass-card rounded-3xl space-y-8">
               <div>
-                <label className="block text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Target University</label>
+                <label className="block text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">
+                  {isForeign ? 'Foreign Institution' : 'Target University'}
+                </label>
                 <select
                   className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary-500 outline-none transition-all"
-                  value={selectedUniv?.aishe_code}
-                  onChange={(e) => setSelectedUniv(universities.find(u => u.aishe_code === e.target.value))}
+                  value={selectedUniv?.id || ''}
+                  onChange={(e) => {
+                    const id = parseInt(e.target.value);
+                    const list = isForeign ? foreignUnivs : universities;
+                    const univ = list.find(u => u.id === id);
+                    setSelectedUniv(univ);
+                    if (isForeign && univ) setLoanAmount(univ.avg_tuition_annual);
+                  }}
                 >
-                  {universities.map(u => (
-                    <option key={u.aishe_code} value={u.aishe_code}>{u.name}</option>
+                  {(isForeign ? foreignUnivs : universities).map(u => (
+                    <option key={u.id} value={u.id}>{u.name} {isForeign ? `(${u.country})` : ''}</option>
                   ))}
                 </select>
                 {selectedUniv && (
-                  <div className="mt-3 flex gap-2">
-                    <span className="px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[10px] font-bold text-gray-400">{selectedUniv.pmvl_category} CATEGORY</span>
-                    <span className="px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[10px] font-bold text-gray-400">NIRF rank #{selectedUniv.nirf_2026}</span>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {!isForeign && (
+                      <>
+                        <span className="px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[10px] font-bold text-gray-400 uppercase">{selectedUniv.pmvl_category} CATEGORY</span>
+                        <span className="px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[10px] font-bold text-gray-400">NIRF rank #{selectedUniv.nirf_2026}</span>
+                      </>
+                    )}
+                    {isForeign && (
+                      <>
+                        <span className="px-2 py-0.5 rounded-md bg-indigo-500/10 border border-indigo-500/20 text-[10px] font-bold text-indigo-400 uppercase">{selectedUniv.currency} CURRENCY</span>
+                        <span className="px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[10px] font-bold text-gray-400">QS rank #{selectedUniv.ranking_qs}</span>
+                      </>
+                    )}
                   </div>
                 )}
               </div>
 
               <div>
                 <div className="flex justify-between items-center mb-4">
-                  <label className="text-sm font-bold text-gray-400 uppercase tracking-widest">Loan Amount</label>
-                  <span className="text-lg font-bold">₹{(loanAmount / 100000).toFixed(1)}L</span>
+                  <label className="text-sm font-bold text-gray-400 uppercase tracking-widest">
+                    {isForeign ? `Tuition Amount (${selectedUniv?.currency})` : 'Loan Amount'}
+                  </label>
+                  <span className="text-lg font-bold">
+                    {isForeign ? `${selectedUniv?.currency} ` : '₹'}
+                    {isForeign ? loanAmount.toLocaleString() : (loanAmount / 100000).toFixed(1) + 'L'}
+                  </span>
                 </div>
                 <input
-                  type="range" min="100000" max="4000000" step="50000"
+                  type="range"
+                  min={isForeign ? "1000" : "100000"}
+                  max={isForeign ? "100000" : "4000000"}
+                  step={isForeign ? "500" : "50000"}
                   className="w-full h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-primary-500"
                   value={loanAmount}
                   onChange={(e) => setLoanAmount(parseInt(e.target.value))}
                 />
+                {isForeign && (
+                  <div className="mt-4 p-4 bg-indigo-900/10 border border-indigo-500/20 rounded-2xl flex justify-between items-center">
+                    <div className="flex items-center gap-3">
+                      <TrendingUp size={16} className="text-indigo-400" />
+                      <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Forex Value (2026)</span>
+                    </div>
+                    <span className="text-sm font-black text-indigo-400">₹{(loanAmount * getForex(selectedUniv?.currency)).toLocaleString()}</span>
+                  </div>
+                )}
               </div>
 
               <div className="grid grid-cols-2 gap-4">
@@ -392,8 +471,8 @@ function App() {
                     </td>
                     <td className="py-6 px-4">
                       <span className={`px-3 py-1 rounded-full text-[10px] font-bold ${u.pmvl_category === 'AAA' ? 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30' :
-                          u.pmvl_category === 'AA' ? 'bg-primary-500/20 text-primary-400 border border-primary-500/30' :
-                            'bg-gray-500/20 text-gray-400 border border-gray-500/30'
+                        u.pmvl_category === 'AA' ? 'bg-primary-500/20 text-primary-400 border border-primary-500/30' :
+                          'bg-gray-500/20 text-gray-400 border border-gray-500/30'
                         }`}>
                         {u.pmvl_category} GRADE
                       </span>

@@ -90,6 +90,8 @@ class RepaymentSimulationRequest(BaseModel):
     extra_emi_per_year: int = 0
     family_income: Decimal
     course_duration: int
+    university_name: Optional[str] = None
+    is_foreign: bool = False
 
 class RepaymentSimulationResponse(BaseModel):
     emi: Decimal

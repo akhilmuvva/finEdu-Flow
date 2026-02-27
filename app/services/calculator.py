@@ -9,9 +9,16 @@ class LoanCalculator:
         interest_rate: Decimal, 
         course_duration_years: int, 
         family_income: Decimal,
-        is_qhei: bool = False
+        is_qhei: bool = False,
+        currency: str = "INR",
+        forex_rate: Decimal = Decimal('1.00')
     ):
-        self.loan_amount = loan_amount
+        # Data Engineer Mandate: Convert foreign tuition to INR immediately
+        self.loan_amount_inr = loan_amount * forex_rate
+        self.original_loan_amount = loan_amount
+        self.currency = currency
+        self.forex_rate = forex_rate
+        
         # Data Engineer Mandate: RLLR benchmarking (6.5% base)
         self.rllr_benchmark = Decimal('6.50')
         self.annual_rate = interest_rate / Decimal('100')
@@ -65,7 +72,7 @@ class LoanCalculator:
             effective_annual_rate -= Decimal('0.03')
             
         # P * R * T (Simple Interest)
-        interest = self.loan_amount * effective_annual_rate * Decimal(str(self.moratorium_years))
+        interest = self.loan_amount_inr * effective_annual_rate * Decimal(str(self.moratorium_years))
         return self._round(interest)
 
     def calculate_emi(self, tenure_years: int) -> Dict[str, Decimal]:
@@ -73,7 +80,7 @@ class LoanCalculator:
         Post-moratorium Compounding EMI.
         """
         moratorium_interest = self.calculate_moratorium_interest()
-        total_principal = self.loan_amount + moratorium_interest
+        total_principal = self.loan_amount_inr + moratorium_interest
         
         n_periods = tenure_years * 12
         

@@ -91,12 +91,17 @@ def save_loan(
     db: Session = Depends(get_db), 
     current_user: models.User = Depends(get_current_user)
 ):
+    # Determine spread based on Tier
+    spread = TIER_SPREADS.get(loan_in.university_tier, DEFAULT_SPREAD)
+    effective_rate = RLLR_BASE + spread
+
     # Use the Calculator to compute 2026 Compliance Metadata
     calc = LoanCalculator(
         loan_amount=loan_in.principal_amount,
-        interest_rate=loan_in.interest_rate,
+        interest_rate=effective_rate,
         course_duration_years=loan_in.course_duration_years,
-        family_income=current_user.family_income
+        family_income=current_user.family_income,
+        is_qhei=True if loan_in.university_tier in ["Tier 1", "Tier 2", "Tier 3"] else False # NIRF Top 100 condition
     )
     
     subv_info = calc.calculate_subventions()
@@ -106,7 +111,9 @@ def save_loan(
     new_loan = models.Loan(
         user_id=current_user.id,
         principal_amount=loan_in.principal_amount,
-        interest_rate=loan_in.interest_rate,
+        interest_rate=effective_rate,
+        university_name=loan_in.university_name,
+        university_tier=loan_in.university_tier,
         course_duration_years=loan_in.course_duration_years,
         tenure_years=loan_in.tenure_years,
         subvention_type=subv_info["label"],
@@ -232,7 +239,9 @@ def get_loan_report(
         "principal_amount": loan.principal_amount,
         "interest_rate": loan.interest_rate,
         "course_duration_years": loan.course_duration_years,
-        "subvention_type": loan.subvention_type
+        "subvention_type": loan.subvention_type,
+        "university_name": loan.university_name,
+        "university_tier": loan.university_tier
     }
     
     repayment_summary = {

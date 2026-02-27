@@ -35,6 +35,8 @@ class Loan(Base):
     interest_rate = Column(Numeric(precision=5, scale=2))
     course_duration_years = Column(Integer)
     tenure_years = Column(Integer)
+    university_name = Column(String, nullable=True)
+    university_tier = Column(String, nullable=True)
     
     # 2026 Compliance Metadata
     subvention_type = Column(String) # CSIS, PM-Vidyalaxmi, or None

@@ -1,72 +1,202 @@
 [
     {
         "name": "IIT Madras",
+        "tier": "Tier 1",
         "rank": 1,
-        "fees": 850000,
-        "avg_placement": 21.48,
+        "fees": 1500000,
+        "avg_placement": 21.0,
         "qhei": true
     },
     {
         "name": "IIT Delhi",
+        "tier": "Tier 1",
         "rank": 2,
-        "fees": 850000,
-        "avg_placement": 25.82,
+        "fees": 1500000,
+        "avg_placement": 25.8,
         "qhei": true
     },
     {
         "name": "IIT Bombay",
+        "tier": "Tier 1",
         "rank": 3,
-        "fees": 900000,
-        "avg_placement": 23.50,
+        "fees": 1600000,
+        "avg_placement": 23.5,
         "qhei": true
     },
     {
         "name": "IIT Kanpur",
+        "tier": "Tier 1",
         "rank": 4,
-        "fees": 850000,
-        "avg_placement": 22.00,
+        "fees": 1500000,
+        "avg_placement": 22.0,
         "qhei": true
     },
     {
         "name": "IIT Kharagpur",
+        "tier": "Tier 1",
         "rank": 5,
-        "fees": 850000,
-        "avg_placement": 21.00,
+        "fees": 1500000,
+        "avg_placement": 21.0,
+        "qhei": true
+    },
+    {
+        "name": "NIT Trichy",
+        "tier": "Tier 1",
+        "rank": 9,
+        "fees": 900000,
+        "avg_placement": 14.5,
+        "qhei": true
+    },
+    {
+        "name": "BITS Pilani",
+        "tier": "Tier 1",
+        "rank": 25,
+        "fees": 2500000,
+        "avg_placement": 20.0,
         "qhei": true
     },
     {
         "name": "IIT Roorkee",
+        "tier": "Tier 1",
         "rank": 6,
-        "fees": 887300,
-        "avg_placement": 18.00,
+        "fees": 1550000,
+        "avg_placement": 18.0,
+        "qhei": true
+    },
+    {
+        "name": "NIT Surathkal",
+        "tier": "Tier 1",
+        "rank": 12,
+        "fees": 900000,
+        "avg_placement": 13.0,
         "qhei": true
     },
     {
         "name": "IIT Hyderabad",
+        "tier": "Tier 1",
         "rank": 7,
-        "fees": 850000,
-        "avg_placement": 20.00,
+        "fees": 1500000,
+        "avg_placement": 20.0,
         "qhei": true
     },
     {
-        "name": "IIT Guwahati",
-        "rank": 8,
-        "fees": 854000,
-        "avg_placement": 25.00,
+        "name": "VIT Vellore",
+        "tier": "Tier 2",
+        "rank": 11,
+        "fees": 1800000,
+        "avg_placement": 9.0,
         "qhei": true
     },
     {
-        "name": "NIT Tiruchirappalli",
-        "rank": 9,
-        "fees": 700000,
-        "avg_placement": 18.00,
+        "name": "MIT Manipal",
+        "tier": "Tier 2",
+        "rank": 61,
+        "fees": 2200000,
+        "avg_placement": 12.3,
         "qhei": true
     },
     {
-        "name": "IIT (BHU) Varanasi",
+        "name": "NIT Warangal",
+        "tier": "Tier 2",
+        "rank": 21,
+        "fees": 900000,
+        "avg_placement": 16.0,
+        "qhei": true
+    },
+    {
+        "name": "Thapar University",
+        "tier": "Tier 2",
+        "rank": 40,
+        "fees": 2000000,
+        "avg_placement": 10.5,
+        "qhei": true
+    },
+    {
+        "name": "Anna University (CEG)",
+        "tier": "Tier 2",
+        "rank": 15,
+        "fees": 400000,
+        "avg_placement": 9.5,
+        "qhei": true
+    },
+    {
+        "name": "Jadavpur University",
+        "tier": "Tier 2",
         "rank": 10,
-        "fees": 850000,
-        "avg_placement": 20.00,
+        "fees": 40000,
+        "avg_placement": 11.0,
+        "qhei": true
+    },
+    {
+        "name": "Amrita Vishwa Vidyapeetham",
+        "tier": "Tier 2",
+        "rank": 19,
+        "fees": 1400000,
+        "avg_placement": 8.5,
+        "qhei": true
+    },
+    {
+        "name": "SRM University",
+        "tier": "Tier 3",
+        "rank": 13,
+        "fees": 1800000,
+        "avg_placement": 7.2,
+        "qhei": true
+    },
+    {
+        "name": "LPU",
+        "tier": "Tier 3",
+        "rank": 50,
+        "fees": 1600000,
+        "avg_placement": 7.0,
+        "qhei": true
+    },
+    {
+        "name": "VJTI Mumbai",
+        "tier": "Tier 3",
+        "rank": 101,
+        "fees": 400000,
+        "avg_placement": 13.0,
+        "qhei": true
+    },
+    {
+        "name": "COEP Pune",
+        "tier": "Tier 3",
+        "rank": 77,
+        "fees": 600000,
+        "avg_placement": 11.3,
+        "qhei": true
+    },
+    {
+        "name": "RVCE Bangalore",
+        "tier": "Tier 3",
+        "rank": 95,
+        "fees": 1200000,
+        "avg_placement": 10.0,
+        "qhei": true
+    },
+    {
+        "name": "KIIT Bhubaneswar",
+        "tier": "Tier 3",
+        "rank": 39,
+        "fees": 1500000,
+        "avg_placement": 7.5,
+        "qhei": true
+    },
+    {
+        "name": "Amity University",
+        "tier": "Tier 3",
+        "rank": 35,
+        "fees": 1400000,
+        "avg_placement": 6.5,
+        "qhei": true
+    },
+    {
+        "name": "Chandigarh University",
+        "tier": "Tier 3",
+        "rank": 27,
+        "fees": 1000000,
+        "avg_placement": 7.0,
         "qhei": true
     }
 ]

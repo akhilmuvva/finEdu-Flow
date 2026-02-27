@@ -37,8 +37,9 @@ class PDFReportProvider:
         # Loan Parameters Table
         data = [
             ["Parameter", "Value"],
-            ["Original Loan Amount", f"INR {loan_details['principal_amount']:,.2f}"],
-            ["Interest Rate", f"{loan_details['interest_rate']}%"],
+            ["Institution", f"{loan_details.get('university_name', 'N/A')} ({loan_details.get('university_tier', 'General')})"],
+            ["Original Principal", f"INR {loan_details['principal_amount']:,.2f}"],
+            ["Interest Rate", f"{loan_details['interest_rate']}% (RLLR Based)"],
             ["Course Duration", f"{loan_details['course_duration_years']} Years"],
             ["Subvention Type", loan_details['subvention_type']]
         ]

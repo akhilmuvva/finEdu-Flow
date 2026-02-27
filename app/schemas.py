@@ -59,8 +59,10 @@ class StrategyResponse(StrategyBase):
 class LoanBase(BaseModel):
     principal_amount: Decimal = Field(..., gt=0)
     interest_rate: Decimal = Field(..., gt=0)
-    course_duration_years: int = Field(..., gt=0)
+    course_duration_years: int = Field(..., ge=0)
     tenure_years: int = Field(..., gt=0)
+    university_name: Optional[str] = None
+    university_tier: Optional[str] = None
 
 class LoanCreate(LoanBase):
     user_id: int
@@ -68,6 +70,8 @@ class LoanCreate(LoanBase):
 class LoanResponse(LoanBase):
     id: int
     user_id: int
+    university_name: Optional[str]
+    university_tier: Optional[str]
     subvention_type: str
     moratorium_interest: Decimal
     capitalized_principal: Decimal

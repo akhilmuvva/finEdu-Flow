@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import axios from 'axios';
 import { animate, stagger } from 'animejs';
 import { FixedSizeList as List } from 'react-window';
@@ -58,22 +58,35 @@ interface ForeignUniv {
     avg_tuition_annual: number;
 }
 
+// Shape returned by POST /api/calculate
 interface SimulationResult {
+    // Core numbers
     emi: number;
-    total_principal: number;
-    effective_interest_rate: number;          // NEW: backend-computed post-subvention rate
-    subvention_type: string;                  // NEW: 'Tier 1: 100% CSIS' | 'Tier 2: 3% PMVL' | 'Standard'
-    subvention_details: { label: string; csis_eligible: boolean; vidyalaxmi_eligible: boolean; subvention_rate_reduction: number };
+    total_interest: number;              // renamed from total_interest_paid
+    moratorium_interest: number;
+    capitalized_principal: number;
+    effective_rate: number;              // post-subvention % p.a.
+    // Subsidy
+    subsidy_status: string;              // 'CSIS' | 'PM-Vidyalaxmi' | 'Standard'
+    csis_eligible: boolean;
+    vidyalaxmi_eligible: boolean;
+    // Tax & Misc
     tax_benefit_80E: number;
     months_saved: number;
-    total_interest_paid: number;
-    repayment_schedule: any[];
-    recommendations: { strategy: string; impact: string; description: string }[];
     tcs_amount: number;
     tcs_details: string;
+    // Keep compat fields for legacy /simulate responses
+    total_interest_paid?: number;
+    effective_interest_rate?: number;
+    subvention_type?: string;
+    subvention_details?: { label: string; csis_eligible: boolean; vidyalaxmi_eligible: boolean; subvention_rate_reduction: number };
+    repayment_schedule?: any[];
+    recommendations?: { strategy: string; impact: string; description: string }[];
 }
 
 export default function App() {
+    // Master university list (loaded once on mount - used for local filtering)
+    const [allUniversities, setAllUniversities] = useState<University[]>([]);
     const [universities, setUniversities] = useState<University[]>([]);
     const [foreignUnivs, setForeignUnivs] = useState<ForeignUniv[]>([]);
     const [isForeign, setIsForeign] = useState(false);
@@ -91,6 +104,14 @@ export default function App() {
     const [displayInterest, setDisplayInterest] = useState(0);
     const [displayTax, setDisplayTax] = useState(0);
     const displayEmiRef = useRef({ val: 0, interest: 0, tax: 0 });
+
+    // Zero-latency local filter using useMemo — no network round-trip needed
+    const filteredUniversities = useMemo(() => {
+        if (uniFilter === 'All') return allUniversities;
+        return allUniversities.filter(u =>
+            u.type?.toLowerCase().includes(uniFilter.toLowerCase())
+        );
+    }, [allUniversities, uniFilter]);
 
     const animateEmi = (targetEmi: number, targetInterest: number, targetTax: number) => {
         // animejs v4 targets DOM elements; use rAF for plain object interpolation
@@ -183,7 +204,8 @@ export default function App() {
                 axios.get(`${API_BASE_URL}/universities`),
                 axios.get(`${API_BASE_URL}/foreign-universities`)
             ]);
-            setUniversities(uRes.data);
+            setAllUniversities(uRes.data);   // master list for local filter
+            setUniversities(uRes.data);       // display list (kept in sync)
             setForeignUnivs(fRes.data);
             if (uRes.data.length > 0) setSelectedUniv(uRes.data[0]);
         } catch (err) {
@@ -191,42 +213,36 @@ export default function App() {
         }
     };
 
-    const fetchUniversitiesByType = async (filterType: string) => {
-        try {
-            const params: any = {};
-            if (filterType !== 'All') params.type = filterType;
-            const res = await axios.get(`${API_BASE_URL}/universities`, { params });
-            setUniversities(res.data);
-            if (res.data.length > 0) setSelectedUniv(res.data[0]);
-        } catch (err) {
-            console.error('Filter fetch failed', err);
-        }
-    };
-
     const runSimulation = async () => {
         setLoading(true);
         setApiError(null);
-        // Reset display values so ticker always starts from 0
         displayEmiRef.current = { val: 0, interest: 0, tax: 0 };
         setDisplayEmi(0); setDisplayInterest(0); setDisplayTax(0);
         try {
-            const res = await axios.post(`${API_BASE_URL}/simulate`, {
-                loan_amount: loanAmount,
+            // POST /api/calculate — all numbers are Number() to guarantee integer/float (not string)
+            const res = await axios.post(`${API_BASE_URL}/api/calculate`, {
+                loan_amount: Number(loanAmount),
+                family_income: Number(familyIncome),
                 course_duration: 4,
-                family_income: familyIncome,
-                tenure_years: tenure,
-                university_name: selectedUniv?.name,
-                is_foreign: isForeign,
-                extra_emi_per_year: 0
+                tenure_years: Number(tenure),
+                university_name: selectedUniv?.name ?? null,
+                is_foreign: Boolean(isForeign),
             });
-            setSimulation(res.data);
-            animateEmi(res.data.emi, res.data.total_interest_paid, res.data.tax_benefit_80E);
+            const data: SimulationResult = res.data;
+            setSimulation(data);
+            // Map /api/calculate field names to the ticker animator
+            animateEmi(
+                data.emi,
+                data.total_interest,
+                data.tax_benefit_80E
+            );
         } catch (err: any) {
-            const msg = err?.response?.data?.detail
-                ? JSON.stringify(err.response.data.detail)
-                : err?.message || 'Backend unreachable. Is the FastAPI server running on port 8000?';
+            const detail = err?.response?.data?.detail;
+            const msg = detail
+                ? (typeof detail === 'string' ? detail : JSON.stringify(detail))
+                : err?.message || 'Backend unreachable — is FastAPI running on port 8000?';
             setApiError(msg);
-            console.error('Simulation error:', err);
+            console.error('Simulation error:', err?.response?.data || err);
         } finally {
             setLoading(false);
         }
@@ -335,7 +351,11 @@ export default function App() {
                                             key={type}
                                             onClick={() => {
                                                 setUniFilter(type);
-                                                fetchUniversitiesByType(type);
+                                                // useMemo filteredUniversities updates instantly — no API call needed
+                                                const next = type === 'All'
+                                                    ? allUniversities
+                                                    : allUniversities.filter(u => u.type?.toLowerCase().includes(type.toLowerCase()));
+                                                if (next.length > 0) setSelectedUniv(next[0]);
                                             }}
                                             className={cn(
                                                 "px-3 py-1 rounded-lg text-[10px] font-bold uppercase transition-all whitespace-nowrap border",
@@ -352,7 +372,7 @@ export default function App() {
                         </div>
                         <div className="h-[400px]">
                             {(() => {
-                                const displayList = isForeign ? foreignUnivs : universities;
+                                const displayList = isForeign ? foreignUnivs : filteredUniversities;
                                 return (
                                     <List
                                         height={400}
@@ -445,8 +465,8 @@ export default function App() {
                                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                                         <div>
                                             <h2 className="text-2xl font-black italic uppercase tracking-tighter">Execution Deck</h2>
-                                            {/* PM-Vidyalaxmi Subsidy Badge */}
-                                            {simulation.subvention_details.vidyalaxmi_eligible && (
+                                            {/* PM-Vidyalaxmi Subsidy Badge — uses top-level vidyalaxmi_eligible */}
+                                            {simulation.vidyalaxmi_eligible && (
                                                 <div className="subsidy-badge-animate mt-2 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl
                                                     bg-purple-950/50 border border-purple-500/40
                                                     shadow-[0_0_20px_rgba(168,85,247,0.35)]
@@ -458,7 +478,7 @@ export default function App() {
                                                     </span>
                                                 </div>
                                             )}
-                                            {simulation.subvention_details.csis_eligible && (
+                                            {simulation.csis_eligible && (
                                                 <div className="subsidy-badge-animate mt-2 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl
                                                     bg-emerald-950/50 border border-emerald-500/40
                                                     shadow-[0_0_20px_rgba(52,211,153,0.35)]
@@ -474,16 +494,14 @@ export default function App() {
                                         <div className="flex items-center gap-3">
                                             <span className="text-[10px] uppercase font-bold text-gray-400">Effective Int. Rate</span>
                                             <div className="flex gap-2 items-center px-4 py-2 bg-slate-900 border border-white/5 rounded-xl">
-                                                {simulation.subvention_type && simulation.subvention_type !== 'Standard' && simulation.subvention_type !== 'None' && (
+                                                {simulation.subsidy_status !== 'Standard' && (
                                                     <span className="text-gray-500 text-sm font-bold flex items-center gap-2">
                                                         <span className="line-through">{selectedUniv?.base_interest_rate?.toFixed(1) || '9.0'}%</span>
                                                         <ArrowRight size={14} className="text-gray-600" />
                                                     </span>
                                                 )}
                                                 <span className="text-cyan-400 neon-glow-cyan text-xl font-black px-3 py-1 bg-cyan-950/30 rounded-lg shadow-[0_0_15px_rgba(34,211,238,0.4)] border border-cyan-400/30">
-                                                    {simulation.effective_interest_rate !== undefined
-                                                        ? `${Number(simulation.effective_interest_rate).toFixed(2)}%`
-                                                        : `${selectedUniv?.base_interest_rate?.toFixed(1) || '9.0'}%`}
+                                                    {`${Number(simulation.effective_rate ?? simulation.effective_interest_rate).toFixed(2)}%`}
                                                 </span>
                                             </div>
                                         </div>
@@ -521,7 +539,7 @@ export default function App() {
                                     {/* EMI Card */}
                                     <div className="metric-card-reveal opacity-0 glass-card p-6 rounded-[2rem] border-t-4 border-t-cyan-400 relative overflow-hidden group hover:shadow-[0_0_20px_rgba(34,211,238,0.15)] transition-all">
                                         <p className="text-[10px] font-black uppercase text-gray-500 mb-1">Projected Monthly EMI</p>
-                                        {simulation.subvention_details.vidyalaxmi_eligible && (
+                                        {simulation.vidyalaxmi_eligible && (
                                             <p className="text-[9px] text-purple-400 font-bold mb-2 flex items-center gap-1">
                                                 <ShieldCheck size={10} /> Subsidy applied ↓
                                             </p>
@@ -549,11 +567,11 @@ export default function App() {
                                         <div className="mt-3 space-y-1 relative z-10">
                                             <div className="flex justify-between text-[9px] text-gray-500">
                                                 <span>30% tax bracket (8 yrs)</span>
-                                                <span className="text-emerald-400 font-bold">{formatCurrency(Math.round(simulation.total_interest_paid * 0.30))}</span>
+                                                <span className="text-emerald-400 font-bold">{formatCurrency(Math.round((simulation.total_interest ?? simulation.total_interest_paid ?? 0) * 0.30))}</span>
                                             </div>
                                             <div className="flex justify-between text-[9px] text-gray-500">
                                                 <span>20% tax bracket (8 yrs)</span>
-                                                <span className="text-emerald-300 font-bold">{formatCurrency(Math.round(simulation.total_interest_paid * 0.20))}</span>
+                                                <span className="text-emerald-300 font-bold">{formatCurrency(Math.round((simulation.total_interest ?? simulation.total_interest_paid ?? 0) * 0.20))}</span>
                                             </div>
                                             <p className="text-[8px] text-gray-600 mt-1">Money stayed in your pocket</p>
                                         </div>
@@ -614,7 +632,7 @@ export default function App() {
 
                                         <div className="h-48">
                                             <ResponsiveContainer width="100%" height="100%">
-                                                <AreaChart data={simulation.repayment_schedule.slice(0, 60)}>
+                                                <AreaChart data={(simulation.repayment_schedule ?? []).slice(0, 60)}>
                                                     <defs>
                                                         <linearGradient id="flowGrad" x1="0" y1="0" x2="0" y2="1">
                                                             <stop offset="5%" stopColor={isForeign ? "#fbbf24" : "#22d3ee"} stopOpacity={0.4} />
@@ -641,7 +659,7 @@ export default function App() {
 
                                 {/* Recommendations */}
                                 <div className="grid md:grid-cols-2 gap-6">
-                                    {simulation.recommendations.map((rec, i) => (
+                                    {(simulation.recommendations ?? []).map((rec, i) => (
                                         <div key={i} className="glass-card p-6 rounded-3xl border border-white/5 hover:border-white/10 transition-all flex gap-4 items-start group">
                                             <div className={cn(
                                                 "w-12 h-12 rounded-2xl shrink-0 flex items-center justify-center shadow-lg",

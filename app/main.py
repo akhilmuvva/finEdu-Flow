@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 from decimal import Decimal
 from jose import JWTError, jwt
 from datetime import timedelta
@@ -13,6 +13,7 @@ from app.services.reports import PDFReportProvider
 from app.services.forex import ForexService
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 import json
 
 # Initialize DB Tables
@@ -24,10 +25,17 @@ app = FastAPI(
     version="1.3.0"
 )
 
-# Enable CORS for Frontend Communication
+# Enable CORS — explicit origins for Mono-Station dev + wildcard fallback
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # In production, replace with specific origins
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:5174",
+        "*",   # broad fallback for hackathon dev
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -36,10 +44,12 @@ app.add_middleware(
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @app.on_event("startup")
-async def startup_event():
+def startup_event():   # sync — ForexService.update_cached_rates is not a coroutine
     db = SessionLocal()
     try:
-        await ForexService.update_cached_rates(db)
+        ForexService.update_cached_rates(db)
+    except Exception as e:
+        print(f"[Startup] Forex update skipped: {e}")
     finally:
         db.close()
 
@@ -464,4 +474,109 @@ def get_live_rates():
         "SBI_EBLR": RLLR_BASE + BANK_SPREADS["SBI"],
         "HDFC_EBLR": RLLR_BASE + BANK_SPREADS["HDFC"],
         "AS_OF": "2026-02-27"
+    }
+
+# -------------------------------------------------------------------
+# POST /api/calculate  —  The canonical clean endpoint for the frontend
+# -------------------------------------------------------------------
+class CalculateRequest(BaseModel):
+    loan_amount: Decimal
+    family_income: Decimal
+    course_duration: int = 4          # years (default 4)
+    tenure_years: int = 10            # repayment tenure
+    university_name: Optional[str] = None
+    is_foreign: bool = False
+
+class CalculateResponse(BaseModel):
+    emi: float
+    total_interest: float             # total interest over full schedule
+    moratorium_interest: float        # SI accrued during moratorium
+    capitalized_principal: float      # principal after moratorium capitalisation
+    effective_rate: float             # rate after subvention (% pa)
+    subsidy_status: str               # 'CSIS' | 'PM-Vidyalaxmi' | 'Standard'
+    csis_eligible: bool
+    vidyalaxmi_eligible: bool
+    tax_benefit_80E: float            # 30% slab estimate over 8 yrs
+    months_saved: int
+    tcs_amount: float
+    tcs_details: str
+
+@app.post("/api/calculate", response_model=CalculateResponse)
+def calculate_loan(request: CalculateRequest, db: Session = Depends(get_db)):
+    """
+    2026 Mono-Station canonical endpoint.
+    Policy:
+      Moratorium = Simple Interest for (course_duration + 1) years
+      Repayment  = Compound EMI for tenure_years
+      Subsidy    = 3% reduction if family_income <= 8L & QHEI (PM-Vidyalaxmi)
+                   100% subsidy if family_income <= 4.5L (CSIS)
+    """
+    # --- Derive effective rate from university ------------
+    effective_rate = RLLR_BASE + DEFAULT_SPREAD   # 9.0% fallback
+    is_qhei_val = False
+    forex_rate = Decimal('1.00')
+    currency = "INR"
+
+    if request.is_foreign:
+        university = db.query(models.ForeignInstitution).filter(
+            models.ForeignInstitution.name == request.university_name
+        ).first()
+        if university:
+            forex_rate = ForexService.get_rate(db, university.currency)
+            currency = university.currency
+            effective_rate = RLLR_BASE + Decimal('2.50')
+    else:
+        university = db.query(models.University).filter(
+            models.University.name == request.university_name
+        ).first()
+        if university:
+            effective_rate = Decimal(str(university.base_interest_rate))
+            is_qhei_val = university.is_qhei
+
+    # --- Run calculator  --------------------------------
+    calc = LoanCalculator(
+        loan_amount=request.loan_amount,
+        interest_rate=effective_rate,
+        course_duration_years=request.course_duration,
+        family_income=request.family_income,
+        is_qhei=is_qhei_val,
+        currency=currency,
+        forex_rate=forex_rate
+    )
+
+    subv         = calc.calculate_subventions()
+    moratorium_i = calc.calculate_moratorium_interest()
+    emi_data     = calc.calculate_emi(request.tenure_years)
+    schedule     = calc.get_full_schedule(tenure_years=request.tenure_years)
+    tcs          = calc.determine_tcs()
+    tax_80e      = calc.calculate_80E_benefit(schedule)
+
+    total_interest = sum(Decimal(str(m["interest"])) for m in schedule)
+    months_saved   = (request.tenure_years * 12) - len(schedule)
+
+    # Post-subvention effective rate for display
+    rate_reduction   = Decimal(str(subv.get("subvention_rate_reduction", 0)))
+    display_rate     = float((effective_rate - rate_reduction).quantize(Decimal("0.01")))
+
+    # Map subsidy label to clean status string
+    if subv.get("csis_eligible"):
+        subsidy_status = "CSIS"
+    elif subv.get("vidyalaxmi_eligible"):
+        subsidy_status = "PM-Vidyalaxmi"
+    else:
+        subsidy_status = "Standard"
+
+    return {
+        "emi":                  float(emi_data["emi"]),
+        "total_interest":       float(total_interest),
+        "moratorium_interest":  float(moratorium_i),
+        "capitalized_principal":float(emi_data["capitalized_principal"]),
+        "effective_rate":       display_rate,
+        "subsidy_status":       subsidy_status,
+        "csis_eligible":        bool(subv.get("csis_eligible")),
+        "vidyalaxmi_eligible":  bool(subv.get("vidyalaxmi_eligible")),
+        "tax_benefit_80E":      float(tax_80e),
+        "months_saved":         months_saved,
+        "tcs_amount":           float(tcs["amount"]),
+        "tcs_details":          tcs["details"],
     }

@@ -1,45 +1,49 @@
-# finEdu-Flow: The 2026 Financial OS for Indian Students
+# FinnEDu: System Architecture
+> Built and Led by **Akhil**
 
-finEdu-Flow is a high-precision, production-ready Financial Intelligence Platform designed for the 2026 Indian regulatory landscape. It specializes in cross-border education finance, interest subvention schemes, and aggressive debt-clearance strategies.
-
-## 🚀 Judge-Ready Pitch: Why finEdu-Flow?
-
-**1. The "2026 Regulatory" Brain**
-finEdu-Flow isn't just a calculator; it's a compliance engine. We have integrated the **PM-Vidyalaxmi 2026 Mandate**, providing automated eligibility tagging for 300+ universities. It separates elite (AAA) institutions from standard ones, adjusting bank spreads in real-time based on RLLR + Tier logic.
-
-**2. Global Forex & TCS Risk Engine**
-For international students, we handle real-time forex-linked loan simulations. We are the first to implement the **2026 TCS (Tax Collected at Source)** rules: 
-- 0% on loan-funded remittances.
-- 2% on self-funded amounts > ₹10L.
-This prevents "Tax Shock" for families sending students abroad.
-
-**3. "Clear-Fast" Debt Shredder**
-Our proprietary simulation allows users to slide extra monthly payments and visualize debt vanishing in real-time. We compare **Early Repayment vs. SIP Investing** ROI, advising students on the mathematically optimal path to wealth creation.
-
-**4. CBDC & Web3 Readiness**
-The UI follows a DeFi aesthetic, and the backend is architected for **e-Rupee (CBDC)** distribution of subsidies via Smart Contracts on the RBI sandbox.
+Hey! This is the breakdown of how FinnEDu actually works under the hood. I designed this to handle the massive 2026 education loan policy changes without breaking a sweat.
 
 ---
 
-## 🛠 Tech Stack
+## The High-Level Flow
+We're using a modern async stack. The frontend is built for speed (Vite + React), and the backend is a Python-powered beast (FastAPI) that handles all the heavy math.
 
-- **Backend**: FastAPI (Python 3.10), SQLAlchemy, NumPy-Financial.
-- **Frontend**: React 18, TypeScript, Tailwind CSS, Anime.js, Framer Motion, Recharts.
-- **Database**: SQLite (Production-ready for local hackathon persistence).
-- **Data**: Master Dataset of 320+ Universities (2026 NIRF Benchmarks).
+```mermaid
+graph TD
+    subgraph "The User Experience (React)"
+        UI["Main Dashboard"]
+        Sidebar["AI Strategy Hub"]
+        DocV["Verification Portal"]
+    end
 
-## 📁 Key Components
+    subgraph "The Brain (FastAPI)"
+        Calc["Loan Logic Engine"]
+        DebtAI["Repayment Optimization"]
+        OCR["Document Screener"]
+    end
 
-- `app/services/calculator.py`: Core Financial Logic (TCS, Subsidies, SI Moratorium).
-- `frontend/src/App.tsx`: High-performance UI with **Virtual Scrolling** for the massive university dataset.
-- `scripts/generate_master_data.py`: Synthetically accurate 2026 university fee/placement projections.
+    subgraph "Data & Safety"
+        DB[(SQLite Engine)]
+        JWT["Auth Layer"]
+    end
 
-## 🚦 Quick Start
-
-1. **One-Click Launch**: Double-click `launch_full_system.bat` at the project root.
-2. **Access**:
-   - Frontend: [http://localhost:5173](http://localhost:5173)
-   - Backend: [http://localhost:8000](http://localhost:8000)
+    UI --> Calc
+    DocV --> OCR
+    Sidebar --> DebtAI
+    Calc --> DB
+```
 
 ---
-*Developed as a Senior Full-Stack Fintech Solution.*
+
+## Tech Choices: Why I chose these
+*   **React 18 + Vite**: Because index-to-render speed matters. I used **Anime.js** for the graphs because standard libraries felt too rigid for our "Liquid" UI.
+*   **FastAPI**: It's way faster than Django/Flask for this kind of simulation work.
+*   **SQLAlchemy**: Makes database management painless.
+*   **Decimal Library**: This was a must. You can't use floats for money, especially when calculating 10-year interest subventions.
+
+---
+
+## My Design Principles
+1.  **Calculations first**: If the math isn't 100% accurate to the 2026 RLLR standards, the app is useless. 
+2.  **No Lag**: UI needs to respond instantly when you slide those EMI sliders.
+3.  **Clean Code**: Services are split up so we can swap the OCR or Forex logic without tearing the whole thing down.

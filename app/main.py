@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi import FastAPI, Depends, HTTPException, status, UploadFile, File, Form
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from typing import List, Dict, Any, Optional
@@ -11,6 +11,9 @@ from app import models, schemas, auth
 from app.services.calculator import LoanCalculator
 from app.services.reports import PDFReportProvider
 from app.services.forex import ForexService
+from app.services.banks import BankNavigator
+from app.services.sustainability import DebtClearPredictor
+from app.services.doc_verifier import verify_document
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -34,7 +37,7 @@ app.add_middleware(
         "http://localhost:5173",
         "http://127.0.0.1:5173",
         "http://localhost:5174",
-        "*",   # broad fallback for hackathon dev
+        "http://127.0.0.1:5174",
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -44,11 +47,10 @@ app.add_middleware(
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @app.on_event("startup")
-def startup_event():   # sync wrapper — calls async forex update safely
-    import asyncio
+async def startup_event():
     db = SessionLocal()
     try:
-        asyncio.run(ForexService.update_cached_rates(db))
+        await ForexService.update_cached_rates(db)
     except Exception as e:
         print(f"[Startup] Forex update skipped: {e}")
     finally:
@@ -463,6 +465,60 @@ def get_foreign_universities(db: Session = Depends(get_db)):
     """Returns top foreign institutions for international study logic."""
     return db.query(models.ForeignInstitution).order_by(models.ForeignInstitution.ranking_qs).all()
 
+@app.get("/api/v1/universities/{uni_id}/nearby-banks")
+async def get_nearby_banks(
+    uni_id: int, 
+    family_income: Decimal = 1000000, 
+    db: Session = Depends(get_db)
+):
+    """Nearby Finance Engine: Call Geoapify to find branches with 2026 Policy Overlay."""
+    university = db.query(models.University).filter(models.University.id == uni_id).first()
+    if not university:
+        raise HTTPException(status_code=404, detail="University not found")
+        
+    # Hackathon Fallback: If no coords in DB, use Delhi Hub coords for the demo
+    lat = university.latitude or 28.6139
+    lon = university.longitude or 77.2090
+        
+    banks = await BankNavigator.get_nearby_fulfillment(
+        lat=float(lat), 
+        lon=float(lon), 
+        family_income=family_income, 
+        university_category=university.pmvl_category or "A"
+    )
+    return banks
+
+
+# ── POST /api/v1/verify-document  — AI Document Verifier ──────────────────
+@app.post("/api/v1/verify-document")
+async def verify_student_document(
+    doc_type: str = Form(...),
+    file: UploadFile = File(...)
+):
+    """
+    AI-powered document verification for student loan applications.
+    Accepts: income_certificate | nirf_admission | co_applicant_kyc | entrance_scorecard
+    Returns: confidence score, AI verdict, found/missing signals, policy note.
+    """
+    valid_types = ["income_certificate", "nirf_admission", "co_applicant_kyc", "entrance_scorecard"]
+    if doc_type not in valid_types:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid doc_type. Must be one of: {', '.join(valid_types)}"
+        )
+
+    # File size guard: max 10MB
+    contents = await file.read()
+    if len(contents) > 10 * 1024 * 1024:
+        raise HTTPException(status_code=413, detail="File too large. Max 10MB.")
+
+    result = verify_document(
+        file_bytes=contents,
+        filename=file.filename or "document.pdf",
+        doc_type=doc_type
+    )
+    return result
+
 @app.get("/forex", response_model=List[schemas.ForexRateResponse])
 def get_forex_rates(db: Session = Depends(get_db)):
     """Returns real-time cached forex rates from the 2026 market logic."""
@@ -501,8 +557,12 @@ class CalculateResponse(BaseModel):
     months_saved: int
     tcs_amount: float
     tcs_details: str
+    repayment_schedule: Optional[List[Dict[str, Any]]] = None
+    recommendations: Optional[List[Dict[str, Any]]] = None
+    total_interest_paid: Optional[float] = None
+    sustainability_data: Optional[Dict[str, Any]] = None
 
-@app.post("/api/calculate", response_model=CalculateResponse)
+@app.post("/calculate", response_model=CalculateResponse)
 def calculate_loan(request: CalculateRequest, db: Session = Depends(get_db)):
     """
     2026 Mono-Station canonical endpoint.
@@ -580,4 +640,18 @@ def calculate_loan(request: CalculateRequest, db: Session = Depends(get_db)):
         "months_saved":         months_saved,
         "tcs_amount":           float(tcs["amount"]),
         "tcs_details":          tcs["details"],
+        "repayment_schedule":   schedule,
+        "recommendations":      generate_recommendations(
+            request.loan_amount * forex_rate,
+            total_interest,
+            is_qhei_val,
+            request.family_income,
+            currency
+        ),
+        "total_interest_paid":  float(total_interest),
+        "sustainability_data":  DebtClearPredictor.predict_optimizer(
+            family_income=request.family_income,
+            loan_amount=request.loan_amount * forex_rate,
+            university_rank=university.nirf_2026 if university and hasattr(university, 'nirf_2026') else 50
+        )
     }

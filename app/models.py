@@ -39,6 +39,8 @@ class University(Base):
     avg_placement_lpa = Column(Numeric(precision=5, scale=2))
     roi_index = Column(Float)
     base_interest_rate = Column(Float) # Calculated based on Category
+    latitude = Column(Float, nullable=True)
+    longitude = Column(Float, nullable=True)
 
 class ForeignInstitution(Base):
     __tablename__ = "foreign_institutions"

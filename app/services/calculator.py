@@ -13,13 +13,13 @@ class LoanCalculator:
         currency: str = "INR",
         forex_rate: Decimal = Decimal('1.00')
     ):
-        # Data Engineer Mandate: Convert foreign tuition to INR immediately
+        # Convert foreign currency to INR right at the start to avoid headaches later
         self.loan_amount_inr = loan_amount * forex_rate
         self.original_loan_amount = loan_amount
         self.currency = currency
         self.forex_rate = forex_rate
         
-        # Data Engineer Mandate: RLLR benchmarking (6.5% base)
+        # Benchmark for 2026 (Repo-linked Lending Rate)
         self.rllr_benchmark = Decimal('6.50')
         self.annual_rate = interest_rate / Decimal('100')
         self.monthly_rate = self.annual_rate / Decimal('12')
@@ -34,9 +34,9 @@ class LoanCalculator:
 
     def calculate_subventions(self) -> Dict[str, Any]:
         """
-        The 2026 Subsidy Engine:
-        - Tier 1: Income < 4.5L -> 100% CSIS (Full subsidy during moratorium).
-        - Tier 2: Income < 8L -> 3.00% PM-Vidyalaxmi Subvention.
+        Check if we qualify for any government subsidies.
+        Tier 1 (CSIS): If family earns < 4.5L, interest is 0 during college.
+        Tier 2 (PM-VL): If family earns < 8L and it's a QHEI uni, we get a 3% rate cut.
         """
         is_csis_eligible = self.family_income < Decimal('450000')
         is_vidyalaxmi_eligible = self.is_qhei and self.family_income < Decimal('800000')

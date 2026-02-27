@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Default to SQLite for easy hackathon setup, override with DATABASE_URL in .env if needed
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./finnedubank.db")
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./finnedubank_v2.db")
 
 # SQLite needs specific connect_args for multithreading
 if DATABASE_URL.startswith("sqlite"):

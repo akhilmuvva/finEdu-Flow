@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Numeric, Boolean
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Numeric, Boolean, Float
 from sqlalchemy.orm import relationship
 from app.database import Base
 import datetime
@@ -33,10 +33,12 @@ class University(Base):
     state = Column(String)
     type = Column(String)
     is_qhei = Column(Boolean, default=True)
-    nirf_rank = Column(Integer)
-    avg_total_fees_inr = Column(Numeric(precision=15, scale=2))
+    nirf_2026 = Column(Integer)
+    pmvl_category = Column(String) # AAA, AA, A
+    total_course_fee = Column(Numeric(precision=15, scale=2))
     avg_placement_lpa = Column(Numeric(precision=5, scale=2))
-    roi_score = Column(Numeric(precision=3, scale=1))
+    roi_index = Column(Float)
+    base_interest_rate = Column(Float) # Calculated based on Category
 
 class Loan(Base):
     __tablename__ = "loans"

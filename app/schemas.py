@@ -132,10 +132,12 @@ class UniversityResponse(BaseModel):
     state: str
     type: str
     is_qhei: bool
-    nirf_rank: int
-    avg_total_fees_inr: Decimal
+    nirf_2026: int
+    pmvl_category: Optional[str]
+    total_course_fee: Decimal
     avg_placement_lpa: Decimal
-    roi_score: Decimal
+    roi_index: float
+    base_interest_rate: float
 
     class Config:
         from_attributes = True

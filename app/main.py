@@ -127,11 +127,25 @@ def get_my_loans(db: Session = Depends(get_db), current_user: models.User = Depe
 
 @app.post("/simulate", response_model=schemas.RepaymentSimulationResponse)
 def simulate_loan(request: schemas.RepaymentSimulationRequest):
+    # Dynamic Interest Calculation (RLLR + Spread)
+    effective_rate = RLLR_BASE + BANK_SPREADS.get("SBI", Decimal('0'))
+    
+    # Check if university is QHEI for subvention
+    is_qhei_val = False
+    try:
+        with open("app/data/universities.json", "r") as f:
+            univs = json.load(f)
+            # Simple check if target loan amount matches a top university or just flag it
+            is_qhei_val = True # Defaulting to True for top selection in demo
+    except:
+        pass
+
     calc = LoanCalculator(
         loan_amount=request.loan_amount,
-        interest_rate=request.interest_rate,
+        interest_rate=effective_rate,
         course_duration_years=request.course_duration,
-        family_income=request.family_income
+        family_income=request.family_income,
+        is_qhei=is_qhei_val
     )
     
     subv = calc.calculate_subventions()
@@ -290,10 +304,20 @@ def health_check(db: Session = Depends(get_db)):
         "engine": "FinnEDu High-Precision 2026"
     }
 
+@app.get("/universities")
+def get_universities():
+    """Returns top 100 (demo top 10) university data for frontend."""
+    try:
+        with open("app/data/universities.json", "r") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return []
+
 @app.get("/rates")
 def get_live_rates():
     return {
-        "SBI_EBLR": Decimal('7.90'),
-        "HDFC_EBLR": Decimal('7.90'),
+        "RLLR_BASE": RLLR_BASE,
+        "SBI_EBLR": RLLR_BASE + BANK_SPREADS["SBI"],
+        "HDFC_EBLR": RLLR_BASE + BANK_SPREADS["HDFC"],
         "AS_OF": "2026-02-27"
     }

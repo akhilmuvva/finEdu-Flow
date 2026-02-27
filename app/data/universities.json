@@ -1,0 +1,72 @@
+[
+    {
+        "name": "IIT Madras",
+        "rank": 1,
+        "fees": 850000,
+        "avg_placement": 21.48,
+        "qhei": true
+    },
+    {
+        "name": "IIT Delhi",
+        "rank": 2,
+        "fees": 850000,
+        "avg_placement": 25.82,
+        "qhei": true
+    },
+    {
+        "name": "IIT Bombay",
+        "rank": 3,
+        "fees": 900000,
+        "avg_placement": 23.50,
+        "qhei": true
+    },
+    {
+        "name": "IIT Kanpur",
+        "rank": 4,
+        "fees": 850000,
+        "avg_placement": 22.00,
+        "qhei": true
+    },
+    {
+        "name": "IIT Kharagpur",
+        "rank": 5,
+        "fees": 850000,
+        "avg_placement": 21.00,
+        "qhei": true
+    },
+    {
+        "name": "IIT Roorkee",
+        "rank": 6,
+        "fees": 887300,
+        "avg_placement": 18.00,
+        "qhei": true
+    },
+    {
+        "name": "IIT Hyderabad",
+        "rank": 7,
+        "fees": 850000,
+        "avg_placement": 20.00,
+        "qhei": true
+    },
+    {
+        "name": "IIT Guwahati",
+        "rank": 8,
+        "fees": 854000,
+        "avg_placement": 25.00,
+        "qhei": true
+    },
+    {
+        "name": "NIT Tiruchirappalli",
+        "rank": 9,
+        "fees": 700000,
+        "avg_placement": 18.00,
+        "qhei": true
+    },
+    {
+        "name": "IIT (BHU) Varanasi",
+        "rank": 10,
+        "fees": 850000,
+        "avg_placement": 20.00,
+        "qhei": true
+    }
+]

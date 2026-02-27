@@ -8,15 +8,18 @@ class LoanCalculator:
         loan_amount: Decimal, 
         interest_rate: Decimal, 
         course_duration_years: int, 
-        family_income: Decimal
+        family_income: Decimal,
+        is_qhei: bool = False
     ):
         self.loan_amount = loan_amount
-        # Convert annual interest rate to monthly decimal
+        # Data Engineer Mandate: RLLR benchmarking (6.5% base)
+        self.rllr_benchmark = Decimal('6.50')
         self.annual_rate = interest_rate / Decimal('100')
         self.monthly_rate = self.annual_rate / Decimal('12')
         self.course_duration_years = course_duration_years
         self.moratorium_years = course_duration_years + 1
         self.family_income = family_income
+        self.is_qhei = is_qhei
 
     def _round(self, value: Decimal) -> Decimal:
         """Standard financial rounding to 2 decimal places."""
@@ -26,20 +29,27 @@ class LoanCalculator:
         """
         Compliance Check (2026):
         - CSIS: Family Income <= 4.5L (Full subsidy during moratorium).
-        - PM-Vidyalaxmi: Family Income <= 8L AND Loan <= 10L (3% subvention).
+        - PM-Vidyalaxmi: Family Income <= 8L AND QHEI status.
         """
         is_csis_eligible = self.family_income <= Decimal('450000')
-        is_vidyalaxmi_eligible = (
-            not is_csis_eligible and 
-            self.family_income <= Decimal('800000') and 
-            self.loan_amount <= Decimal('1000000')
-        )
+        is_vidyalaxmi_eligible = self.get_subsidy()["eligible"]
         
         return {
             "csis_eligible": is_csis_eligible,
             "vidyalaxmi_eligible": is_vidyalaxmi_eligible,
             "subvention_rate_reduction": Decimal('0.03') if is_vidyalaxmi_eligible else Decimal('0.00'),
             "label": "CSIS (Full)" if is_csis_eligible else ("PM-Vidyalaxmi (3%)" if is_vidyalaxmi_eligible else "General")
+        }
+
+    def get_subsidy(self) -> Dict[str, Any]:
+        """
+        Data Engineer Requirement: Tags users as 'Vidyalaxmi Eligible' if 
+        they choose a QHEI and have income under 8L.
+        """
+        eligible = self.is_qhei and self.family_income <= Decimal('800000')
+        return {
+            "eligible": eligible,
+            "tag": "Vidyalaxmi Eligible" if eligible else None
         }
 
     def calculate_moratorium_interest(self) -> Decimal:

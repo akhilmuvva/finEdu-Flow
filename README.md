@@ -5,10 +5,12 @@ FinnEDu is a high-precision backend architecture designed for the 2026 Indian ba
 ## 🚀 Key Features
 
 - **2026 Compliance Engine**: Implemented PM-Vidyalaxmi (3% subvention) and CSIS (Full subvention) logic.
-- **Precision RBI Moratorium Logic**: Uses Simple Interest for the Course + 1-year grace period, transitioning to Compounded EMI post-moratorium.
+- **AI-Driven Financial Advisor**: Smart ROI comparison tool (Repayment vs SIP Investment).
+- **Precision RBI Moratorium Logic**: Uses Simple Interest for grace period.
 - **Section 80E Tax Calculator**: Automatic 8-year interest deduction tracking.
-- **"Clear-Fast" Strategy**: Simulation engine for aggressive repayment (e.g., 1 extra EMI per year) showing total interest savings.
-- **Live Rate Integration**: Pre-configured with Feb 2026 benchmark rates from SBI and HDFC (7.90%).
+- **"Clear-Fast" Strategy Engine**: High-speed simulation for aggressive repayment.
+- **Audit & Transparency**: Deep-audit logging for every financial event.
+- **Real-time Health Analytics**: Backend metrics for live hackathon dashboards.
 
 ## 🛠 Tech Stack
 

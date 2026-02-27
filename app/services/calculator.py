@@ -135,3 +135,41 @@ class LoanCalculator:
             total_interest_paid_8y += Decimal(str(schedule[i]["interest"]))
             
         return self._round(total_interest_paid_8y * tax_slab)
+
+    def calculate_opportunity_cost(
+        self, 
+        extra_monthly: Decimal, 
+        investment_roi: Decimal = Decimal('12.0')
+    ) -> Dict[str, Any]:
+        """
+        Hackathon Special: Investment vs Repayment Advisor.
+        Compares the benefit of paying off the loan early vs investing that same extra amount in a 12% ROI SIP.
+        """
+        annual_inv_rate = investment_roi / Decimal('100')
+        monthly_inv_rate = annual_inv_rate / Decimal('12')
+        
+        # Scenario 1: Interest Saved by paying loan
+        loan_sched = self.get_full_schedule(tenure_years=10, monthly_top_up=extra_monthly)
+        baseline = self.get_full_schedule(tenure_years=10)
+        
+        interest_saved = sum(Decimal(str(m["interest"])) for m in baseline) - sum(Decimal(str(m["interest"])) for m in loan_sched)
+        months_saved = len(baseline) - len(loan_sched)
+        
+        # Scenario 2: Wealth Built by investing the same amount for the same duration
+        total_months = len(baseline)
+        future_value = Decimal('0')
+        for _ in range(total_months):
+            future_value = (future_value + extra_monthly) * (Decimal('1') + monthly_inv_rate)
+            
+        total_invested = extra_monthly * Decimal(str(total_months))
+        wealth_gained = future_value - total_invested
+        
+        advice = "Repay Early" if interest_saved > wealth_gained else "Invest Extra in SIP"
+        
+        return {
+            "interest_saved_by_repayment": float(self._round(interest_saved)),
+            "wealth_gained_by_investing": float(self._round(wealth_gained)),
+            "months_saved": months_saved,
+            "optimal_strategy": advice,
+            "roi_comparison_ratio": float(self._round(interest_saved / wealth_gained if wealth_gained > 0 else Decimal('0')))
+        }

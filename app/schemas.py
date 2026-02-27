@@ -105,3 +105,18 @@ class ScenarioResult(BaseModel):
 
 class ScenarioComparisonResponse(BaseModel):
     scenarios: List[ScenarioResult]
+
+# --- AI ADVISOR SCHEMAS ---
+class AdvisorRequest(BaseModel):
+    loan_amount: Decimal
+    interest_rate: Decimal
+    family_income: Decimal
+    extra_monthly_budget: Decimal
+    investment_roi_expectation: Decimal = Decimal('12.0')
+
+class AdvisorResponse(BaseModel):
+    interest_saved_by_repayment: float
+    wealth_gained_by_investing: float
+    months_saved: int
+    optimal_strategy: str
+    roi_comparison_ratio: float

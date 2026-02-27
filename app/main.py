@@ -250,6 +250,46 @@ def get_loan_report(
         headers={"Content-Disposition": f"attachment; filename=FinnEDu_Projection_{loan_id}.pdf"}
     )
 
+@app.post("/advisor", response_model=schemas.AdvisorResponse)
+def financial_advisor(request: schemas.AdvisorRequest):
+    """
+    Hackathon AI Feature: Recommends the optimal use of extra funds.
+    Compares Interest Savings vs SIP Wealth Gain.
+    """
+    calc = LoanCalculator(
+        loan_amount=request.loan_amount,
+        interest_rate=request.interest_rate,
+        course_duration_years=4, # Assuming standard 4y for advisory
+        family_income=request.family_income
+    )
+    
+    analysis = calc.calculate_opportunity_cost(
+        extra_monthly=request.extra_monthly_budget,
+        investment_roi=request.investment_roi_expectation
+    )
+    return analysis
+
+@app.get("/health")
+def health_check(db: Session = Depends(get_db)):
+    """
+    System Health & Analytics for Hackathon Dashboards.
+    Returns counts of users, loans, and audit events.
+    """
+    user_count = db.query(models.User).count()
+    loan_count = db.query(models.Loan).count()
+    audit_count = db.query(models.AuditLog).count()
+    
+    return {
+        "status": "Healthy",
+        "version": "1.3.0-Hackathon-Ed",
+        "stats": {
+            "total_users": user_count,
+            "total_loans_managed": loan_count,
+            "compliance_events_logged": audit_count
+        },
+        "engine": "FinnEDu High-Precision 2026"
+    }
+
 @app.get("/rates")
 def get_live_rates():
     return {

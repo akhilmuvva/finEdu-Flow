@@ -63,5 +63,12 @@ The Interactive API documentation will be available at: [http://localhost:8000/d
 - `POST /clear-fast`: Aggressive repayment strategy engine.
 - `GET /rates`: Real-time benchmark data for Feb 2026.
 
+## 📄 License
+
+This project is dual-licensed under the **MIT License** and the **Apache License 2.0**.
+
+- See [LICENSE-MIT](LICENSE-MIT) for the MIT license text.
+- See [LICENSE-APACHE](LICENSE-APACHE) for the Apache license text.
+
 ---
 *Developed for the next generation of Indian student financing.*

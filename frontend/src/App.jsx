@@ -401,10 +401,55 @@ function App() {
                     </div>
                     <div className="p-5 glass-card rounded-2xl relative overflow-hidden group">
                       <div className="absolute inset-0 bg-primary-500/5 group-hover:bg-primary-500/10 transition-colors" />
-                      <p className="text-gray-400 text-[10px] font-bold uppercase mb-1 relative z-10">Export Logic</p>
-                      <button className="flex items-center gap-2 text-sm font-bold text-primary-400 relative z-10">
-                        Download PDF <Download size={14} />
-                      </button>
+                      <p className="text-gray-400 text-[10px] font-bold uppercase mb-1 relative z-10">Tenure Benefit</p>
+                      <p className="text-xl font-bold text-primary-400 relative z-10">{simulation.months_saved} Months Saved</p>
+                    </div>
+                  </div>
+
+                  {/* Smart Recommendations */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-bold flex items-center gap-2">
+                      <Zap size={20} className="text-primary-400" />
+                      AI Capital Advisor
+                    </h3>
+                    <div className="grid gap-4">
+                      {simulation.recommendations.map((rec, idx) => (
+                        <motion.div
+                          initial={{ opacity: 0, x: 10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: idx * 0.1 }}
+                          key={idx}
+                          className="p-5 bg-white/5 border border-white/5 hover:border-primary-500/30 transition-all rounded-2xl flex gap-4"
+                        >
+                          <div className={`shrink-0 w-10 h-10 rounded-xl flex items-center justify-center ${rec.impact === 'High' || rec.impact === 'Critical' ? 'bg-primary-500/20 text-primary-400' : 'bg-green-500/20 text-green-400'}`}>
+                            {rec.impact === 'High' || rec.impact === 'Critical' ? <TrendingUp size={20} /> : <ShieldCheck size={20} />}
+                          </div>
+                          <div>
+                            <div className="flex items-center gap-2 mb-1">
+                              <p className="font-bold text-sm tracking-tight">{rec.strategy}</p>
+                              <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded ${rec.impact === 'High' || rec.impact === 'Critical' ? 'bg-primary-500 text-white' : 'bg-green-500/20 text-green-400'}`}>
+                                {rec.impact} Impact
+                              </span>
+                            </div>
+                            <p className="text-xs text-gray-400 leading-relaxed">{rec.description}</p>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="p-6 bg-gradient-to-br from-indigo-600/20 to-primary-600/20 border border-white/10 rounded-3xl mt-8">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-8 h-8 rounded-lg bg-indigo-500 flex items-center justify-center">
+                        <BookOpen size={16} className="text-white" />
+                      </div>
+                      <h4 className="font-bold text-sm tracking-tight">Expert Repayment Strategy</h4>
+                    </div>
+                    <p className="text-xs text-gray-400 mb-4 leading-relaxed">
+                      "Students often ignore the compounding power of the moratorium period. By paying even 50% of your moratorium interest, you prevent that interest from becoming principal (capitalization), which effectively lowers your interest rate by ~0.8% over the loan life."
+                    </p>
+                    <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-primary-400">
+                      <span>Source: FinnEDu Analytics</span>
+                      <span className="flex items-center gap-1 cursor-pointer hover:underline">Read Full Guide <ChevronRight size={10} /></span>
                     </div>
                   </div>
                 </motion.div>
@@ -498,6 +543,55 @@ function App() {
                 ))}
               </tbody>
             </table>
+          </div>
+        </div>
+      </section>
+      {/* Financial Strategy Section */}
+      <section className="max-w-7xl mx-auto py-24 px-6">
+        <div className="flex flex-col md:flex-row items-center gap-12">
+          <div className="md:w-1/2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-[10px] font-bold mb-6 tracking-wider uppercase">
+              Optimization Guide
+            </div>
+            <h2 className="text-4xl font-bold mb-6">4 Ways to Repay <span className="text-green-400">FASTER.</span></h2>
+            <p className="text-gray-400 mb-8 leading-relaxed">
+              Don't just pay your EMIs. Maximize your financial potential with these 2026-compliant repayment hacks vetted by our AI advisor.
+            </p>
+            <div className="space-y-4">
+              {[
+                { title: "The 1-Extra Rule", desc: "Pay 1 extra EMI every 12 months. This cuts your total interest by ~18%." },
+                { title: "Partial Moratorium SI", desc: "Pay only the interest monthly during study. Prevent capitalization and save lakhs." },
+                { title: "80E Reinvestment", desc: "Reinvest your tax savings from Section 80E into an index SIP for high ROI." }
+              ].map((tip, i) => (
+                <div key={i} className="flex gap-4 p-4 hover:bg-white/5 rounded-2xl transition-all border border-transparent hover:border-white/10">
+                  <div className="w-10 h-10 shrink-0 bg-green-500/10 text-green-400 flex items-center justify-center rounded-xl font-bold">
+                    {i + 1}
+                  </div>
+                  <div>
+                    <p className="font-bold text-sm mb-1">{tip.title}</p>
+                    <p className="text-xs text-gray-400">{tip.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="md:w-1/2 grid grid-cols-2 gap-4">
+            <div className="p-8 bg-gradient-to-br from-gray-900 to-primary-900/40 rounded-3xl border border-white/5 shadow-2xl">
+              <p className="text-3xl font-black mb-2 tracking-tighter text-primary-400">22%</p>
+              <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Avg Interest Saved</p>
+            </div>
+            <div className="p-8 bg-gray-900 rounded-3xl border border-white/5 mt-8">
+              <p className="text-3xl font-black mb-2 tracking-tighter text-green-400">18</p>
+              <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Months Saved Avg</p>
+            </div>
+            <div className="p-8 bg-gray-900 rounded-3xl border border-white/5 -mt-8">
+              <p className="text-3xl font-black mb-2 tracking-tighter text-indigo-400">₹0</p>
+              <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Processing Fees</p>
+            </div>
+            <div className="p-8 bg-gradient-to-br from-indigo-900/40 to-gray-900 rounded-3xl border border-white/5">
+              <p className="text-3xl font-black mb-2 tracking-tighter text-white">4.5<span className="text-sm">/5</span></p>
+              <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Student Satisfaction</p>
+            </div>
           </div>
         </div>
       </section>

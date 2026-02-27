@@ -157,6 +157,48 @@ def get_my_loans(db: Session = Depends(get_db), current_user: models.User = Depe
 
 # --- SIMULATION & COMPARISON (OPEN) ---
 
+def generate_recommendations(loan_amount: Decimal, interest_paid: Decimal, is_qhei: bool, family_income: Decimal, currency: str) -> List[Dict[str, str]]:
+    recommendations = []
+    
+    # Moratorium Tip
+    recommendations.append({
+        "strategy": "Pay Interest During Moratorium",
+        "impact": "High",
+        "description": "Paying simple interest monthly during college prevents capitalization, potentially saving you over ₹2-4 Lakhs in the long run."
+    })
+    
+    # Tax Tip
+    recommendations.append({
+        "strategy": "Maximize Section 80E",
+        "impact": "Medium",
+        "description": "Interest paid on education loans is fully deductible from taxable income for 8 years. Your parents can co-apply to maximize this."
+    })
+    
+    # Prepayment Tip
+    recommendations.append({
+        "strategy": "The 1-Extra-EMI Rule",
+        "impact": "High",
+        "description": "Paying just 1 extra EMI per year can reduce your 10-year loan tenure by nearly 22 months."
+    })
+    
+    # Forex Tip (if applicable)
+    if currency != "INR":
+        recommendations.append({
+            "strategy": "Forex Hedging / SIP",
+            "impact": "Critical",
+            "description": "Set up an INR SIP today to hedge against future Rupee depreciation before your overseas repayment begins."
+        })
+        
+    # Subsidy Awareness
+    if family_income <= Decimal('450000'):
+        recommendations.append({
+            "strategy": "Verify CSIS Claim",
+            "impact": "Total",
+            "description": "Your income qualifies for a FULL interest subsidy. Ensure your bank marks your loan as CSIS-eligible in their portal."
+        })
+        
+    return recommendations
+
 @app.post("/simulate", response_model=schemas.RepaymentSimulationResponse)
 def simulate_loan(request: schemas.RepaymentSimulationRequest, db: Session = Depends(get_db)):
     # Try to find university in DB
@@ -208,7 +250,14 @@ def simulate_loan(request: schemas.RepaymentSimulationRequest, db: Session = Dep
         "tax_benefit_80E": tax_benefit,
         "months_saved": months_saved,
         "total_interest_paid": total_interest_paid,
-        "repayment_schedule": schedule
+        "repayment_schedule": schedule,
+        "recommendations": generate_recommendations(
+            request.loan_amount * forex_rate, 
+            total_interest_paid, 
+            is_qhei_val, 
+            request.family_income,
+            currency
+        )
     }
 
 @app.post("/compare", response_model=schemas.ScenarioComparisonResponse)

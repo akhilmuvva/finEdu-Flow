@@ -41,6 +41,7 @@ interface University {
     aishe_code: string;
     name: string;
     state: string;
+    type: string;
     is_qhei: boolean;
     pmvl_category: string;
     total_course_fee: number;
@@ -74,6 +75,7 @@ export default function App() {
     const [universities, setUniversities] = useState<University[]>([]);
     const [foreignUnivs, setForeignUnivs] = useState<ForeignUniv[]>([]);
     const [isForeign, setIsForeign] = useState(false);
+    const [uniFilter, setUniFilter] = useState('All');
     const [selectedUniv, setSelectedUniv] = useState<any>(null);
     const [loanAmount, setLoanAmount] = useState(1500000);
     const [extraMonthly, setExtraMonthly] = useState(0);
@@ -81,6 +83,19 @@ export default function App() {
     const [tenure, setTenure] = useState(10);
     const [simulation, setSimulation] = useState<SimulationResult | null>(null);
     const [loading, setLoading] = useState(false);
+    const [displayEmi, setDisplayEmi] = useState(0);
+    const displayEmiRef = useRef({ val: 0 });
+
+    const animateEmi = (target: number) => {
+        anime({
+            targets: displayEmiRef.current,
+            val: target,
+            round: 1,
+            duration: 1500,
+            easing: 'easeOutElastic(1, .8)',
+            update: () => setDisplayEmi(displayEmiRef.current.val)
+        });
+    };
 
     const heroRef = useRef(null);
 
@@ -134,6 +149,7 @@ export default function App() {
             });
             // Note: The logic for extraMonthly can be mixed in or we can add it to request
             setSimulation(resEnriched.data);
+            animateEmi(resEnriched.data.emi);
         } catch (err) {
             console.error(err);
         } finally {
@@ -223,20 +239,49 @@ export default function App() {
                 {/* Left Column: Intelligence Hub */}
                 <div className="lg:col-span-4 space-y-8">
                     <div className="stagger-reveal glass-card rounded-[2rem] overflow-hidden">
-                        <div className="p-6 border-b border-white/5 flex justify-between items-center">
-                            <h2 className="text-sm font-black uppercase tracking-widest text-gray-400">University Intel</h2>
-                            <Globe size={16} className={isForeign ? "text-amber-400" : "text-cyan-400"} />
+                        <div className="p-6 border-b border-white/5 flex flex-col gap-4">
+                            <div className="flex justify-between items-center">
+                                <h2 className="text-sm font-black uppercase tracking-widest text-gray-400">University Intel</h2>
+                                <Globe size={16} className={isForeign ? "text-amber-400" : "text-cyan-400"} />
+                            </div>
+                            {!isForeign && (
+                                <div className="flex gap-2 overflow-x-auto pb-1">
+                                    {['All', 'Central', 'State', 'Private', 'Deemed'].map(type => (
+                                        <button
+                                            key={type}
+                                            onClick={() => {
+                                                setUniFilter(type);
+                                                const newFiltered = universities.filter(u => type === 'All' || u.type === type);
+                                                if (newFiltered.length > 0) setSelectedUniv(newFiltered[0]);
+                                            }}
+                                            className={cn(
+                                                "px-3 py-1 rounded-lg text-[10px] font-bold uppercase transition-all whitespace-nowrap border",
+                                                uniFilter === type
+                                                    ? "bg-cyan-500/20 text-cyan-400 border-cyan-500/50"
+                                                    : "bg-slate-900 border-white/10 text-gray-500 hover:text-white"
+                                            )}
+                                        >
+                                            {type}
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                         <div className="h-[400px]">
-                            <List
-                                height={400}
-                                itemCount={isForeign ? foreignUnivs.length : universities.length}
-                                itemSize={65}
-                                width={"100%"}
-                                itemData={isForeign ? foreignUnivs : universities}
-                            >
-                                {UnivRow}
-                            </List>
+                            {(() => {
+                                const filteredUniversities = isForeign ? foreignUnivs : universities.filter(u => uniFilter === 'All' || u.type === uniFilter);
+                                return (
+                                    <List
+                                        height={400}
+                                        itemCount={filteredUniversities.length}
+                                        itemSize={65}
+                                        width={"100%"}
+                                        itemData={filteredUniversities}
+                                    >
+                                        {UnivRow}
+                                    </List>
+                                );
+                            })()}
                         </div>
                     </div>
 
@@ -288,26 +333,82 @@ export default function App() {
                                 animate={{ opacity: 1, scale: 1 }}
                                 className="space-y-8"
                             >
+                                {/* Results Header & Timeline */}
+                                <div className="space-y-6">
+                                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                        <h2 className="text-2xl font-black italic uppercase tracking-tighter">Execution Deck</h2>
+                                        <div className="flex items-center gap-3">
+                                            <span className="text-[10px] uppercase font-bold text-gray-400">Effective Int. Rate</span>
+                                            <div className="flex gap-2 items-center px-4 py-2 bg-slate-900 border border-white/5 rounded-xl">
+                                                {(simulation.subvention_details.vidyalaxmi_eligible || simulation.subvention_details.csis_eligible) && (
+                                                    <span className="text-gray-500 text-sm font-bold flex items-center gap-2">
+                                                        <span className="line-through">{selectedUniv?.base_interest_rate || 10.5}%</span>
+                                                        <ArrowRight size={14} className="text-gray-600" />
+                                                    </span>
+                                                )}
+                                                <span className="text-cyan-400 neon-glow-cyan text-xl font-black px-3 py-1 bg-cyan-950/30 rounded-lg shadow-[0_0_15px_rgba(34,211,238,0.4)] border border-cyan-400/30">
+                                                    {simulation.subvention_details.csis_eligible ? "0.0" : (simulation.subvention_details.vidyalaxmi_eligible ? ((selectedUniv?.base_interest_rate || 10.5) - 3).toFixed(1) : (selectedUniv?.base_interest_rate || 10.5).toFixed(1))}%
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Repayment Timeline Bar */}
+                                    <div className="glass-card p-6 rounded-[2rem] space-y-4">
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-[10px] font-black uppercase text-gray-500">Repayment Timeline</span>
+                                            <span className="text-[10px] font-black uppercase text-gray-400">{48 + Math.round(tenure * 12)} Months Total</span>
+                                        </div>
+                                        <div className="h-4 w-full bg-slate-800 rounded-full flex overflow-hidden">
+                                            <motion.div
+                                                initial={{ width: 0 }}
+                                                animate={{ width: `${(48 / (tenure * 12 + 48)) * 100}%` }}
+                                                transition={{ duration: 1.5, ease: "easeOut" }}
+                                                className="h-full bg-purple-500"
+                                            />
+                                            <motion.div
+                                                initial={{ width: 0 }}
+                                                animate={{ width: `${((tenure * 12) / (tenure * 12 + 48)) * 100}%` }}
+                                                transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
+                                                className="h-full bg-cyan-500"
+                                            />
+                                        </div>
+                                        <div className="flex justify-between text-[10px] font-bold text-gray-400">
+                                            <div className="flex items-center gap-2"><div className="w-2.5 h-2.5 rounded-full bg-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.8)]" /> Study + Grace Phase (Moratorium)</div>
+                                            <div className="flex items-center gap-2"><div className="w-2.5 h-2.5 rounded-full bg-cyan-500 shadow-[0_0_8px_rgba(34,211,238,0.8)]" /> Active Repayment</div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 {/* Top Metrics Grid */}
                                 <div className="grid md:grid-cols-3 gap-6">
-                                    <div className="glass-card p-6 rounded-[2rem] border-t-4 border-t-cyan-400 relative overflow-hidden group">
+                                    <div className="glass-card p-6 rounded-[2rem] border-t-4 border-t-cyan-400 relative overflow-hidden group hover:shadow-[0_0_20px_rgba(34,211,238,0.15)] transition-all">
                                         <p className="text-[10px] font-black uppercase text-gray-500 mb-2">Projected Monthly EMI</p>
-                                        <p className="text-3xl font-black italic">₹{simulation.emi.toLocaleString()}</p>
-                                        <Zap className="absolute -bottom-4 -right-4 w-20 h-20 text-cyan-400/5 group-hover:scale-110 transition-transform" />
+                                        <p className="text-4xl font-black italic">₹{displayEmi.toLocaleString()}</p>
+                                        <Zap className="absolute -bottom-4 -right-4 w-24 h-24 text-cyan-400/5 group-hover:scale-110 group-hover:text-cyan-400/10 transition-transform duration-500" />
                                     </div>
-                                    <div className="glass-card p-6 rounded-[2rem] border-t-4 border-t-indigo-400 relative overflow-hidden">
-                                        <p className="text-[10px] font-black uppercase text-gray-500 mb-2">TCS Liability (2026)</p>
-                                        <p className="text-3xl font-black italic text-indigo-400">₹{simulation.tcs_amount.toLocaleString()}</p>
-                                        <p className="text-[8px] text-gray-500 mt-2">{simulation.tcs_details}</p>
+                                    <div className="glass-card p-6 rounded-[2rem] border-t-4 border-t-emerald-400 relative overflow-hidden group hover:shadow-[0_0_20px_rgba(52,211,153,0.15)] transition-all">
+                                        <div className="absolute top-4 right-4"><ShieldCheck className="text-emerald-500/20 w-16 h-16 group-hover:text-emerald-500/40 transition-colors" /></div>
+                                        <p className="text-[10px] font-black uppercase text-gray-500 mb-2 text-emerald-300/80">Section 80E Benefit</p>
+                                        <p className="text-3xl font-black italic text-emerald-400 relative z-10">₹{simulation.tax_benefit_80E.toLocaleString()}</p>
+                                        <p className="text-[9px] text-gray-400 mt-2 font-medium bg-emerald-950/30 inline-block px-2 py-1 rounded">Money stayed in your pocket</p>
                                     </div>
-                                    <div className={cn("glass-card p-6 rounded-[2rem] border-t-4 relative transition-all", selectedUniv?.roi_index > 8 ? "roi-pulse border-t-green-400" : "border-t-amber-400")}>
-                                        <p className="text-[10px] font-black uppercase text-gray-500 mb-2">ROI Intelligence</p>
-                                        <div className="flex items-center gap-2">
-                                            <p className="text-3xl font-black italic">{selectedUniv?.roi_index || "8.4"}</p>
-                                            <ShieldCheck className="text-green-500" size={16} />
+                                    {isForeign ? (
+                                        <div className="glass-card p-6 rounded-[2rem] border-t-4 border-t-indigo-400 relative overflow-hidden group hover:shadow-[0_0_20px_rgba(99,102,241,0.15)] transition-all">
+                                            <p className="text-[10px] font-black uppercase text-gray-500 mb-2 text-indigo-300/80">TCS Liability (2026)</p>
+                                            <p className="text-3xl font-black italic text-indigo-400">₹{simulation.tcs_amount.toLocaleString()}</p>
+                                            <p className="text-[8px] text-gray-400 mt-2 font-medium bg-indigo-950/30 inline-block px-2 py-1 rounded">{simulation.tcs_details}</p>
                                         </div>
-                                        <p className="text-[8px] text-gray-500 mt-2">Verified PM-Vidyalaxmi {selectedUniv?.pmvl_category} Grade</p>
-                                    </div>
+                                    ) : (
+                                        <div className={cn("glass-card p-6 rounded-[2rem] border-t-4 relative transition-all", selectedUniv?.roi_index > 8 ? "roi-pulse border-t-green-400 hover:shadow-[0_0_20px_rgba(74,222,128,0.15)]" : "border-t-amber-400 hover:shadow-[0_0_20px_rgba(251,191,36,0.15)]")}>
+                                            <p className="text-[10px] font-black uppercase text-gray-500 mb-2">ROI Intelligence</p>
+                                            <div className="flex items-center gap-2">
+                                                <p className="text-3xl font-black italic">{selectedUniv?.roi_index || "8.4"}</p>
+                                                <ShieldCheck className={selectedUniv?.roi_index > 8 ? "text-green-500" : "text-amber-500"} size={16} />
+                                            </div>
+                                            <p className="text-[8px] text-gray-400 mt-2 font-medium bg-slate-900/50 inline-block px-2 py-1 rounded border border-white/5">Verified PM-Vidyalaxmi {selectedUniv?.pmvl_category} Grade</p>
+                                        </div>
+                                    )}
                                 </div>
 
                                 {/* Flow Simulator: Clear-Fast */}

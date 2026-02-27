@@ -142,7 +142,7 @@ export default function App() {
 
     useEffect(() => {
         fetchData();
-        // Initial Anime.js reveal
+        // Initial Anime.js reveal for the whole page
         animate('.stagger-reveal', {
             translateY: [{ from: 30, to: 0 }],
             opacity: [{ from: 0, to: 1 }],
@@ -150,6 +150,32 @@ export default function App() {
             ease: 'outElastic(1, .8)'
         });
     }, []);
+
+    // Re-animate the result cards every time simulation data changes
+    useEffect(() => {
+        if (!simulation) return;
+        // Short delay so DOM elements with opacity-0 class are rendered first
+        const timer = setTimeout(() => {
+            // Stagger entrance: each metric card swoops up
+            animate('.metric-card-reveal', {
+                translateY: [{ from: 24, to: 0 }],
+                scale: [{ from: 0.93, to: 1 }],
+                opacity: [{ from: 0, to: 1 }],
+                delay: stagger(120),
+                ease: 'spring(1, 90, 12, 0)',
+                duration: 900
+            });
+            // Subsidy badge gets a separate pop-in
+            animate('.subsidy-badge-animate', {
+                scale: [{ from: 0.5, to: 1 }],
+                opacity: [{ from: 0, to: 1 }],
+                ease: 'spring(1, 80, 14, 0)',
+                duration: 700,
+                delay: 250
+            });
+        }, 60);
+        return () => clearTimeout(timer);
+    }, [simulation]);
 
     const fetchData = async () => {
         try {
@@ -195,16 +221,6 @@ export default function App() {
             });
             setSimulation(res.data);
             animateEmi(res.data.emi, res.data.total_interest_paid, res.data.tax_benefit_80E);
-            // Stagger reveal the new cards
-            setTimeout(() => {
-                animate('.metric-card-reveal', {
-                    translateY: [{ from: 20, to: 0 }],
-                    opacity: [{ from: 0, to: 1 }],
-                    delay: stagger(150),
-                    ease: 'easeOutExpo',
-                    duration: 800
-                });
-            }, 50);
         } catch (err: any) {
             const msg = err?.response?.data?.detail
                 ? JSON.stringify(err.response.data.detail)
@@ -424,10 +440,37 @@ export default function App() {
                                 animate={{ opacity: 1, scale: 1 }}
                                 className="space-y-8"
                             >
-                                {/* Results Header & Timeline */}
+                                {/* Results Header + Rate + Subsidy Badge */}
                                 <div className="space-y-6">
                                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                                        <h2 className="text-2xl font-black italic uppercase tracking-tighter">Execution Deck</h2>
+                                        <div>
+                                            <h2 className="text-2xl font-black italic uppercase tracking-tighter">Execution Deck</h2>
+                                            {/* PM-Vidyalaxmi Subsidy Badge */}
+                                            {simulation.subvention_details.vidyalaxmi_eligible && (
+                                                <div className="subsidy-badge-animate mt-2 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl
+                                                    bg-purple-950/50 border border-purple-500/40
+                                                    shadow-[0_0_20px_rgba(168,85,247,0.35)]
+                                                    animate-[pulse_2s_ease-in-out_infinite]">
+                                                    <div className="w-2 h-2 rounded-full bg-purple-400 shadow-[0_0_8px_rgba(168,85,247,1)] animate-pulse" />
+                                                    <ShieldCheck className="text-purple-400 w-3.5 h-3.5" />
+                                                    <span className="text-[10px] font-black uppercase tracking-widest text-purple-300">
+                                                        PM-Vidyalaxmi: 3% Subvention Active
+                                                    </span>
+                                                </div>
+                                            )}
+                                            {simulation.subvention_details.csis_eligible && (
+                                                <div className="subsidy-badge-animate mt-2 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl
+                                                    bg-emerald-950/50 border border-emerald-500/40
+                                                    shadow-[0_0_20px_rgba(52,211,153,0.35)]
+                                                    animate-[pulse_2s_ease-in-out_infinite]">
+                                                    <div className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,1)] animate-pulse" />
+                                                    <ShieldCheck className="text-emerald-400 w-3.5 h-3.5" />
+                                                    <span className="text-[10px] font-black uppercase tracking-widest text-emerald-300">
+                                                        CSIS: 100% Interest Covered by Govt
+                                                    </span>
+                                                </div>
+                                            )}
+                                        </div>
                                         <div className="flex items-center gap-3">
                                             <span className="text-[10px] uppercase font-bold text-gray-400">Effective Int. Rate</span>
                                             <div className="flex gap-2 items-center px-4 py-2 bg-slate-900 border border-white/5 rounded-xl">
@@ -475,22 +518,45 @@ export default function App() {
 
                                 {/* Top Metrics Grid */}
                                 <div className="grid md:grid-cols-3 gap-6">
+                                    {/* EMI Card */}
                                     <div className="metric-card-reveal opacity-0 glass-card p-6 rounded-[2rem] border-t-4 border-t-cyan-400 relative overflow-hidden group hover:shadow-[0_0_20px_rgba(34,211,238,0.15)] transition-all">
-                                        <p className="text-[10px] font-black uppercase text-gray-500 mb-2">Projected Monthly EMI</p>
+                                        <p className="text-[10px] font-black uppercase text-gray-500 mb-1">Projected Monthly EMI</p>
+                                        {simulation.subvention_details.vidyalaxmi_eligible && (
+                                            <p className="text-[9px] text-purple-400 font-bold mb-2 flex items-center gap-1">
+                                                <ShieldCheck size={10} /> Subsidy applied ↓
+                                            </p>
+                                        )}
                                         <p className="text-4xl font-black italic currency-animate inline-block">{formatCurrency(displayEmi)}</p>
                                         <Zap className="absolute -bottom-4 -right-4 w-24 h-24 text-cyan-400/5 group-hover:scale-110 group-hover:text-cyan-400/10 transition-transform duration-500" />
                                     </div>
+
+                                    {/* Total Interest Card */}
                                     <div className="metric-card-reveal opacity-0 glass-card p-6 rounded-[2rem] border-t-4 border-t-[rgb(244,63,94)] relative overflow-hidden group hover:shadow-[0_0_20px_rgba(244,63,94,0.15)] transition-all">
                                         <p className="text-[10px] font-black uppercase text-gray-500 mb-2 text-rose-300/80">Total Interest Burden</p>
                                         <p className="text-3xl font-black italic text-rose-400 currency-animate inline-block">{formatCurrency(displayInterest)}</p>
                                         <Activity className="absolute top-4 right-4 text-rose-500/20 w-16 h-16 group-hover:text-rose-500/40 transition-colors" />
                                         <p className="text-[9px] text-gray-400 mt-2 font-medium bg-rose-950/30 inline-block px-2 py-1 rounded">Over full tenure</p>
                                     </div>
+
+                                    {/* Tax Shield (Section 80E) Card — Enhanced */}
                                     <div className="metric-card-reveal opacity-0 glass-card p-6 rounded-[2rem] border-t-4 border-t-emerald-400 relative overflow-hidden group hover:shadow-[0_0_20px_rgba(52,211,153,0.15)] transition-all">
-                                        <div className="absolute top-4 right-4"><ShieldCheck className="text-emerald-500/20 w-16 h-16 group-hover:text-emerald-500/40 transition-colors" /></div>
-                                        <p className="text-[10px] font-black uppercase text-gray-500 mb-2 text-emerald-300/80">Section 80E Benefit</p>
+                                        <div className="absolute top-4 right-4">
+                                            <ShieldCheck className="text-emerald-500/20 w-14 h-14 group-hover:text-emerald-500/40 transition-colors" />
+                                        </div>
+                                        <p className="text-[10px] font-black uppercase text-gray-500 mb-1 text-emerald-300/80">Tax Shield — Sec 80E</p>
                                         <p className="text-3xl font-black italic text-emerald-400 relative z-10 currency-animate inline-block">{formatCurrency(displayTax)}</p>
-                                        <p className="text-[9px] text-gray-400 mt-2 font-medium bg-emerald-950/30 inline-block px-2 py-1 rounded">Money stayed in your pocket</p>
+                                        {/* 30% bracket breakdown */}
+                                        <div className="mt-3 space-y-1 relative z-10">
+                                            <div className="flex justify-between text-[9px] text-gray-500">
+                                                <span>30% tax bracket (8 yrs)</span>
+                                                <span className="text-emerald-400 font-bold">{formatCurrency(Math.round(simulation.total_interest_paid * 0.30))}</span>
+                                            </div>
+                                            <div className="flex justify-between text-[9px] text-gray-500">
+                                                <span>20% tax bracket (8 yrs)</span>
+                                                <span className="text-emerald-300 font-bold">{formatCurrency(Math.round(simulation.total_interest_paid * 0.20))}</span>
+                                            </div>
+                                            <p className="text-[8px] text-gray-600 mt-1">Money stayed in your pocket</p>
+                                        </div>
                                     </div>
                                     {isForeign ? (
                                         <div className="metric-card-reveal opacity-0 glass-card p-6 rounded-[2rem] border-t-4 border-t-indigo-400 relative overflow-hidden group hover:shadow-[0_0_20px_rgba(99,102,241,0.15)] transition-all">

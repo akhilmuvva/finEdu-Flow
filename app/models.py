@@ -12,6 +12,18 @@ class User(Base):
     family_income = Column(Numeric(precision=15, scale=2))
     
     loans = relationship("Loan", back_populates="owner")
+    audit_logs = relationship("AuditLog", back_populates="user")
+
+class AuditLog(Base):
+    __tablename__ = "audit_logs"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    action = Column(String) # e.g., "SIMULATE_LOAN", "SAVE_LOAN"
+    metadata_json = Column(String) # Detailed params for audit trail
+    status_code = Column(Integer)
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+    
+    user = relationship("User", back_populates="audit_logs")
 
 class Loan(Base):
     __tablename__ = "loans"

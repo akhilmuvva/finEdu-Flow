@@ -21,7 +21,18 @@ class UserCreate(UserBase):
 
 class UserResponse(UserBase):
     id: int
-    created_at: datetime = datetime.now()
+    created_at: datetime
+    audit_logs: List['AuditLogResponse'] = []
+
+    class Config:
+        from_attributes = True
+
+class AuditLogResponse(BaseModel):
+    id: int
+    action: str
+    metadata_json: str
+    status_code: int
+    created_at: datetime
 
     class Config:
         from_attributes = True

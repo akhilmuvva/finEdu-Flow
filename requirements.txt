@@ -9,3 +9,7 @@ numpy-financial
 python-jose[cryptography]
 passlib[bcrypt]
 python-multipart
+reportlab
+pytest
+pytest-asyncio
+httpx

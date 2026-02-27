@@ -9,6 +9,9 @@ from datetime import timedelta
 from app.database import engine, get_db, Base
 from app import models, schemas, auth
 from app.services.calculator import LoanCalculator
+from app.services.reports import PDFReportProvider
+from fastapi.responses import StreamingResponse
+import json
 
 # Initialize DB Tables
 models.Base.metadata.create_all(bind=engine)
@@ -185,6 +188,67 @@ def compare_scenarios(request: schemas.ScenarioComparisonRequest):
             summarize(lumpsum, "50k Annual Lumpsum")
         ]
     }
+
+@app.get("/loans/{loan_id}/report")
+def get_loan_report(
+    loan_id: int, 
+    db: Session = Depends(get_db), 
+    current_user: models.User = Depends(get_current_user)
+):
+    loan = db.query(models.Loan).filter(
+        models.Loan.id == loan_id, 
+        models.Loan.user_id == current_user.id
+    ).first()
+    
+    if not loan:
+        raise HTTPException(status_code=404, detail="Loan not found")
+    
+    # Re-calculate or fetch summary data
+    calc = LoanCalculator(
+        loan_amount=loan.principal_amount,
+        interest_rate=loan.interest_rate,
+        course_duration_years=loan.course_duration_years,
+        family_income=current_user.family_income
+    )
+    emi_data = calc.calculate_emi(loan.tenure_years)
+    schedule = calc.get_full_schedule(loan.tenure_years)
+    tax_benefit = calc.calculate_80E_benefit(schedule)
+
+    loan_details = {
+        "principal_amount": loan.principal_amount,
+        "interest_rate": loan.interest_rate,
+        "course_duration_years": loan.course_duration_years,
+        "subvention_type": loan.subvention_type
+    }
+    
+    repayment_summary = {
+        "moratorium_interest": loan.moratorium_interest,
+        "capitalized_principal": loan.capitalized_principal,
+        "emi": emi_data["emi"],
+        "tax_benefit_80E": tax_benefit
+    }
+
+    # Audit Log Entry
+    audit_entry = models.AuditLog(
+        user_id=current_user.id,
+        action="GENERATE_PDF_REPORT",
+        metadata_json=json.dumps({"loan_id": loan_id}),
+        status_code=200
+    )
+    db.add(audit_entry)
+    db.commit()
+
+    pdf_buffer = PDFReportProvider.generate_loan_projection(
+        user_name=current_user.full_name,
+        loan_details=loan_details,
+        repayment_summary=repayment_summary
+    )
+    
+    return StreamingResponse(
+        pdf_buffer, 
+        media_type="application/pdf",
+        headers={"Content-Disposition": f"attachment; filename=FinnEDu_Projection_{loan_id}.pdf"}
+    )
 
 @app.get("/rates")
 def get_live_rates():

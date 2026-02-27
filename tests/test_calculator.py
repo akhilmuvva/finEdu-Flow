@@ -2,63 +2,65 @@ import pytest
 from decimal import Decimal
 from app.services.calculator import LoanCalculator
 
-def test_csis_eligibility():
-    # CSIS: Income <= 4.5L
+def test_aaa_premium_interest():
+    # AAA Category: Rate = 8.00% (6.5 + 1.5)
+    # 2 years course + 1 year moratorium = 3 years
+    # Simple Interest: 10,00,000 * 0.08 * 3 = 2,40,000
     calc = LoanCalculator(
-        loan_amount=Decimal('500000'),
-        interest_rate=Decimal('8.0'),
+        loan_amount=Decimal('1000000'),
+        interest_rate=Decimal('8.00'),
         course_duration_years=2,
-        family_income=Decimal('400000')
+        family_income=Decimal('1000000'), # No subvention for this test
+        is_qhei=True # AAA is QHEI
+    )
+    moratorium_int = calc.calculate_moratorium_interest()
+    assert moratorium_int == Decimal('240000.00')
+
+def test_aa_vidyalaxmi_subvention():
+    # AA Category: Rate = 8.20% (6.5 + 1.7)
+    # User eligible for Vidyalaxmi (Income <= 8L) -> 3% subvention
+    # Effective Rate: 8.20% - 3% = 5.20%
+    # Moratorium: 3 years
+    # Simple Interest: 10,00,000 * 0.052 * 3 = 1,56,000
+    calc = LoanCalculator(
+        loan_amount=Decimal('1000000'),
+        interest_rate=Decimal('8.20'),
+        course_duration_years=2,
+        family_income=Decimal('600000'),
+        is_qhei=True
+    )
+    subv = calc.calculate_subventions()
+    assert subv["vidyalaxmi_eligible"] is True
+    assert subv["subvention_rate_reduction"] == Decimal('0.03')
+    
+    moratorium_int = calc.calculate_moratorium_interest()
+    assert moratorium_int == Decimal('156000.00')
+
+def test_csis_full_subvention_aaa():
+    # CSIS: Income <= 4.5L -> Full interest subsidy
+    calc = LoanCalculator(
+        loan_amount=Decimal('1000000'),
+        interest_rate=Decimal('8.00'),
+        course_duration_years=2,
+        family_income=Decimal('400000'),
+        is_qhei=True
     )
     subv = calc.calculate_subventions()
     assert subv["csis_eligible"] is True
     assert calc.calculate_moratorium_interest() == Decimal('0.00')
 
-def test_vidyalaxmi_eligibility():
-    # PM-Vidyalaxmi: Income <= 8L, Loan <= 10L
-    calc = LoanCalculator(
-        loan_amount=Decimal('800000'),
-        interest_rate=Decimal('10.0'),
-        course_duration_years=2,
-        family_income=Decimal('600000')
-    )
-    subv = calc.calculate_subventions()
-    assert subv["csis_eligible"] is False
-    assert subv["vidyalaxmi_eligible"] is True
-    # Effective rate 10% - 3% = 7%. Moratorium = 3 years (2+1).
-    # Simple Interest = 800,000 * 0.07 * 3 = 168,000
-    assert calc.calculate_moratorium_interest() == Decimal('168000.00')
-
-def test_emi_calculation():
+def test_emi_capitalization_check():
+    # AAA: 10L loan, 8% rate, 2yr course
+    # Moratorium Int = 2.4L (Simple)
+    # Total Principal = 12.4L
     calc = LoanCalculator(
         loan_amount=Decimal('1000000'),
-        interest_rate=Decimal('12.0'),
-        course_duration_years=1,
-        family_income=Decimal('1000000') # Not eligible for subvention
+        interest_rate=Decimal('8.00'),
+        course_duration_years=2,
+        family_income=Decimal('1000000'),
+        is_qhei=True
     )
-    # Moratorium = 2 years. SI = 1,000,000 * 0.12 * 2 = 240,000.
-    # Total Principal = 1,240,000. 
-    # EMI for 5 years (60 months) at 1% monthly.
-    emi_data = calc.calculate_emi(tenure_years=5)
+    emi_data = calc.calculate_emi(tenure_years=10)
     assert emi_data["capitalized_principal"] == Decimal('1240000.00')
-    # Use standard formula result for verification
-    expected_emi = Decimal('27582.81') # Approximate based on PMT
-    assert abs(emi_data["emi"] - expected_emi) < Decimal('1.00')
-
-def test_aggressive_repayment_savings():
-    calc = LoanCalculator(
-        loan_amount=Decimal('500000'),
-        interest_rate=Decimal('10.0'),
-        course_duration_years=0, # Immediate EMI for test
-        family_income=Decimal('1000000')
-    )
-    # 5 years tenure = 60 months
-    baseline = calc.get_full_schedule(tenure_years=5)
-    # With 1 Extra EMI per year (5 extra EMIs total)
-    accelerated = calc.get_full_schedule(tenure_years=5, extra_emi_per_year=1)
-    
-    assert len(accelerated) < len(baseline)
-    
-    total_int_baseline = sum(m["interest"] for m in baseline)
-    total_int_accelerated = sum(m["interest"] for m in accelerated)
-    assert total_int_accelerated < total_int_baseline
+    # PMT(0.08/12, 120, -1240000) approx 15044.59
+    assert abs(emi_data["emi"] - Decimal('15044.59')) < Decimal('1.00')

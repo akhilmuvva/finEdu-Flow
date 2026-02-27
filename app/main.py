@@ -24,6 +24,19 @@ app = FastAPI(
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
+# RLLR Benchmark 2026 Mandate
+RLLR_BASE = Decimal('6.50')
+TIER_SPREADS = {
+    "AAA": Decimal('1.50'), # Premier (8.00%)
+    "AA": Decimal('1.70'),  # High Grade (8.20%)
+    "A": Decimal('2.50'),   # Standard (9.00%)
+}
+DEFAULT_SPREAD = Decimal('2.50')
+BANK_SPREADS = {
+    "SBI": Decimal('1.65'), 
+    "HDFC": Decimal('1.85')
+}
+
 # --- AUTH DEPENDENCY ---
 
 async def get_current_user(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
@@ -91,17 +104,20 @@ def save_loan(
     db: Session = Depends(get_db), 
     current_user: models.User = Depends(get_current_user)
 ):
-    # Determine spread based on Tier
+    # Determine spread based on Tier/Category
     spread = TIER_SPREADS.get(loan_in.university_tier, DEFAULT_SPREAD)
     effective_rate = RLLR_BASE + spread
 
     # Use the Calculator to compute 2026 Compliance Metadata
+    # QHEI is True for AAA, AA, A categories
+    is_qhei_status = loan_in.university_tier in ["AAA", "AA", "A"]
+    
     calc = LoanCalculator(
         loan_amount=loan_in.principal_amount,
         interest_rate=effective_rate,
         course_duration_years=loan_in.course_duration_years,
         family_income=current_user.family_income,
-        is_qhei=True if loan_in.university_tier in ["Tier 1", "Tier 2", "Tier 3"] else False # NIRF Top 100 condition
+        is_qhei=is_qhei_status
     )
     
     subv_info = calc.calculate_subventions()
@@ -133,19 +149,19 @@ def get_my_loans(db: Session = Depends(get_db), current_user: models.User = Depe
 # --- SIMULATION & COMPARISON (OPEN) ---
 
 @app.post("/simulate", response_model=schemas.RepaymentSimulationResponse)
-def simulate_loan(request: schemas.RepaymentSimulationRequest):
-    # Dynamic Interest Calculation (RLLR + Spread)
-    effective_rate = RLLR_BASE + BANK_SPREADS.get("SBI", Decimal('0'))
+def simulate_loan(request: schemas.RepaymentSimulationRequest, db: Session = Depends(get_db)):
+    # Try to find university in DB to determine category-based rate
+    university = None
+    if request.university_name:
+        university = db.query(models.University).filter(models.University.name == request.university_name).first()
     
-    # Check if university is QHEI for subvention
-    is_qhei_val = False
-    try:
-        with open("app/data/universities.json", "r") as f:
-            univs = json.load(f)
-            # Simple check if target loan amount matches a top university or just flag it
-            is_qhei_val = True # Defaulting to True for top selection in demo
-    except:
-        pass
+    # If found, use category rate, else use default spread
+    if university:
+        effective_rate = Decimal(str(university.base_interest_rate))
+        is_qhei_val = university.is_qhei
+    else:
+        effective_rate = RLLR_BASE + DEFAULT_SPREAD
+        is_qhei_val = False
 
     calc = LoanCalculator(
         loan_amount=request.loan_amount,

@@ -252,6 +252,7 @@ def simulate_loan(request: schemas.RepaymentSimulationRequest, db: Session = Dep
     total_interest_paid = sum(Decimal(str(m["interest"])) for m in schedule)
     months_saved = (request.tenure_years * 12) - len(schedule)
     tax_benefit = calc.calculate_80E_benefit(schedule)
+    tcs = calc.determine_tcs() # Defaulting to loan funded for simulation
     
     return {
         "emi": emi_data["emi"],
@@ -261,6 +262,8 @@ def simulate_loan(request: schemas.RepaymentSimulationRequest, db: Session = Dep
         "months_saved": months_saved,
         "total_interest_paid": total_interest_paid,
         "repayment_schedule": schedule,
+        "tcs_amount": tcs["amount"],
+        "tcs_details": tcs["details"],
         "recommendations": generate_recommendations(
             request.loan_amount * forex_rate, 
             total_interest_paid, 

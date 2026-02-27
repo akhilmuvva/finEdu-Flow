@@ -102,6 +102,8 @@ class RepaymentSimulationResponse(BaseModel):
     total_interest_paid: Decimal
     repayment_schedule: List[Dict[str, Any]]
     recommendations: List[Dict[str, str]]
+    tcs_amount: Decimal
+    tcs_details: str
 
 class ScenarioResult(BaseModel):
     name: str

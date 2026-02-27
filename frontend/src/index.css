@@ -26,18 +26,48 @@ body {
 
 @layer base {
   body {
-    @apply bg-gray-950 text-white selection:bg-primary-500/30;
+    @apply bg-slate-950 text-white selection:bg-cyan-500/30;
   }
 }
 
 .glass-card {
-  @apply bg-gray-900/50 backdrop-blur-xl border border-white/10 shadow-2xl;
+  @apply bg-slate-900/40 backdrop-blur-2xl border border-white/5 shadow-[0_8px_32px_0_rgba(0, 0, 0, 0.8)];
 }
 
-.gradient-text {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-indigo-400 font-bold;
+.neon-glow-cyan {
+  @apply shadow-[0_0_15px_rgba(34, 211, 238, 0.4)] border-cyan-400/30;
 }
 
-.btn-primary {
-  @apply px-6 py-3 bg-gradient-to-r from-primary-600 to-indigo-600 hover:from-primary-500 hover:to-indigo-500 text-white rounded-xl font-semibold transition-all duration-300 shadow-lg shadow-primary-500/20 active:scale-95;
+.neon-glow-gold {
+  @apply shadow-[0_0_15px_rgba(251, 191, 36, 0.4)] border-amber-400/30;
+}
+
+.gradient-text-cyan {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500 font-bold;
+}
+
+.gradient-text-gold {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-yellow-600 font-bold;
+}
+
+.btn-cyan {
+  @apply px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl font-bold transition-all duration-300 shadow-lg shadow-cyan-500/20 active:scale-95;
+}
+
+.roi-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: .8;
+    transform: scale(1.02);
+  }
 }

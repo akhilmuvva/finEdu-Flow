@@ -34,29 +34,36 @@ class LoanCalculator:
 
     def calculate_subventions(self) -> Dict[str, Any]:
         """
-        Compliance Check (2026):
-        - CSIS: Family Income <= 4.5L (Full subsidy during moratorium).
-        - PM-Vidyalaxmi: Family Income <= 8L AND QHEI status.
+        The 2026 Subsidy Engine:
+        - Tier 1: Income < 4.5L -> 100% CSIS (Full subsidy during moratorium).
+        - Tier 2: Income < 8L -> 3.00% PM-Vidyalaxmi Subvention.
         """
-        is_csis_eligible = self.family_income <= Decimal('450000')
-        is_vidyalaxmi_eligible = self.get_subsidy()["eligible"]
+        is_csis_eligible = self.family_income < Decimal('450000')
+        is_vidyalaxmi_eligible = self.is_qhei and self.family_income < Decimal('800000')
         
         return {
             "csis_eligible": is_csis_eligible,
             "vidyalaxmi_eligible": is_vidyalaxmi_eligible,
             "subvention_rate_reduction": Decimal('0.03') if is_vidyalaxmi_eligible else Decimal('0.00'),
-            "label": "CSIS (Full)" if is_csis_eligible else ("PM-Vidyalaxmi (3%)" if is_vidyalaxmi_eligible else "General")
+            "label": "Tier 1: 100% CSIS" if is_csis_eligible else ("Tier 2: 3% PMVL" if is_vidyalaxmi_eligible else "Standard")
         }
 
-    def get_subsidy(self) -> Dict[str, Any]:
+    def determine_tcs(self, self_funded_amount: Decimal = Decimal('0')) -> Dict[str, Any]:
         """
-        Data Engineer Requirement: Tags users as 'Vidyalaxmi Eligible' if 
-        they choose a QHEI and have income under 8L.
+        2026 TCS Rules:
+        - 0% on loan-funded remittances.
+        - 2% on self-funded > 10L.
         """
-        eligible = self.is_qhei and self.family_income <= Decimal('800000')
+        tcs_amount = Decimal('0')
+        details = "Loan Funded: 0% TCS applied."
+        
+        if self_funded_amount > Decimal('1000000'):
+            tcs_amount = (self_funded_amount - Decimal('1000000')) * Decimal('0.02')
+            details = f"Self-Funded (>10L): 2% TCS on excess. Total: {tcs_amount}"
+            
         return {
-            "eligible": eligible,
-            "tag": "Vidyalaxmi Eligible" if eligible else None
+            "amount": self._round(tcs_amount),
+            "details": details
         }
 
     def calculate_moratorium_interest(self) -> Decimal:

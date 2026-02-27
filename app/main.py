@@ -313,14 +313,11 @@ def health_check(db: Session = Depends(get_db)):
         "engine": "FinnEDu High-Precision 2026"
     }
 
-@app.get("/universities")
-def get_universities():
-    """Returns top 100 (demo top 10) university data for frontend."""
-    try:
-        with open("app/data/universities.json", "r") as f:
-            return json.load(f)
-    except FileNotFoundError:
-        return []
+@app.get("/universities", response_model=List[schemas.UniversityResponse])
+def get_universities(db: Session = Depends(get_db)):
+    """Returns official 2026 university data from the database."""
+    universities = db.query(models.University).order_by(models.University.nirf_rank).all()
+    return universities
 
 @app.get("/rates")
 def get_live_rates():

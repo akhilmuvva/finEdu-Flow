@@ -1,0 +1,26 @@
+aishe_code,name,state,type,is_qhei,nirf_rank,avg_total_fees_inr,avg_placement_lpa,roi_score
+U-0100,Indian Institute of Technology (IIT) Delhi,Delhi,Central,True,1,1250000,22.5,9.2
+U-1016,Indian Institute of Management (IIM) Ahmedabad,Gujarat,Central,True,1,2800000,32.0,8.5
+U-0391,BITS Pilani,Rajasthan,Private,True,7,2200000,18.0,8.1
+U-0109,Jawaharlal Nehru University (JNU),Delhi,Central,True,2,15000,11.0,9.8
+U-0108,Jamia Millia Islamia,Delhi,Central,True,3,45000,9.0,9.5
+U-0480,Vellore Institute of Technology (VIT),Tamil Nadu,Private,True,11,950000,9.2,7.8
+U-0436,Amrita Vishwa Vidyapeetham,Tamil Nadu,Private,True,8,1450000,8.5,7.1
+U-0221,Manipal Academy of Higher Education,Karnataka,Private,True,4,1850000,10.5,6.9
+U-0439,Anna University,Tamil Nadu,State,True,15,120000,8.2,9.1
+U-0139,Indian Institute of Technology (IIT) Gandhinagar,Gujarat,Central,True,18,1050000,15.5,8.8
+U-0013,University of Hyderabad,Telangana,Central,True,11,48000,9.5,9.4
+U-0584,IIEST Shibpur,West Bengal,Central,True,20,650000,8.5,8.2
+U-0273,Savitribai Phule Pune University,Maharashtra,State,True,14,85000,7.8,8.9
+U-0500,Banaras Hindu University (BHU),Uttar Pradesh,Central,True,5,35000,8.8,9.3
+U-0497,Amity University,Uttar Pradesh,Private,True,23,1250000,6.5,5.8
+U-1014,Indian Institute of Management (IIM) Bangalore,Karnataka,Central,True,2,2500000,31.0,8.7
+U-0096,AIIMS Delhi,Delhi,Central,True,1,45000,18.0,9.9
+U-0688,AIIMS Bhubaneswar,Odisha,Central,True,17,35000,15.0,9.7
+U-0701,IIT (BHU) Varanasi,Uttar Pradesh,Central,True,14,1150000,19.5,8.9
+U-0050,Assam University,Assam,Central,True,61,65000,6.5,8.1
+U-0055,National Institute of Technology (NIT) Silchar,Assam,Central,True,62,750000,11.5,8.5
+U-0051,Dibrugarh University,Assam,State,False,63,120000,5.5,7.2
+U-0102,IIFT Delhi,Delhi,Central,True,45,2100000,24.0,8.2
+U-1007,IIM Visakhapatnam,Andhra Pradesh,Central,True,43,1800000,16.5,7.9
+U-0492,Vinayaka Missions Research Foundation,Tamil Nadu,Deemed,True,100,850000,5.5,6.1

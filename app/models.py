@@ -25,6 +25,19 @@ class AuditLog(Base):
     
     user = relationship("User", back_populates="audit_logs")
 
+class University(Base):
+    __tablename__ = "universities"
+    id = Column(Integer, primary_key=True, index=True)
+    aishe_code = Column(String, unique=True, index=True)
+    name = Column(String, index=True)
+    state = Column(String)
+    type = Column(String)
+    is_qhei = Column(Boolean, default=True)
+    nirf_rank = Column(Integer)
+    avg_total_fees_inr = Column(Numeric(precision=15, scale=2))
+    avg_placement_lpa = Column(Numeric(precision=5, scale=2))
+    roi_score = Column(Numeric(precision=3, scale=1))
+
 class Loan(Base):
     __tablename__ = "loans"
     id = Column(Integer, primary_key=True, index=True)

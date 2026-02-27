@@ -124,3 +124,18 @@ class AdvisorResponse(BaseModel):
     months_saved: int
     optimal_strategy: str
     roi_comparison_ratio: float
+
+class UniversityResponse(BaseModel):
+    id: int
+    aishe_code: str
+    name: str
+    state: str
+    type: str
+    is_qhei: bool
+    nirf_rank: int
+    avg_total_fees_inr: Decimal
+    avg_placement_lpa: Decimal
+    roi_score: Decimal
+
+    class Config:
+        from_attributes = True

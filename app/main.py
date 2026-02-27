@@ -44,10 +44,11 @@ app.add_middleware(
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @app.on_event("startup")
-def startup_event():   # sync — ForexService.update_cached_rates is not a coroutine
+def startup_event():   # sync wrapper — calls async forex update safely
+    import asyncio
     db = SessionLocal()
     try:
-        ForexService.update_cached_rates(db)
+        asyncio.run(ForexService.update_cached_rates(db))
     except Exception as e:
         print(f"[Startup] Forex update skipped: {e}")
     finally:

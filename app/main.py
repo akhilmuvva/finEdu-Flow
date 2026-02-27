@@ -10,6 +10,7 @@ from app.database import engine, get_db, Base
 from app import models, schemas, auth
 from app.services.calculator import LoanCalculator
 from app.services.reports import PDFReportProvider
+from app.services.forex import ForexService
 from fastapi.responses import StreamingResponse
 import json
 
@@ -23,6 +24,14 @@ app = FastAPI(
 )
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+@app.on_event("startup")
+async def startup_event():
+    db = SessionLocal()
+    try:
+        await ForexService.update_cached_rates(db)
+    finally:
+        db.close()
 
 # RLLR Benchmark 2026 Mandate
 RLLR_BASE = Decimal('6.50')
@@ -332,8 +341,18 @@ def health_check(db: Session = Depends(get_db)):
 @app.get("/universities", response_model=List[schemas.UniversityResponse])
 def get_universities(db: Session = Depends(get_db)):
     """Returns official 2026 university data from the database."""
-    universities = db.query(models.University).order_by(models.University.nirf_rank).all()
+    universities = db.query(models.University).order_by(models.University.nirf_2026).all()
     return universities
+
+@app.get("/foreign-universities", response_model=List[schemas.ForeignInstitutionResponse])
+def get_foreign_universities(db: Session = Depends(get_db)):
+    """Returns top foreign institutions for international study logic."""
+    return db.query(models.ForeignInstitution).order_by(models.ForeignInstitution.ranking_qs).all()
+
+@app.get("/forex", response_model=List[schemas.ForexRateResponse])
+def get_forex_rates(db: Session = Depends(get_db)):
+    """Returns real-time cached forex rates from the 2026 market logic."""
+    return db.query(models.ForexRate).all()
 
 @app.get("/rates")
 def get_live_rates():

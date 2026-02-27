@@ -40,6 +40,24 @@ class University(Base):
     roi_index = Column(Float)
     base_interest_rate = Column(Float) # Calculated based on Category
 
+class ForeignInstitution(Base):
+    __tablename__ = "foreign_institutions"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, index=True)
+    country = Column(String, index=True) # US, UK, Canada, Germany
+    currency = Column(String) # USD, GBP, EUR, CAD
+    avg_tuition_annual = Column(Numeric(precision=15, scale=2))
+    ranking_qs = Column(Integer)
+    is_top_world = Column(Boolean, default=False)
+
+class ForexRate(Base):
+    __tablename__ = "forex_rates"
+    id = Column(Integer, primary_key=True, index=True)
+    base_currency = Column(String) # e.g., USD
+    target_currency = Column(String, default="INR")
+    rate = Column(Numeric(precision=10, scale=4))
+    updated_at = Column(DateTime, default=datetime.datetime.utcnow)
+
 class Loan(Base):
     __tablename__ = "loans"
     id = Column(Integer, primary_key=True, index=True)

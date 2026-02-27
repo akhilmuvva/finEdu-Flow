@@ -141,3 +141,21 @@ class UniversityResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+class ForeignInstitutionResponse(BaseModel):
+    id: int
+    name: str
+    country: str
+    currency: str
+    avg_tuition_annual: Decimal
+    ranking_qs: int
+    is_top_world: bool
+
+    class Config:
+        from_attributes = True
+
+class ForexRateResponse(BaseModel):
+    base_currency: str
+    target_currency: str
+    rate: Decimal
+    updated_at: datetime

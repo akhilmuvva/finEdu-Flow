@@ -84,16 +84,24 @@ export default function App() {
     const [simulation, setSimulation] = useState<SimulationResult | null>(null);
     const [loading, setLoading] = useState(false);
     const [displayEmi, setDisplayEmi] = useState(0);
-    const displayEmiRef = useRef({ val: 0 });
+    const [displayInterest, setDisplayInterest] = useState(0);
+    const [displayTax, setDisplayTax] = useState(0);
+    const displayEmiRef = useRef({ val: 0, interest: 0, tax: 0 });
 
-    const animateEmi = (target: number) => {
+    const animateEmi = (targetEmi: number, targetInterest: number, targetTax: number) => {
         anime({
             targets: displayEmiRef.current,
-            val: target,
+            val: targetEmi,
+            interest: targetInterest,
+            tax: targetTax,
             round: 1,
             duration: 1500,
             easing: 'easeOutElastic(1, .8)',
-            update: () => setDisplayEmi(displayEmiRef.current.val)
+            update: () => {
+                setDisplayEmi(displayEmiRef.current.val);
+                setDisplayInterest(displayEmiRef.current.interest);
+                setDisplayTax(displayEmiRef.current.tax);
+            }
         });
     };
 
@@ -149,7 +157,19 @@ export default function App() {
             });
             // Note: The logic for extraMonthly can be mixed in or we can add it to request
             setSimulation(resEnriched.data);
-            animateEmi(resEnriched.data.emi);
+            animateEmi(resEnriched.data.emi, resEnriched.data.total_interest_paid, resEnriched.data.tax_benefit_80E);
+
+            // Stagger reveal the new cards
+            setTimeout(() => {
+                anime({
+                    targets: '.metric-card-reveal',
+                    translateY: [20, 0],
+                    opacity: [0, 1],
+                    delay: anime.stagger(150),
+                    easing: 'easeOutExpo',
+                    duration: 800
+                });
+            }, 50);
         } catch (err) {
             console.error(err);
         } finally {
@@ -382,25 +402,31 @@ export default function App() {
 
                                 {/* Top Metrics Grid */}
                                 <div className="grid md:grid-cols-3 gap-6">
-                                    <div className="glass-card p-6 rounded-[2rem] border-t-4 border-t-cyan-400 relative overflow-hidden group hover:shadow-[0_0_20px_rgba(34,211,238,0.15)] transition-all">
+                                    <div className="metric-card-reveal opacity-0 glass-card p-6 rounded-[2rem] border-t-4 border-t-cyan-400 relative overflow-hidden group hover:shadow-[0_0_20px_rgba(34,211,238,0.15)] transition-all">
                                         <p className="text-[10px] font-black uppercase text-gray-500 mb-2">Projected Monthly EMI</p>
                                         <p className="text-4xl font-black italic">₹{displayEmi.toLocaleString()}</p>
                                         <Zap className="absolute -bottom-4 -right-4 w-24 h-24 text-cyan-400/5 group-hover:scale-110 group-hover:text-cyan-400/10 transition-transform duration-500" />
                                     </div>
-                                    <div className="glass-card p-6 rounded-[2rem] border-t-4 border-t-emerald-400 relative overflow-hidden group hover:shadow-[0_0_20px_rgba(52,211,153,0.15)] transition-all">
+                                    <div className="metric-card-reveal opacity-0 glass-card p-6 rounded-[2rem] border-t-4 border-t-[rgb(244,63,94)] relative overflow-hidden group hover:shadow-[0_0_20px_rgba(244,63,94,0.15)] transition-all">
+                                        <p className="text-[10px] font-black uppercase text-gray-500 mb-2 text-rose-300/80">Total Interest Burden</p>
+                                        <p className="text-3xl font-black italic text-rose-400">₹{displayInterest.toLocaleString()}</p>
+                                        <Activity className="absolute top-4 right-4 text-rose-500/20 w-16 h-16 group-hover:text-rose-500/40 transition-colors" />
+                                        <p className="text-[9px] text-gray-400 mt-2 font-medium bg-rose-950/30 inline-block px-2 py-1 rounded">Over full tenure</p>
+                                    </div>
+                                    <div className="metric-card-reveal opacity-0 glass-card p-6 rounded-[2rem] border-t-4 border-t-emerald-400 relative overflow-hidden group hover:shadow-[0_0_20px_rgba(52,211,153,0.15)] transition-all">
                                         <div className="absolute top-4 right-4"><ShieldCheck className="text-emerald-500/20 w-16 h-16 group-hover:text-emerald-500/40 transition-colors" /></div>
                                         <p className="text-[10px] font-black uppercase text-gray-500 mb-2 text-emerald-300/80">Section 80E Benefit</p>
-                                        <p className="text-3xl font-black italic text-emerald-400 relative z-10">₹{simulation.tax_benefit_80E.toLocaleString()}</p>
+                                        <p className="text-3xl font-black italic text-emerald-400 relative z-10">₹{displayTax.toLocaleString()}</p>
                                         <p className="text-[9px] text-gray-400 mt-2 font-medium bg-emerald-950/30 inline-block px-2 py-1 rounded">Money stayed in your pocket</p>
                                     </div>
                                     {isForeign ? (
-                                        <div className="glass-card p-6 rounded-[2rem] border-t-4 border-t-indigo-400 relative overflow-hidden group hover:shadow-[0_0_20px_rgba(99,102,241,0.15)] transition-all">
+                                        <div className="metric-card-reveal opacity-0 glass-card p-6 rounded-[2rem] border-t-4 border-t-indigo-400 relative overflow-hidden group hover:shadow-[0_0_20px_rgba(99,102,241,0.15)] transition-all">
                                             <p className="text-[10px] font-black uppercase text-gray-500 mb-2 text-indigo-300/80">TCS Liability (2026)</p>
                                             <p className="text-3xl font-black italic text-indigo-400">₹{simulation.tcs_amount.toLocaleString()}</p>
                                             <p className="text-[8px] text-gray-400 mt-2 font-medium bg-indigo-950/30 inline-block px-2 py-1 rounded">{simulation.tcs_details}</p>
                                         </div>
                                     ) : (
-                                        <div className={cn("glass-card p-6 rounded-[2rem] border-t-4 relative transition-all", selectedUniv?.roi_index > 8 ? "roi-pulse border-t-green-400 hover:shadow-[0_0_20px_rgba(74,222,128,0.15)]" : "border-t-amber-400 hover:shadow-[0_0_20px_rgba(251,191,36,0.15)]")}>
+                                        <div className={cn("metric-card-reveal opacity-0 glass-card p-6 rounded-[2rem] border-t-4 relative transition-all", selectedUniv?.roi_index > 8 ? "roi-pulse border-t-green-400 hover:shadow-[0_0_20px_rgba(74,222,128,0.15)]" : "border-t-amber-400 hover:shadow-[0_0_20px_rgba(251,191,36,0.15)]")}>
                                             <p className="text-[10px] font-black uppercase text-gray-500 mb-2">ROI Intelligence</p>
                                             <div className="flex items-center gap-2">
                                                 <p className="text-3xl font-black italic">{selectedUniv?.roi_index || "8.4"}</p>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import anime from 'animejs';
+import { animate, stagger } from 'animejs';
 import { FixedSizeList as List } from 'react-window';
 import {
     Calculator,
@@ -75,6 +75,7 @@ export default function App() {
     const [universities, setUniversities] = useState<University[]>([]);
     const [foreignUnivs, setForeignUnivs] = useState<ForeignUniv[]>([]);
     const [isForeign, setIsForeign] = useState(false);
+    const [isInternational, setIsInternational] = useState(false);
     const [uniFilter, setUniFilter] = useState('All');
     const [selectedUniv, setSelectedUniv] = useState<any>(null);
     const [loanAmount, setLoanAmount] = useState(1500000);
@@ -89,33 +90,61 @@ export default function App() {
     const displayEmiRef = useRef({ val: 0, interest: 0, tax: 0 });
 
     const animateEmi = (targetEmi: number, targetInterest: number, targetTax: number) => {
-        anime({
-            targets: displayEmiRef.current,
-            val: targetEmi,
-            interest: targetInterest,
-            tax: targetTax,
-            round: 1,
-            duration: 1500,
-            easing: 'easeOutElastic(1, .8)',
-            update: () => {
-                setDisplayEmi(displayEmiRef.current.val);
-                setDisplayInterest(displayEmiRef.current.interest);
-                setDisplayTax(displayEmiRef.current.tax);
-            }
-        });
+        // animejs v4 targets DOM elements; use rAF for plain object interpolation
+        const start = { val: displayEmiRef.current.val, interest: displayEmiRef.current.interest, tax: displayEmiRef.current.tax };
+        const startTime = performance.now();
+        const duration = 1500;
+        const ease = (t: number) => 1 - Math.pow(1 - t, 4);
+        const tick = (now: number) => {
+            const elapsed = Math.min((now - startTime) / duration, 1);
+            const t = ease(elapsed);
+            displayEmiRef.current.val = Math.round(start.val + (targetEmi - start.val) * t);
+            displayEmiRef.current.interest = Math.round(start.interest + (targetInterest - start.interest) * t);
+            displayEmiRef.current.tax = Math.round(start.tax + (targetTax - start.tax) * t);
+            setDisplayEmi(displayEmiRef.current.val);
+            setDisplayInterest(displayEmiRef.current.interest);
+            setDisplayTax(displayEmiRef.current.tax);
+            if (elapsed < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
     };
+
+    const formatCurrency = (amount: number, prefix: string = '₹') => {
+        if (isInternational && prefix === '₹') {
+            return `$${(amount / 88.75).toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
+        }
+        return `${prefix}${amount.toLocaleString('en-IN')}`;
+    };
+
+    useEffect(() => {
+        animate('.currency-animate', {
+            rotateX: [{ from: -90, to: 0 }],
+            opacity: [{ from: 0, to: 1 }],
+            duration: 600,
+            ease: 'outBack'
+        });
+    }, [isInternational]);
+
+    useEffect(() => {
+        animate('.univ-row', {
+            translateX: [{ from: -30, to: 0 }],
+            opacity: [{ from: 0, to: 1 }],
+            delay: stagger(50),
+            ease: 'easeOutExpo',
+            duration: 500
+        });
+    }, [uniFilter, isForeign]);
 
     const heroRef = useRef(null);
 
     useEffect(() => {
         fetchData();
         // Initial Anime.js reveal
-        anime({
-            targets: '.stagger-reveal',
-            translateY: [30, 0],
-            opacity: [0, 1],
-            delay: anime.stagger(100),
-            easing: 'easeOutElastic(1, .8)'
+        animate('.stagger-reveal', {
+            translateY: [{ from: 30, to: 0 }],
+            opacity: [{ from: 0, to: 1 }],
+            delay: stagger(100),
+            ease: 'outElastic(1, .8)'
         });
     }, []);
 
@@ -161,12 +190,11 @@ export default function App() {
 
             // Stagger reveal the new cards
             setTimeout(() => {
-                anime({
-                    targets: '.metric-card-reveal',
-                    translateY: [20, 0],
-                    opacity: [0, 1],
-                    delay: anime.stagger(150),
-                    easing: 'easeOutExpo',
+                animate('.metric-card-reveal', {
+                    translateY: [{ from: 20, to: 0 }],
+                    opacity: [{ from: 0, to: 1 }],
+                    delay: stagger(150),
+                    ease: 'easeOutExpo',
                     duration: 800
                 });
             }, 50);
@@ -189,7 +217,7 @@ export default function App() {
                     if (isForeign) setLoanAmount(item.avg_tuition_annual);
                 }}
                 className={cn(
-                    "px-4 py-3 cursor-pointer transition-all border-b border-white/5 flex justify-between items-center group",
+                    "univ-row px-4 py-3 cursor-pointer transition-all border-b border-white/5 flex justify-between items-center group",
                     isSelected ? (isForeign ? "bg-amber-500/10 border-l-4 border-l-amber-400" : "bg-cyan-500/10 border-l-4 border-l-cyan-400") : "hover:bg-white/5"
                 )}
             >
@@ -232,7 +260,16 @@ export default function App() {
                     </div>
                 </div>
 
-                <div className="flex bg-slate-900/80 p-1 rounded-2xl border border-white/10 backdrop-blur-md">
+                <div className="flex bg-slate-900/80 p-1 rounded-2xl border border-white/10 backdrop-blur-md items-center shadow-2xl">
+                    <button
+                        onClick={() => setIsInternational(!isInternational)}
+                        className={cn(
+                            "px-4 py-2 mr-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border border-transparent",
+                            isInternational ? "text-emerald-400 bg-emerald-500/10 border-emerald-500/30" : "text-gray-500 hover:text-white"
+                        )}
+                    >
+                        {isInternational ? "USD Mode" : "INR Mode"}
+                    </button>
                     <button
                         onClick={() => setIsForeign(false)}
                         className={cn(
@@ -309,7 +346,7 @@ export default function App() {
                         <div className="space-y-4">
                             <div className="flex justify-between">
                                 <span className="text-xs font-bold text-gray-500 uppercase">Family Annual Income</span>
-                                <span className="text-sm font-black italic">₹{(familyIncome / 100000).toFixed(1)}L</span>
+                                <span className="text-sm font-black italic currency-animate block">{formatCurrency(familyIncome)}</span>
                             </div>
                             <input
                                 type="range" min="100000" max="2500000" step="50000"
@@ -322,7 +359,7 @@ export default function App() {
                         <div className="space-y-4">
                             <div className="flex justify-between">
                                 <span className="text-xs font-bold text-gray-500 uppercase">Loan Amount</span>
-                                <span className="text-sm font-black italic">{isForeign ? `${selectedUniv?.currency} ` : '₹'}{loanAmount.toLocaleString()}</span>
+                                <span className="text-sm font-black italic currency-animate block">{formatCurrency(loanAmount, isForeign ? `${selectedUniv?.currency} ` : '₹')}</span>
                             </div>
                             <input
                                 type="range" min={isForeign ? 10000 : 500000} max={isForeign ? 100000 : 5000000} step={isForeign ? 1000 : 100000}
@@ -345,7 +382,18 @@ export default function App() {
                 </div>
 
                 {/* Right Column: Execution Deck */}
-                <div className="lg:col-span-8 space-y-8">
+                <div className="lg:col-span-8 space-y-8 relative min-h-[500px]">
+                    {loading && (
+                        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-12 bg-slate-950/80 backdrop-blur-xl rounded-[2.5rem] border border-white/5">
+                            <div className="relative w-24 h-24 mb-6">
+                                <div className="absolute inset-0 border-4 border-t-cyan-500 border-r-transparent border-b-cyan-500/20 border-l-transparent rounded-full animate-spin"></div>
+                                <div className="absolute inset-2 border-4 border-t-transparent border-r-purple-500 border-b-transparent border-l-purple-500/20 rounded-full animate-[spin_1.5s_reverse_infinite]"></div>
+                                <Activity className="absolute inset-0 m-auto text-cyan-400 animate-pulse w-8 h-8" />
+                            </div>
+                            <h3 className="text-xl font-black italic uppercase tracking-[0.3em] text-cyan-400 neon-glow-cyan animate-pulse">Processing...</h3>
+                            <p className="text-[10px] text-gray-500 mt-2 uppercase tracking-widest">Running AI Optimizations</p>
+                        </div>
+                    )}
                     {simulation ? (
                         <AnimatePresence>
                             <motion.div
@@ -404,25 +452,25 @@ export default function App() {
                                 <div className="grid md:grid-cols-3 gap-6">
                                     <div className="metric-card-reveal opacity-0 glass-card p-6 rounded-[2rem] border-t-4 border-t-cyan-400 relative overflow-hidden group hover:shadow-[0_0_20px_rgba(34,211,238,0.15)] transition-all">
                                         <p className="text-[10px] font-black uppercase text-gray-500 mb-2">Projected Monthly EMI</p>
-                                        <p className="text-4xl font-black italic">₹{displayEmi.toLocaleString()}</p>
+                                        <p className="text-4xl font-black italic currency-animate inline-block">{formatCurrency(displayEmi)}</p>
                                         <Zap className="absolute -bottom-4 -right-4 w-24 h-24 text-cyan-400/5 group-hover:scale-110 group-hover:text-cyan-400/10 transition-transform duration-500" />
                                     </div>
                                     <div className="metric-card-reveal opacity-0 glass-card p-6 rounded-[2rem] border-t-4 border-t-[rgb(244,63,94)] relative overflow-hidden group hover:shadow-[0_0_20px_rgba(244,63,94,0.15)] transition-all">
                                         <p className="text-[10px] font-black uppercase text-gray-500 mb-2 text-rose-300/80">Total Interest Burden</p>
-                                        <p className="text-3xl font-black italic text-rose-400">₹{displayInterest.toLocaleString()}</p>
+                                        <p className="text-3xl font-black italic text-rose-400 currency-animate inline-block">{formatCurrency(displayInterest)}</p>
                                         <Activity className="absolute top-4 right-4 text-rose-500/20 w-16 h-16 group-hover:text-rose-500/40 transition-colors" />
                                         <p className="text-[9px] text-gray-400 mt-2 font-medium bg-rose-950/30 inline-block px-2 py-1 rounded">Over full tenure</p>
                                     </div>
                                     <div className="metric-card-reveal opacity-0 glass-card p-6 rounded-[2rem] border-t-4 border-t-emerald-400 relative overflow-hidden group hover:shadow-[0_0_20px_rgba(52,211,153,0.15)] transition-all">
                                         <div className="absolute top-4 right-4"><ShieldCheck className="text-emerald-500/20 w-16 h-16 group-hover:text-emerald-500/40 transition-colors" /></div>
                                         <p className="text-[10px] font-black uppercase text-gray-500 mb-2 text-emerald-300/80">Section 80E Benefit</p>
-                                        <p className="text-3xl font-black italic text-emerald-400 relative z-10">₹{displayTax.toLocaleString()}</p>
+                                        <p className="text-3xl font-black italic text-emerald-400 relative z-10 currency-animate inline-block">{formatCurrency(displayTax)}</p>
                                         <p className="text-[9px] text-gray-400 mt-2 font-medium bg-emerald-950/30 inline-block px-2 py-1 rounded">Money stayed in your pocket</p>
                                     </div>
                                     {isForeign ? (
                                         <div className="metric-card-reveal opacity-0 glass-card p-6 rounded-[2rem] border-t-4 border-t-indigo-400 relative overflow-hidden group hover:shadow-[0_0_20px_rgba(99,102,241,0.15)] transition-all">
                                             <p className="text-[10px] font-black uppercase text-gray-500 mb-2 text-indigo-300/80">TCS Liability (2026)</p>
-                                            <p className="text-3xl font-black italic text-indigo-400">₹{simulation.tcs_amount.toLocaleString()}</p>
+                                            <p className="text-3xl font-black italic text-indigo-400 currency-animate inline-block">{formatCurrency(simulation.tcs_amount)}</p>
                                             <p className="text-[8px] text-gray-400 mt-2 font-medium bg-indigo-950/30 inline-block px-2 py-1 rounded">{simulation.tcs_details}</p>
                                         </div>
                                     ) : (

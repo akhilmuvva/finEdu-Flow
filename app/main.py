@@ -215,22 +215,29 @@ def simulate_loan(request: schemas.RepaymentSimulationRequest, db: Session = Dep
     university = None
     forex_rate = Decimal('1.00')
     currency = "INR"
-    
+    effective_rate = RLLR_BASE + DEFAULT_SPREAD  # safe fallback: 9.0%
+    is_qhei_val = False
+
     if request.is_foreign:
-        university = db.query(models.ForeignInstitution).filter(models.ForeignInstitution.name == request.university_name).first()
+        university = db.query(models.ForeignInstitution).filter(
+            models.ForeignInstitution.name == request.university_name
+        ).first()
         if university:
             forex_rate = ForexService.get_rate(db, university.currency)
             currency = university.currency
-            effective_rate = RLLR_BASE + Decimal('2.50') # Standard International Spread
-            is_qhei_val = False # Usually domestic subventions don't apply fully to foreign
+            effective_rate = RLLR_BASE + Decimal('2.50')  # International spread
+            is_qhei_val = False
     else:
-        university = db.query(models.University).filter(models.University.name == request.university_name).first()
+        university = db.query(models.University).filter(
+            models.University.name == request.university_name
+        ).first()
         if university:
             effective_rate = Decimal(str(university.base_interest_rate))
             is_qhei_val = university.is_qhei
-        else:
-            effective_rate = RLLR_BASE + DEFAULT_SPREAD
-            is_qhei_val = False
+
+    # Allow manual override (for custom rate testing from frontend)
+    if request.interest_rate is not None:
+        effective_rate = request.interest_rate
 
     calc = LoanCalculator(
         loan_amount=request.loan_amount,
@@ -241,22 +248,28 @@ def simulate_loan(request: schemas.RepaymentSimulationRequest, db: Session = Dep
         currency=currency,
         forex_rate=forex_rate
     )
-    
+
     subv = calc.calculate_subventions()
     emi_data = calc.calculate_emi(request.tenure_years)
     schedule = calc.get_full_schedule(
         tenure_years=request.tenure_years,
         extra_emi_per_year=request.extra_emi_per_year
     )
-    
+
     total_interest_paid = sum(Decimal(str(m["interest"])) for m in schedule)
     months_saved = (request.tenure_years * 12) - len(schedule)
     tax_benefit = calc.calculate_80E_benefit(schedule)
-    tcs = calc.determine_tcs() # Defaulting to loan funded for simulation
-    
+    tcs = calc.determine_tcs()
+
+    # Compute display rate (post-subvention) for the UI's struck-through effect
+    rate_reduction = Decimal(str(subv.get("subvention_rate_reduction", 0)))
+    final_display_rate = (effective_rate - rate_reduction).quantize(Decimal("0.01"))
+
     return {
         "emi": emi_data["emi"],
         "total_principal": emi_data["capitalized_principal"],
+        "effective_interest_rate": final_display_rate,
+        "subvention_type": subv.get("label", "None"),
         "subvention_details": subv,
         "tax_benefit_80E": tax_benefit,
         "months_saved": months_saved,
@@ -265,9 +278,9 @@ def simulate_loan(request: schemas.RepaymentSimulationRequest, db: Session = Dep
         "tcs_amount": tcs["amount"],
         "tcs_details": tcs["details"],
         "recommendations": generate_recommendations(
-            request.loan_amount * forex_rate, 
-            total_interest_paid, 
-            is_qhei_val, 
+            request.loan_amount * forex_rate,
+            total_interest_paid,
+            is_qhei_val,
             request.family_income,
             currency
         )

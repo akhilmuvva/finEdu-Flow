@@ -85,17 +85,19 @@ class LoanResponse(LoanBase):
 # --- Original Simulation Schemas (Refined) ---
 class RepaymentSimulationRequest(BaseModel):
     loan_amount: Decimal
-    interest_rate: Decimal
+    interest_rate: Optional[Decimal] = None   # Optional — backend derives from university tier
     tenure_years: int
     extra_emi_per_year: int = 0
     family_income: Decimal
-    course_duration: int
+    course_duration: int = 4
     university_name: Optional[str] = None
     is_foreign: bool = False
 
 class RepaymentSimulationResponse(BaseModel):
     emi: Decimal
     total_principal: Decimal
+    effective_interest_rate: Decimal          # The final rate after subvention
+    subvention_type: str                      # 'CSIS', 'PM-Vidyalaxmi', 'None'
     subvention_details: Dict[str, Any]
     tax_benefit_80E: Decimal
     months_saved: int

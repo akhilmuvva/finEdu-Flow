@@ -61,7 +61,9 @@ interface ForeignUniv {
 interface SimulationResult {
     emi: number;
     total_principal: number;
-    subvention_details: { label: string; csis_eligible: boolean; vidyalaxmi_eligible: boolean };
+    effective_interest_rate: number;          // NEW: backend-computed post-subvention rate
+    subvention_type: string;                  // NEW: 'Tier 1: 100% CSIS' | 'Tier 2: 3% PMVL' | 'Standard'
+    subvention_details: { label: string; csis_eligible: boolean; vidyalaxmi_eligible: boolean; subvention_rate_reduction: number };
     tax_benefit_80E: number;
     months_saved: number;
     total_interest_paid: number;
@@ -84,6 +86,7 @@ export default function App() {
     const [tenure, setTenure] = useState(10);
     const [simulation, setSimulation] = useState<SimulationResult | null>(null);
     const [loading, setLoading] = useState(false);
+    const [apiError, setApiError] = useState<string | null>(null);
     const [displayEmi, setDisplayEmi] = useState(0);
     const [displayInterest, setDisplayInterest] = useState(0);
     const [displayTax, setDisplayTax] = useState(0);
@@ -176,6 +179,7 @@ export default function App() {
 
     const runSimulation = async () => {
         setLoading(true);
+        setApiError(null);
         // Reset display values so ticker always starts from 0
         displayEmiRef.current = { val: 0, interest: 0, tax: 0 };
         setDisplayEmi(0); setDisplayInterest(0); setDisplayTax(0);
@@ -201,8 +205,12 @@ export default function App() {
                     duration: 800
                 });
             }, 50);
-        } catch (err) {
-            console.error(err);
+        } catch (err: any) {
+            const msg = err?.response?.data?.detail
+                ? JSON.stringify(err.response.data.detail)
+                : err?.message || 'Backend unreachable. Is the FastAPI server running on port 8000?';
+            setApiError(msg);
+            console.error('Simulation error:', err);
         } finally {
             setLoading(false);
         }
@@ -396,6 +404,19 @@ export default function App() {
                             <p className="text-[10px] text-gray-500 mt-2 uppercase tracking-widest">Running AI Optimizations</p>
                         </div>
                     )}
+                    {apiError && !loading && (
+                        <div className="glass-card p-8 rounded-[2rem] border border-rose-500/30 bg-rose-950/20 flex items-start gap-4">
+                            <div className="w-10 h-10 rounded-full bg-rose-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <Activity className="text-rose-400 w-5 h-5" />
+                            </div>
+                            <div className="flex-1">
+                                <p className="text-[10px] font-black uppercase text-rose-400 tracking-widest mb-1">Backend Error</p>
+                                <p className="text-sm text-gray-300 font-mono">{apiError}</p>
+                                <p className="text-[10px] text-gray-500 mt-2">Check that FastAPI is running on <span className="text-rose-400">localhost:8000</span> and the university selected exists in the database.</p>
+                            </div>
+                            <button onClick={() => setApiError(null)} className="text-gray-600 hover:text-white text-lg leading-none">✕</button>
+                        </div>
+                    )}
                     {simulation ? (
                         <AnimatePresence>
                             <motion.div
@@ -410,14 +431,16 @@ export default function App() {
                                         <div className="flex items-center gap-3">
                                             <span className="text-[10px] uppercase font-bold text-gray-400">Effective Int. Rate</span>
                                             <div className="flex gap-2 items-center px-4 py-2 bg-slate-900 border border-white/5 rounded-xl">
-                                                {(simulation.subvention_details.vidyalaxmi_eligible || simulation.subvention_details.csis_eligible) && (
+                                                {simulation.subvention_type && simulation.subvention_type !== 'Standard' && simulation.subvention_type !== 'None' && (
                                                     <span className="text-gray-500 text-sm font-bold flex items-center gap-2">
-                                                        <span className="line-through">{selectedUniv?.base_interest_rate || 10.5}%</span>
+                                                        <span className="line-through">{selectedUniv?.base_interest_rate?.toFixed(1) || '9.0'}%</span>
                                                         <ArrowRight size={14} className="text-gray-600" />
                                                     </span>
                                                 )}
                                                 <span className="text-cyan-400 neon-glow-cyan text-xl font-black px-3 py-1 bg-cyan-950/30 rounded-lg shadow-[0_0_15px_rgba(34,211,238,0.4)] border border-cyan-400/30">
-                                                    {simulation.subvention_details.csis_eligible ? "0.0" : (simulation.subvention_details.vidyalaxmi_eligible ? ((selectedUniv?.base_interest_rate || 10.5) - 3).toFixed(1) : (selectedUniv?.base_interest_rate || 10.5).toFixed(1))}%
+                                                    {simulation.effective_interest_rate !== undefined
+                                                        ? `${Number(simulation.effective_interest_rate).toFixed(2)}%`
+                                                        : `${selectedUniv?.base_interest_rate?.toFixed(1) || '9.0'}%`}
                                                 </span>
                                             </div>
                                         </div>

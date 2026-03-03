@@ -98,3 +98,20 @@ class RepaymentStrategy(Base):
     months_saved = Column(Integer)
     
     loan = relationship("Loan", back_populates="strategies")
+
+class Vault(Base):
+    __tablename__ = "vaults"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), unique=True)
+    balance = Column(Numeric(precision=15, scale=2), default=0)
+    last_fee_deduction = Column(DateTime, nullable=True)
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+
+class VaultTransaction(Base):
+    __tablename__ = "vault_transactions"
+    id = Column(Integer, primary_key=True, index=True)
+    vault_id = Column(Integer, ForeignKey("vaults.id"))
+    amount = Column(Numeric(precision=15, scale=2))
+    type = Column(String) # DEPOSIT, EMI_PAYOUT, PLATFORM_FEE
+    description = Column(String)
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)

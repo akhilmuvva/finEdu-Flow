@@ -14,6 +14,9 @@ from app.services.forex import ForexService
 from app.services.banks import BankNavigator
 from app.services.sustainability import DebtClearPredictor
 from app.services.doc_verifier import verify_document
+from app.services.calendar import SmartCalendarService
+from app.services.vault_service import VaultService
+from apscheduler.schedulers.background import BackgroundScheduler
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -55,6 +58,18 @@ async def startup_event():
         print(f"[Startup] Forex update skipped: {e}")
     finally:
         db.close()
+    
+    # Start Scheduler for Vault Auto-Deductions
+    def vault_job():
+        db = SessionLocal()
+        try:
+            VaultService.process_automated_deductions(db)
+        finally:
+            db.close()
+
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(vault_job, 'interval', minutes=60)
+    scheduler.start()
 
 # RLLR Benchmark 2026 Mandate
 RLLR_BASE = Decimal('6.50')
@@ -222,7 +237,7 @@ def generate_recommendations(loan_amount: Decimal, interest_paid: Decimal, is_qh
         
     return recommendations
 
-@app.post("/simulate", response_model=schemas.RepaymentSimulationResponse)
+@app.post("/api/v1/simulate", response_model=schemas.RepaymentSimulationResponse)
 def simulate_loan(request: schemas.RepaymentSimulationRequest, db: Session = Depends(get_db)):
     # Try to find university in DB
     university = None
@@ -299,7 +314,7 @@ def simulate_loan(request: schemas.RepaymentSimulationRequest, db: Session = Dep
         )
     }
 
-@app.post("/compare", response_model=schemas.ScenarioComparisonResponse)
+@app.post("/api/v1/compare", response_model=schemas.ScenarioComparisonResponse)
 def compare_scenarios(request: schemas.ScenarioComparisonRequest):
     # This logic remains the same
     calc = LoanCalculator(
@@ -396,7 +411,7 @@ def get_loan_report(
         headers={"Content-Disposition": f"attachment; filename=FinnEDu_Projection_{loan_id}.pdf"}
     )
 
-@app.post("/advisor", response_model=schemas.AdvisorResponse)
+@app.post("/api/v1/advisor", response_model=schemas.AdvisorResponse)
 def financial_advisor(request: schemas.AdvisorRequest):
     """
     Hackathon AI Feature: Recommends the optimal use of extra funds.
@@ -415,7 +430,7 @@ def financial_advisor(request: schemas.AdvisorRequest):
     )
     return analysis
 
-@app.get("/health")
+@app.get("/api/v1/health")
 def health_check(db: Session = Depends(get_db)):
     """
     System Health & Analytics for Hackathon Dashboards.
@@ -436,7 +451,7 @@ def health_check(db: Session = Depends(get_db)):
         "engine": "FinnEDu High-Precision 2026"
     }
 
-@app.get("/universities", response_model=List[schemas.UniversityResponse])
+@app.get("/api/v1/universities", response_model=List[schemas.UniversityResponse])
 def get_universities(
     db: Session = Depends(get_db),
     type: str = None,
@@ -454,13 +469,13 @@ def get_universities(
         query = query.filter(models.University.pmvl_category == pmvl_category)
     return query.order_by(models.University.nirf_2026).limit(limit).all()
 
-@app.get("/universities/types")
+@app.get("/api/v1/universities/types")
 def get_university_types(db: Session = Depends(get_db)):
     """Returns distinct university types for filter buttons."""
     types = db.query(models.University.type).distinct().all()
     return [t[0] for t in types if t[0]]
 
-@app.get("/foreign-universities", response_model=List[schemas.ForeignInstitutionResponse])
+@app.get("/api/v1/foreign-universities", response_model=List[schemas.ForeignInstitutionResponse])
 def get_foreign_universities(db: Session = Depends(get_db)):
     """Returns top foreign institutions for international study logic."""
     return db.query(models.ForeignInstitution).order_by(models.ForeignInstitution.ranking_qs).all()
@@ -519,12 +534,12 @@ async def verify_student_document(
     )
     return result
 
-@app.get("/forex", response_model=List[schemas.ForexRateResponse])
+@app.get("/api/v1/forex", response_model=List[schemas.ForexRateResponse])
 def get_forex_rates(db: Session = Depends(get_db)):
     """Returns real-time cached forex rates from the 2026 market logic."""
     return db.query(models.ForexRate).all()
 
-@app.get("/rates")
+@app.get("/api/v1/rates")
 def get_live_rates():
     return {
         "RLLR_BASE": RLLR_BASE,
@@ -543,6 +558,9 @@ class CalculateRequest(BaseModel):
     tenure_years: int = 10            # repayment tenure
     university_name: Optional[str] = None
     is_foreign: bool = False
+    extra_monthly: Decimal = Decimal('0.00')
+    one_time_lumpsum: Decimal = Decimal('0.00')
+    lumpsum_month: int = 1
 
 class CalculateResponse(BaseModel):
     emi: float
@@ -562,7 +580,7 @@ class CalculateResponse(BaseModel):
     total_interest_paid: Optional[float] = None
     sustainability_data: Optional[Dict[str, Any]] = None
 
-@app.post("/calculate", response_model=CalculateResponse)
+@app.post("/api/v1/calculate", response_model=CalculateResponse)
 def calculate_loan(request: CalculateRequest, db: Session = Depends(get_db)):
     """
     2026 Mono-Station canonical endpoint.
@@ -608,7 +626,14 @@ def calculate_loan(request: CalculateRequest, db: Session = Depends(get_db)):
     subv         = calc.calculate_subventions()
     moratorium_i = calc.calculate_moratorium_interest()
     emi_data     = calc.calculate_emi(request.tenure_years)
-    schedule     = calc.get_full_schedule(tenure_years=request.tenure_years)
+    
+    # Accurate strategy implementation using the new request field
+    schedule     = calc.get_full_schedule(
+        tenure_years=request.tenure_years,
+        monthly_top_up=request.extra_monthly,
+        one_time_lumpsum=request.one_time_lumpsum,
+        lumpsum_month=request.lumpsum_month
+    )
     tcs          = calc.determine_tcs()
     tax_80e      = calc.calculate_80E_benefit(schedule)
 
@@ -625,33 +650,98 @@ def calculate_loan(request: CalculateRequest, db: Session = Depends(get_db)):
     elif subv.get("vidyalaxmi_eligible"):
         subsidy_status = "PM-Vidyalaxmi"
     else:
-        subsidy_status = "Standard"
+        subsidy_status = "None"
+    
+    # Fetch vault balance for predictive analytics
+    vault = VaultService.get_or_create_vault(db, 1) # User 1 for MVP
+    emi_val = Decimal(str(emi_data["emi"]))
 
-    return {
-        "emi":                  float(emi_data["emi"]),
-        "total_interest":       float(total_interest),
-        "moratorium_interest":  float(moratorium_i),
-        "capitalized_principal":float(emi_data["capitalized_principal"]),
-        "effective_rate":       display_rate,
-        "subsidy_status":       subsidy_status,
-        "csis_eligible":        bool(subv.get("csis_eligible")),
-        "vidyalaxmi_eligible":  bool(subv.get("vidyalaxmi_eligible")),
-        "tax_benefit_80E":      float(tax_80e),
-        "months_saved":         months_saved,
-        "tcs_amount":           float(tcs["amount"]),
-        "tcs_details":          tcs["details"],
-        "repayment_schedule":   schedule,
-        "recommendations":      generate_recommendations(
+    return CalculateResponse(
+        emi=float(emi_data["emi"]),
+        total_interest=float(total_interest),
+        moratorium_interest=float(moratorium_i),
+        capitalized_principal=float(emi_data["capitalized_principal"]),
+        effective_rate=display_rate, # Using display_rate as per original logic
+        subsidy_status=subsidy_status, # Using subsidy_status as per original logic
+        csis_eligible=bool(subv.get("csis_eligible")),
+        vidyalaxmi_eligible=bool(subv.get("vidyalaxmi_eligible")),
+        tax_benefit_80E=float(tax_80e),
+        months_saved=months_saved,
+        tcs_amount=float(tcs["amount"]),
+        tcs_details=tcs["details"],
+        repayment_schedule=schedule,
+        recommendations=generate_recommendations(
             request.loan_amount * forex_rate,
             total_interest,
             is_qhei_val,
             request.family_income,
             currency
         ),
-        "total_interest_paid":  float(total_interest),
-        "sustainability_data":  DebtClearPredictor.predict_optimizer(
+        total_interest_paid=float(total_interest),
+        sustainability_data=DebtClearPredictor.predict_optimizer(
             family_income=request.family_income,
             loan_amount=request.loan_amount * forex_rate,
-            university_rank=university.nirf_2026 if university and hasattr(university, 'nirf_2026') else 50
+            university_rank=university.nirf_2026 if university and hasattr(university, 'nirf_2026') else 50,
+            university_tier=university.pmvl_category if university and hasattr(university, 'pmvl_category') else "A",
+            vault_balance=vault.balance,
+            emi=emi_val
         )
+    )
+
+calendar_service = SmartCalendarService()
+
+@app.post("/api/v1/generate-calendar")
+async def generate_calendar(request: Dict[str, Any]):
+    simulation_data = request.get('simulation_data')
+    univ_name = request.get('university_name')
+    
+    bank_branch = None
+    lat = request.get('lat')
+    lon = request.get('lon')
+    
+    if lat and lon:
+        banks = await BankNavigator.get_nearby_fulfillment(
+            lat=float(lat),
+            lon=float(lon),
+            family_income=Decimal(str(request.get('family_income', 600000))),
+            university_category=simulation_data.get('sustainability_data', {}).get('tier_2026', 'A')
+        )
+        if banks:
+            bank_branch = banks[0]
+
+    ics_content = calendar_service.generate_ics(
+        simulation_data=simulation_data,
+        university_name=univ_name,
+        bank_branch=bank_branch
+    )
+    return {"ics_content": ics_content}
+
+# --- VAULT ENDPOINTS ---
+
+@app.get("/api/v1/vault")
+async def get_vault(db: Session = Depends(get_db)):
+    # For MVP purposes, using a hardcoded user_id=1
+    vault = VaultService.get_or_create_vault(db, 1)
+    return {
+        "balance": float(vault.balance),
+        "last_fee_deduction": vault.last_fee_deduction,
+        "created_at": vault.created_at
     }
+
+@app.post("/api/v1/vault/deposit")
+async def deposit_to_vault(request: Dict[str, Any], db: Session = Depends(get_db)):
+    amount = Decimal(str(request.get("amount", 0)))
+    payment_id = request.get("razorpay_payment_id", "MOCK_PR_123")
+    vault = VaultService.deposit(db, 1, amount, payment_id)
+    return {"status": "success", "new_balance": float(vault.balance)}
+
+@app.get("/api/v1/vault/history")
+async def get_vault_history(db: Session = Depends(get_db)):
+    vault = VaultService.get_or_create_vault(db, 1)
+    txs = db.query(models.VaultTransaction).filter(models.VaultTransaction.vault_id == vault.id).order_by(models.VaultTransaction.created_at.desc()).all()
+    return [{
+        "amount": float(tx.amount),
+        "type": tx.type,
+        "description": tx.description,
+        "date": tx.created_at
+    } for tx in txs]

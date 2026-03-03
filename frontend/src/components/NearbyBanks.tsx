@@ -4,18 +4,8 @@ import { animate, stagger } from 'animejs';
 import { MapPin, Phone, RotateCw, ClipboardList, CheckCircle2, ChevronRight, Briefcase } from 'lucide-react';
 import { cn } from '../utils/cn';
 
-interface Bank {
-    name: string;
-    distance_meters: number;
-    formatted_address: string;
-    lat: number;
-    lon: number;
-    pmvl_prioritized: boolean;
-    interest_rate_2026: number;
-    tier: string;
-    maps_url: string;
-    document_checklist: Array<{ doc: string; required: boolean; priority: string }>;
-}
+import { Bank, ChecklistItem } from '../types';
+
 
 interface NearbyBanksProps {
     uniId: number;
@@ -80,7 +70,10 @@ export const NearbyBanks: React.FC<NearbyBanksProps> = ({ uniId, familyIncome })
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <Briefcase className="text-cyan-400" />
-                    <h3 className="text-xl font-black italic uppercase tracking-tighter">Campus-to-Capital Hub</h3>
+                    <div>
+                        <h3 className="text-xl font-black italic uppercase tracking-tighter">Nearby Finance</h3>
+                        <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Pre-Approved Hubs • 3km Hyper-Local</p>
+                    </div>
                 </div>
                 {familyIncome <= 800000 && (
                     <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[9px] font-black uppercase shadow-[0_0_15px_rgba(16,185,129,0.2)]">
@@ -89,7 +82,7 @@ export const NearbyBanks: React.FC<NearbyBanksProps> = ({ uniId, familyIncome })
                 )}
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {banks.map((bank, idx) => {
                     const isFlipped = flippedBank === idx;
                     return (
@@ -149,11 +142,12 @@ export const NearbyBanks: React.FC<NearbyBanksProps> = ({ uniId, familyIncome })
                                     <div className="space-y-2.5">
                                         {(bank.document_checklist || [
                                             { doc: 'Income Certificate', required: bank.pmvl_prioritized, priority: 'HIGH' },
+                                            { doc: 'PAN Card (Student/Co)', required: true, priority: 'HIGH' },
+                                            { doc: 'Aadhaar (Student/Co)', required: true, priority: 'HIGH' },
                                             { doc: 'NIRF Admission Letter', required: true, priority: 'HIGH' },
-                                            { doc: 'Co-applicant Aadhar', required: true, priority: 'HIGH' },
                                             { doc: 'Entrance Scorecard', required: true, priority: 'MEDIUM' },
-                                            { doc: 'Fee Structure', required: true, priority: 'MEDIUM' },
-                                        ]).map((item: any, i: number) => (
+                                        ]).map((item: ChecklistItem, i: number) => (
+
                                             <div key={i} className="flex items-center justify-between p-2 bg-white/5 rounded-xl">
                                                 <div className="flex items-center gap-2">
                                                     <CheckCircle2 size={10} className={item.required ? 'text-emerald-400' : 'text-gray-600'} />

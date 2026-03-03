@@ -1,55 +1,104 @@
 import React, { useEffect, useRef } from 'react';
-import { ShieldCheck, Activity, Target, Zap } from 'lucide-react';
-import { cn } from '../utils/cn';
-import { DocVerifier } from './DocVerifier';
+import { SimulationResult } from '../types';
 
+import { ShieldCheck, Activity, Target, Zap } from 'lucide-react';
+import { animate } from 'animejs';
+
+import { cn } from '../utils/cn';
+import SavingsComparison from './SavingsComparison';
 interface StrategyDashboardProps {
-    simulation: any;
-    formatCurrency: (amount: number, prefix?: string) => string;
+    simulation: SimulationResult | null;
+    formatCurrency: (amount: number, isInternational?: boolean) => string;
+    universityName: string;
+    familyIncome: number;
 }
 
-export const StrategyDashboard: React.FC<StrategyDashboardProps> = ({ simulation, formatCurrency }) => {
+export const StrategyDashboard: React.FC<StrategyDashboardProps> = ({
+    simulation, formatCurrency, universityName, familyIncome
+}) => {
     const tickerRef = useRef<HTMLSpanElement>(null);
     const prevEmi = useRef(0);
 
     useEffect(() => {
         if (simulation?.emi && tickerRef.current) {
-            const start = prevEmi.current;
-            const end = simulation.emi;
-            const duration = 1200;
-            const startTime = performance.now();
-            const tick = (now: number) => {
-                const progress = Math.min((now - startTime) / duration, 1);
-                const eased = 1 - Math.pow(1 - progress, 3);
-                const current = start + (end - start) * eased;
-                if (tickerRef.current) tickerRef.current.textContent = formatCurrency(Math.round(current));
-                if (progress < 1) requestAnimationFrame(tick);
-            };
-            requestAnimationFrame(tick);
-            prevEmi.current = end;
+            const currentObj = { val: prevEmi.current };
+            animate(currentObj, {
+                val: simulation.emi,
+                round: 1,
+                easing: 'easeOutElastic(1, .8)',
+                duration: 1500,
+                update: () => {
+                    if (tickerRef.current) tickerRef.current.textContent = formatCurrency(currentObj.val);
+                }
+            });
+            prevEmi.current = simulation.emi;
         }
-    }, [simulation?.emi]);
+    }, [simulation?.emi, formatCurrency]);
+
 
     if (!simulation) return null;
 
-    const sust = simulation.sustainability_data || {};
+    const sust = simulation.sustainability_data;
+    if (!sust) return null;
+
 
     return (
         <div className="space-y-8 stagger-reveal">
+            {/* Header with University Name */}
+            <div className="flex items-center gap-4 mb-2">
+                <div className="p-3 bg-cyan-500/10 rounded-2xl text-cyan-400">
+                    <Activity size={24} />
+                </div>
+                <div>
+                    <h2 className="text-2xl font-black uppercase italic tracking-tighter text-white">{universityName}</h2>
+                    <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest">Financial Strategy Synthesis</p>
+                </div>
+            </div>
+
             {/* Top Metrics: Web3 Style */}
             <div className="grid md:grid-cols-3 gap-6">
-                <div className="glass-card p-6 rounded-[2rem] border-t-4 border-t-cyan-400 relative overflow-hidden group">
+                <div className={cn(
+                    "glass-card p-6 rounded-[2rem] border-t-4 relative overflow-hidden group transition-all duration-700",
+                    simulation.vidyalaxmi_eligible || simulation.csis_eligible ? "border-t-emerald-400 shadow-[0_0_35px_rgba(52,211,153,0.15)] bg-emerald-500/5 ring-1 ring-emerald-400/20" : "border-t-cyan-400"
+                )}>
                     <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <Zap size={64} className="text-cyan-400" />
+                        <Zap size={64} className={simulation.vidyalaxmi_eligible || simulation.csis_eligible ? "text-emerald-400" : "text-cyan-400"} />
                     </div>
-                    <p className="text-[10px] font-black uppercase text-gray-500 mb-1 tracking-widest">Monthly EMI</p>
-                    <p className="text-4xl font-black italic text-cyan-400">
-                        <span ref={tickerRef}>{formatCurrency(simulation.emi)}</span>
-                    </p>
-                    <div className="mt-4 flex items-center gap-1.5">
-                        <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
-                        <span className="text-[8px] font-black text-cyan-500/80 uppercase">Live Policy Adjusted</span>
+                    <div className="flex justify-between items-start mb-1">
+                        <p className="text-[10px] font-black uppercase text-gray-500 tracking-widest">Monthly EMI</p>
+                        {(simulation.vidyalaxmi_eligible || simulation.csis_eligible) && (
+                            <div className="px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-[7px] font-black text-emerald-400 uppercase animate-pulse">
+                                Savings Applied
+                            </div>
+                        )}
                     </div>
+                    {(!familyIncome || familyIncome === 0) ? (
+                        <div className="space-y-2">
+                            <p className="text-sm font-black text-rose-400 uppercase tracking-tighter">Data Incomplete</p>
+                            <button
+                                className="text-[9px] font-bold text-cyan-400 hover:text-white underline uppercase tracking-widest"
+                            >
+                                Configure Family Income to Secure CSIS
+                            </button>
+                        </div>
+                    ) : (
+                        <>
+                            <p className={cn("text-4xl font-black italic", simulation.vidyalaxmi_eligible || simulation.csis_eligible ? "text-emerald-400" : "text-cyan-400")}>
+                                <span ref={tickerRef}>{formatCurrency(simulation.emi)}</span>
+                            </p>
+                            <div className="mt-4 flex items-center justify-between">
+                                <div className="flex items-center gap-1.5">
+                                    <div className={cn("w-1.5 h-1.5 rounded-full animate-ping", simulation.vidyalaxmi_eligible || simulation.csis_eligible ? "bg-emerald-400" : "bg-cyan-400")} />
+                                    <span className={cn("text-[8px] font-black uppercase", simulation.vidyalaxmi_eligible || simulation.csis_eligible ? "text-emerald-500" : "text-cyan-500/80")}>Live Policy Adjusted</span>
+                                </div>
+                                {(simulation.vidyalaxmi_eligible || simulation.csis_eligible) && (
+                                    <div className="text-[8px] font-bold text-emerald-500/60 uppercase">
+                                        Saved: {formatCurrency(simulation.total_interest_paid ? (simulation.total_interest_paid * 0.15) : 45000)}*
+                                    </div>
+                                )}
+                            </div>
+                        </>
+                    )}
                 </div>
 
                 <div className="glass-card p-6 rounded-[2rem] border-t-4 border-t-purple-400 relative overflow-hidden group">
@@ -86,8 +135,8 @@ export const StrategyDashboard: React.FC<StrategyDashboardProps> = ({ simulation
                 </div>
             </div>
 
-            {/* AI Advisor & Doc Verifier */}
-            <div className="grid md:grid-cols-2 gap-8">
+            {/* AI Advisor & Savings Comparison */}
+            <div className="grid md:grid-cols-2 gap-8 items-start">
                 <div className="glass-card p-8 rounded-[2.5rem] bg-gradient-to-br from-slate-900/80 to-slate-950/80 border border-white/5">
                     <div className="flex items-center gap-3 mb-6">
                         <Target className="text-pink-500" />
@@ -104,9 +153,7 @@ export const StrategyDashboard: React.FC<StrategyDashboardProps> = ({ simulation
                         ))}
                     </div>
                 </div>
-
-                {/* AI Document Verifier — replaces static checklist */}
-                <DocVerifier isEligibleSubvention={simulation.vidyalaxmi_eligible || simulation.csis_eligible} />
+                <SavingsComparison simulation={simulation} />
             </div>
         </div>
     );

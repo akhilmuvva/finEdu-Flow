@@ -104,7 +104,9 @@ class LoanCalculator:
         tenure_years: int, 
         extra_emi_per_year: int = 0,
         monthly_top_up: Decimal = Decimal('0.00'),
-        annual_lumpsum: Decimal = Decimal('0.00')
+        annual_lumpsum: Decimal = Decimal('0.00'),
+        one_time_lumpsum: Decimal = Decimal('0.00'),
+        lumpsum_month: int = 1
     ) -> List[Dict[str, Any]]:
         """
         Generates a Recharts-ready monthly schedule with multiple aggressive strategies.
@@ -121,6 +123,10 @@ class LoanCalculator:
             # Standard EMI + Monthly Top-up
             principal_payment = (base_emi + monthly_top_up) - interest_payment
             
+            # One-time Lumpsum (Liquidation Event)
+            if one_time_lumpsum > 0 and month == lumpsum_month:
+                principal_payment += one_time_lumpsum
+
             # Implementation of "Clear-Fast" extra EMI logic
             if extra_emi_per_year > 0 and month % 12 == 0:
                 extra_payment = base_emi * Decimal(str(extra_emi_per_year))
@@ -140,7 +146,7 @@ class LoanCalculator:
                 "interest": float(interest_payment),
                 "principal": float(principal_payment),
                 "remaining_balance": float(self._round(balance)),
-                "total_repaid": float(self._round(base_emi + monthly_top_up)) # Base cost track
+                "total_repaid": float(self._round(base_emi + monthly_top_up + (one_time_lumpsum if month == lumpsum_month else 0))) # Base cost track
             })
             
             if balance <= 0:

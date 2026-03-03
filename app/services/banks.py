@@ -84,38 +84,40 @@ class BankNavigator:
         if cache_key in BankNavigator._cache:
             return BankNavigator._cache[cache_key]
 
-        # URL: service.financial + circle filter + proximity bias (2026 spec)
+        # URL: hyper-local 'amenity.bank' + circle filter + proximity bias (2026 Senior Architect Mandate)
         url = (
             f"https://api.geoapify.com/v2/places?"
-            f"categories=service.financial&"
-            f"filter=circle:{lon},{lat},5000&"
+            f"categories=amenity.bank&"
+            f"filter=circle:{lon},{lat},3000&"
             f"bias=proximity:{lon},{lat}&"
-            f"limit=10&apiKey={GEOAPIFY_API_KEY}"
+            f"limit=15&apiKey={GEOAPIFY_API_KEY}"
         )
 
         features = []
         try:
-            async with httpx.AsyncClient(timeout=6.0) as client:
+            async with httpx.AsyncClient(timeout=8.0) as client:
                 response = await client.get(url)
                 if response.status_code == 200:
                     features = response.json().get("features", [])
                 else:
-                    print(f"[BankNavigator] Geoapify returned {response.status_code}")
+                    print(f"[BankNavigator] Geoapify returned {response.status_code} - falling back to financial services")
+                    # Fallback to broader category if specific amenity.bank fails or is empty
+                    fallback_url = url.replace("amenity.bank", "service.financial")
+                    response = await client.get(fallback_url)
+                    if response.status_code == 200:
+                        features = response.json().get("features", [])
         except Exception as e:
-            print(f"[BankNavigator] Async fetch error: {e}")
+            print(f"[BankNavigator] Hyper-local fetch error: {e}")
 
         if not features:
             return []
 
-        # Filter to actual banks by name keyword
-        bank_keywords = ["bank", "sbi", "hdfc", "icici", "axis", "pnb", "bob",
-                         "canara", "union", "kotak", "yes bank", "idbi", "federal"]
+        # Premium Filter: Ensure we distinguish flagship branches
         bank_features = [
             f for f in features
-            if any(kw in (f.get("properties", {}).get("name") or "").lower()
-                   for kw in bank_keywords)
+            if f.get("properties", {}).get("name") or f.get("properties", {}).get("brand")
         ]
-        features = bank_features[:5] if bank_features else features[:5]
+        features = bank_features[:5]
 
         # PM-Vidyalaxmi: eligible if family income ≤ ₹8L/year
         pmvl_eligible = family_income <= Decimal("800000")

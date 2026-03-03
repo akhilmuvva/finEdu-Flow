@@ -1,15 +1,21 @@
 import React, { useEffect, useRef } from 'react';
+import { SimulationResult } from '../types';
+
 import { animate, stagger } from 'animejs';
 import { Sparkles, TrendingDown, Target, Zap, ArrowRight, ShieldAlert } from 'lucide-react';
 import { cn } from '../utils/cn';
 
 interface AIDebtAssistantProps {
-    simulation: any;
+    simulation: SimulationResult;
+
     formatCurrency: (amount: number, prefix?: string) => string;
+    onApply?: (extra: number) => void;
 }
 
-export const AIDebtAssistant: React.FC<AIDebtAssistantProps> = ({ simulation, formatCurrency }) => {
+export const AIDebtAssistant: React.FC<AIDebtAssistantProps> = ({ simulation, formatCurrency, onApply }) => {
     const sparklineRef = useRef<SVGSVGElement>(null);
+    const [hoverStrategy, setHoverStrategy] = React.useState<string | null>(null);
+    const [applied, setApplied] = React.useState<string | null>(null);
 
     const ReductionPath = (years: number) => {
         const factor = Math.min(years / 5, 1);
@@ -39,13 +45,12 @@ export const AIDebtAssistant: React.FC<AIDebtAssistantProps> = ({ simulation, fo
 
     if (!simulation) return null;
 
-    const data = simulation.sustainability_data || {};
-    const gigTarget = data.gig_work_target || 0;
-    const savings = data.interest_savings || 0;
-    const reduction = data.tenure_reduction_years || 0;
-    const strategies = data.strategies || {};
+    const data = simulation.sustainability_data;
+    const gigTarget = data?.gig_work_target || 0;
+    const savings = data?.interest_savings || 0;
+    const reduction = data?.tenure_reduction_years || 0;
+    const strategies = data?.strategies || {};
 
-    const [hoverStrategy, setHoverStrategy] = React.useState<string | null>(null);
 
     return (
         <div className="glass-card p-8 rounded-[2.5rem] bg-slate-950/40 border border-white/5 relative overflow-hidden group">
@@ -95,10 +100,10 @@ export const AIDebtAssistant: React.FC<AIDebtAssistantProps> = ({ simulation, fo
                             </defs>
                         </svg>
 
-                        <div className="flex justify-between items-center text-[8px] font-black text-gray-600 uppercase tracking-widest px-1">
-                            <span>Moratorium</span>
+                        <div className="flex justify-between items-center text-[9px] font-black text-gray-500 uppercase tracking-widest px-1 mt-2">
+                            <span className="text-cyan-400">Moratorium</span>
                             <span>Repayment Phase</span>
-                            <span>Debt Free</span>
+                            <span className="text-emerald-400">Debt Free</span>
                         </div>
                     </div>
 
@@ -154,17 +159,32 @@ export const AIDebtAssistant: React.FC<AIDebtAssistantProps> = ({ simulation, fo
                         <div
                             onMouseEnter={() => setHoverStrategy('extra_emi')}
                             onMouseLeave={() => setHoverStrategy(null)}
+                            onClick={() => {
+                                if (onApply) {
+                                    const extraPerMonth = Math.round(simulation.emi / 12);
+                                    onApply(extraPerMonth);
+                                    setApplied('extra_emi');
+                                    setTimeout(() => setApplied(null), 2000);
+                                }
+                            }}
                             className="p-4 bg-slate-900 border border-white/5 rounded-2xl space-y-2 hover:border-pink-500/30 hover:bg-slate-800 transition-all cursor-pointer group"
                         >
-                            <div className="flex items-center gap-2 text-pink-500">
-                                <Zap size={14} />
-                                <span className="text-[10px] font-black uppercase italic">Strategy: 1-Extra-EMI Rule</span>
+                            <div className="flex justify-between items-start">
+                                <div className="flex items-center gap-2 text-pink-500">
+                                    <Zap size={14} />
+                                    <span className="text-[10px] font-black uppercase italic">Strategy: 1-Extra-EMI Rule</span>
+                                </div>
+                                {applied === 'extra_emi' && (
+                                    <span className="text-[8px] font-black text-emerald-400 uppercase animate-pulse">Applied!</span>
+                                )}
                             </div>
                             <p className="text-[11px] font-bold text-gray-400 leading-relaxed">
                                 Paying just one extra EMI per year can reduce your effective interest rate by <span className="text-pink-400">1.2%</span>.
                             </p>
                             <div className="flex justify-end pt-1">
-                                <button className="text-[8px] font-black uppercase text-pink-500 flex items-center gap-1 group-hover:translate-x-1 transition-transform bg-pink-500/5 px-2 py-1 rounded border border-pink-500/20">Apply Plan <ArrowRight size={8} /></button>
+                                <button className="text-[8px] font-black uppercase text-pink-500 flex items-center gap-1 group-hover:translate-x-1 transition-transform bg-pink-500/5 px-2 py-1 rounded border border-pink-500/20">
+                                    {applied === 'extra_emi' ? 'Plan Active' : 'Apply Plan'} <ArrowRight size={8} />
+                                </button>
                             </div>
                         </div>
 

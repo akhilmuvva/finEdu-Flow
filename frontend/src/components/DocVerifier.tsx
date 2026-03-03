@@ -40,40 +40,6 @@ interface DocConfig {
     accept: string;
 }
 
-const DOC_CONFIGS: DocConfig[] = [
-    {
-        id: 'income_certificate',
-        label: 'Income Certificate',
-        desc: 'Mandatory for 3% Subvention',
-        icon: <Shield size={14} />,
-        priority: 'CRITICAL',
-        accept: '.pdf,.jpg,.jpeg,.png',
-    },
-    {
-        id: 'nirf_admission',
-        label: 'NIRF Uni Admission',
-        desc: 'Verified QHEI Institution',
-        icon: <FileText size={14} />,
-        priority: 'CRITICAL',
-        accept: '.pdf,.jpg,.jpeg,.png',
-    },
-    {
-        id: 'co_applicant_kyc',
-        label: 'Co-Applicant KYC',
-        desc: 'Aadhar + PAN Linked',
-        icon: <Lock size={14} />,
-        priority: 'CRITICAL',
-        accept: '.pdf,.jpg,.jpeg,.png',
-    },
-    {
-        id: 'entrance_scorecard',
-        label: 'Entrance Scorecard',
-        desc: 'JEE/CAT/GATE Validated',
-        icon: <ClipboardList size={14} />,
-        priority: 'CRITICAL',
-        accept: '.pdf,.jpg,.jpeg,.png',
-    },
-];
 
 interface DocState {
     status: 'idle' | 'uploading' | 'done';
@@ -83,11 +49,48 @@ interface DocState {
 
 interface DocVerifierProps {
     isEligibleSubvention: boolean;
+    universityTier?: string;
 }
 
-export const DocVerifier: React.FC<DocVerifierProps> = ({ isEligibleSubvention }) => {
+export const DocVerifier: React.FC<DocVerifierProps> = ({ isEligibleSubvention, universityTier }) => {
+    // Dynamic Config Logic
+    const dynamicConfigs: DocConfig[] = [
+        {
+            id: 'income_certificate',
+            label: 'Income Certificate',
+            desc: isEligibleSubvention ? 'Critical for 3% Subsidy' : 'Optional for self-funding',
+            icon: <Shield size={14} />,
+            priority: isEligibleSubvention ? 'CRITICAL' : 'MEDIUM',
+            accept: '.pdf,.jpg,.jpeg,.png',
+        },
+        {
+            id: 'nirf_admission',
+            label: 'NIRF Uni Admission',
+            desc: universityTier === 'AAA' ? 'Uncollateralized Eligibility' : 'Verified Institution',
+            icon: <FileText size={14} />,
+            priority: universityTier === 'AAA' ? 'CRITICAL' : 'HIGH',
+            accept: '.pdf,.jpg,.jpeg,.png',
+        },
+        {
+            id: 'co_applicant_kyc',
+            label: 'Co-Applicant KYC',
+            desc: 'Aadhar + PAN Linked',
+            icon: <Lock size={14} />,
+            priority: 'CRITICAL',
+            accept: '.pdf,.jpg,.jpeg,.png',
+        },
+        {
+            id: 'entrance_scorecard',
+            label: 'Entrance Scorecard',
+            desc: universityTier === 'AAA' ? 'Priority Processing' : 'JEE/CAT/GATE Validated',
+            icon: <ClipboardList size={14} />,
+            priority: universityTier === 'AAA' ? 'HIGH' : 'MEDIUM',
+            accept: '.pdf,.jpg,.jpeg,.png',
+        },
+    ];
+
     const [docStates, setDocStates] = useState<Record<string, DocState>>(
-        Object.fromEntries(DOC_CONFIGS.map(d => [d.id, { status: 'idle' }]))
+        Object.fromEntries(dynamicConfigs.map(d => [d.id, { status: 'idle' }]))
     );
     const [activeModal, setActiveModal] = useState<string | null>(null);
     const fileRefs = useRef<Record<string, HTMLInputElement | null>>({});
@@ -111,7 +114,9 @@ export const DocVerifier: React.FC<DocVerifierProps> = ({ isEligibleSubvention }
                 [docId]: { status: 'done', result: res.data, fileName: file.name }
             }));
             setActiveModal(docId);
-        } catch (err) {
+        } catch {
+
+
             setDocStates(prev => ({
                 ...prev,
                 [docId]: {
@@ -167,7 +172,7 @@ export const DocVerifier: React.FC<DocVerifierProps> = ({ isEligibleSubvention }
     };
 
     const activeResult = activeModal ? docStates[activeModal]?.result : null;
-    const activeConfig = activeModal ? DOC_CONFIGS.find(d => d.id === activeModal) : null;
+    const activeConfig = activeModal ? dynamicConfigs.find(d => d.id === activeModal) : null;
 
     return (
         <>
@@ -213,7 +218,7 @@ export const DocVerifier: React.FC<DocVerifierProps> = ({ isEligibleSubvention }
 
                 {/* Document Rows */}
                 <div className="grid grid-cols-1 gap-3">
-                    {DOC_CONFIGS.map((doc) => {
+                    {dynamicConfigs.map((doc) => {
                         const state = docStates[doc.id];
                         const badge = getStatusBadge(state);
 

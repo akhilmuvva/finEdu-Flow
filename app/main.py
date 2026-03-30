@@ -26,22 +26,15 @@ import json
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
-    title="FinnEDu - Premium FinTech Backend",
+    title="FinEdu Flow - Premium FinTech Backend",
     description="Advanced Education Loan Logic with JWT Security (2026 Compliance)",
     version="1.3.0"
 )
 
-# Enable CORS — explicit origins for Mono-Station dev + wildcard fallback
+# Enable CORS — wildcard for easy deployment (Suggest restricting in production)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:5174",
-        "http://127.0.0.1:5174",
-    ],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

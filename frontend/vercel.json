@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "name": "finedu-flow-frontend",
+  "redirects": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://finedu-flow-backend.onrender.com/api/$1"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "framework": "vite"
+}

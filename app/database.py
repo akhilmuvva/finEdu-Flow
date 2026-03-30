@@ -9,6 +9,10 @@ load_dotenv()
 # Default to SQLite for easy hackathon setup, override with DATABASE_URL in .env if needed
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./finnedubank_v2.db")
 
+# Fix Render's 'postgres://' vs SQLAlchemy's 'postgresql://' requirement
+if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
 # SQLite needs specific connect_args for multithreading
 if DATABASE_URL.startswith("sqlite"):
     engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})

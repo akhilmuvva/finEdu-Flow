@@ -22,7 +22,7 @@ import { RepaymentVault } from './components/RepaymentVault';
 // Types
 import { University, ForeignUniv, SimulationResult, Bank } from './types';
 
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 const App = () => {
     // --- States ---
@@ -230,7 +230,7 @@ const App = () => {
                     </div>
 
                     <h1 className="text-6xl lg:text-8xl font-black italic tracking-tighter mb-6 uppercase inline-block bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-transparent leading-[0.85]">
-                        Student <span className="text-cyan-400">Flow</span>
+                        FinEdu <span className="text-cyan-400">Flow</span>
                     </h1>
 
                     <p className="max-w-2xl mx-auto text-base text-gray-400 font-medium leading-relaxed uppercase tracking-tight">

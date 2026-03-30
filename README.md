@@ -1,7 +1,7 @@
-# FinnEDu: System Architecture
+# FinEdu Flow: System Architecture
 > Built and Led by **Akhil**
 
-Hey! This is the breakdown of how FinnEDu actually works under the hood. I designed this to handle the massive 2026 education loan policy changes without breaking a sweat.
+Hey! This is the breakdown of how FinEdu Flow actually works under the hood. I designed this to handle the massive 2026 education loan policy changes without breaking a sweat.
 
 ---
 

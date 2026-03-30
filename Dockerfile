@@ -18,5 +18,5 @@ COPY . .
 # Expose port
 EXPOSE 8000
 
-# Run the application
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Finalize and start with auto-seeding for data persistence
+CMD sh -c "python scripts/seed_universities_v2.py && python scripts/seed_foreign_institutions.py && uvicorn app.main:app --host 0.0.0.0 --port 8000"
